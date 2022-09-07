@@ -1,0 +1,111 @@
+<!--Page header-->
+<div class="page-header">
+  <div class="page-leftheader">
+    <h2 class="page-title">{{'JournalVoucher' | translate}}</h2>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+
+      <li class="breadcrumb-item"><a [routerLink]="['/sales/']" class="d-flex">
+          <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0V0z" fill="none" />
+            <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z" />
+            <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3" />
+          </svg><span class="breadcrumb-icon">
+            {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/sales/sales-invoice/sales-invoice/']">
+          {{"JournalVoucher" | translate}} </a></li>
+      <li class="breadcrumb-item active" aria-current="page"> {{'PRINT' | translate}}</li>
+
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+<div class="card" *ngIf="journalVoucherData">
+ 
+    <div class="card-header">
+      <div class="card-header pb-0">
+        &nbsp;&nbsp;&nbsp;
+        <a (click)="printPage()" class="btn btn-default"><i class="fe fe-plus"></i>{{'Print' | translate}}</a>
+        &nbsp;&nbsp;&nbsp;
+      </div>
+    </div>
+    <h1>سند القيد</h1>
+    <!-- invoice header  -->
+    <div class="m-3 row">
+
+
+      <div class="col-md-4">
+        <label class="form-label">{{'journalVoucherNumber' | translate}}:</label>
+        <input type="text" #journalVoucherNumber 
+          [(ngModel)]="journalVoucherData.journalVoucherNumber" id="journalVoucherNumber" name="journalVoucherNumber"
+          class="form-control mt-2 text-line" placeholder="" readonly>
+      </div>
+      <div class="col-md-2">  </div>
+      </div>
+      <div class="m-3 row">
+      <div class="col-md-4">
+        <label class="form-label">{{'dateVoucher' | translate}}:</label>
+        <input type="text" #dateVoucher  [(ngModel)]="journalVoucherData.dateVoucher"
+          id="dateVoucher" name="dateVoucher" class="form-control mt-2 text-line" placeholder="" readonly>
+      </div>
+      </div>
+      <div class="m-3 row">
+      <div class="col-md-4">
+        <label class="form-label">{{'description' | translate}}:</label>
+        <input type="text" #description  [(ngModel)]="journalVoucherData.description"
+          id="description" name="description" class="form-control mt-2 text-line" placeholder="" readonly>
+      </div>
+    </div>
+    <div>
+
+
+
+
+      <table mat-table matSort [dataSource]="details">
+          <ng-container matColumnDef="accountCode">
+              <th mat-header-cell *matHeaderCellDef>{{'accountCode' | translate}}</th>
+              <td mat-cell *matCellDef="let details">{{ details.chartAccounts.accountCode }}</td>
+          </ng-container>
+          <ng-container matColumnDef="accountName">
+              <th mat-header-cell *matHeaderCellDef>{{'accountName' | translate}}</th>
+              <td mat-cell *matCellDef="let details">{{ details.chartAccounts.accountName }}</td>
+          </ng-container>
+          <ng-container matColumnDef="debit">
+              <th mat-header-cell *matHeaderCellDef> {{'Debit' | translate}}</th>
+              <td  mat-cell *matCellDef="let details">{{ details.debit }}</td>
+              
+          </ng-container>
+          <ng-container matColumnDef="credit">
+              <th mat-header-cell *matHeaderCellDef> {{'credit' | translate}}</th>
+              <td mat-cell *matCellDef="let details">{{ details.credit }}</td>
+          </ng-container>
+          <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef> {{'description' | translate}}</th>
+              <td mat-cell *matCellDef="let details">{{ details.description }}</td>
+          </ng-container>
+   
+          <ng-container matColumnDef="costCenter">
+              <th mat-header-cell *matHeaderCellDef> {{'costCenter' | translate}}</th>
+              <td mat-cell *matCellDef="let details">
+              <div *ngIf="details.costCenter">  {{ details.costCenter.costCenterName }}</div>
+              <div *ngIf="details.costCenter==null">غير مرتبط</div>
+            </td>
+             
+          </ng-container>
+   
+         
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+  </div>
+
+
+
+
+   
+
+
+</div>

@@ -1,0 +1,108 @@
+
+
+<div style="direction: ltr;" class="container-fluid bg-img">
+
+  <!-- <div class="imgcontainer">
+    <img src="../../../assets/images/OPRUPimages/logo/logo11.jpeg" alt="logo" class="avatar">
+  </div> -->
+  <div class="row">
+    <div class="col-md-8">
+      <div class="row">
+         <div class="col-6">
+            <img class="login-img" src="../../../assets/images/pattern/OPRUP.png" alt="">
+         </div>
+         <div class="col-6"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <h3  class="h3-logo">
+            We Find The New Way
+          </h3>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <p  class="p-logo">
+            OPRUP Company is about finding solutions
+          </p>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <p  class="p2-logo">
+           new technologies to develop the business sector
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+
+
+    <div class="col-md-4">
+
+    </div>
+  </div>
+
+  <div class="row mt-6">
+    <div class="col-md-6">
+      <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-pills">
+        <li ngbNavItem="Angular">
+
+            <div class="justify-content-center">
+              <form [formGroup]="loginForm" (ngSubmit)="Submit()">
+                <div class="input-group">
+
+                  <input type="text" class="form-control" placeholder="{{ 'username' | translate }}" autocomplete formControlName="username" autocomplete="off" >
+                </div>
+                <div class="input-group">
+
+                  <input type="password" class="form-control mb-3" placeholder="{{ 'password' | translate }}" autocomplete formControlName="password" autocomplete="off">
+                </div>
+
+                  {{error}}
+
+
+                <div class="row">
+                  <div class="col-12">
+                    <button [disabled]="!loginForm.valid" type="submit" class="btn btn-lg btn-primary btn-block"><i
+                        class="fe fe-arrow-right"></i> {{'login' | translate }}</button>
+                  </div>
+
+                </div>
+                <!-- <div class="input-icons" style="text-align:center;">
+                  <a href="#" style="color: #191919;">Login As Admin</a><br />
+                  <a href="#" style="color: #191919">Forget Your Password?</a>
+                </div> -->
+              </form>
+            </div>
+
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-6"></div>
+  </div>
+
+
+            <div [ngbNavOutlet]="nav" ></div>
+
+
+   <div class="footer">
+     <div style="width: 40%; position: absolute;">
+      Riyadh, Saudi Arabia.<br/>
+      <a href="tel:+966551080168">+966 5 5108 0168</a><br/>
+      <a href="mailto:support@OprUp.com">support@OprUp.com</a>
+
+     </div>
+     <div  style="width: 100%; text-align: center;"><br/>  Copyright &copy; 2022 <strong><span>OPRUP</span></strong>. All rights reserved</div>
+
+  </div>
+
+  </div>

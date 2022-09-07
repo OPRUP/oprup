@@ -1,0 +1,177 @@
+<!--Page header-->
+<div class="page-header">
+    <div class="page-leftheader">
+        <h2 class="page-title"> {{'visa' | translate}} </h2>
+    </div>
+    <div class="page-rightheader ms-auto d-lg-flex d-none">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [routerLink]="['/international/']" class="d-flex"><svg class="svg-icon"
+        xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+        <path d="M0 0h24v24H0V0z" fill="none"/>
+        <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+        <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+          {{'HOME' | translate}}</span></a></li>
+            <li class="breadcrumb-item"><a [routerLink]="['/international/visa/visa']">{{'visa' | translate}}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{'EDIT' | translate}}</li>
+        </ol>
+    </div>
+</div>
+<!--End Page header-->
+<div class="card">
+    <form *ngIf="visa" #editForm="ngForm" [formGroup]="form" (ngSubmit)="onUpdateCompany(editForm.value)" class="form-horizontal">
+        <div class="card-header">
+            <button type="submit" id="add-company-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+            <a [routerLink]="['/international/visa/visa']" class="btn btn-light m-3">{{'DISCARD' | translate}}</a>
+        </div>
+
+        <div class="m-3 row">
+          <div class="col-md-6">
+
+              <!-- <label for="" class="form-label">{{'approvalNumber' | translate}}</label>
+              <input type="text" formControlName="approvalNumber" [ngClass]="{ 'is-invalid': submitted && f['approvalNumber'].errors }" [(ngModel)]="visaData.approvalNumber" id="approvalNumber" name="approvalNumber" class="form-control mt-2 text-line">
+              <div *ngIf="f['approvalNumber'].touched && f['approvalNumber'].invalid" class="alert alert-danger">
+                  <div *ngIf="f['approvalNumber'].errors && f['approvalNumber'].errors['required']">Name is required.</div>
+              </div> -->
+
+              <!-- </div> -->
+
+
+
+              <!-- <div class="col-md-6"> -->
+              <label for="" class="form-label">{{'approvalNumber' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <input type="text" formControlName="approvalNumber" [ngClass]="{ 'is-invalid': submitted && f['approvalNumber'].errors }" #stroeCode [(ngModel)]="visa.approvalNumber" id="approvalNumber" name="approvalNumber" class="form-control mt-2 text-line">
+              <div *ngIf="submitted && f['approvalNumber'].errors" class="invalid-feedback">
+                  <div *ngIf="f['approvalNumber'].errors['required']">{{'reqired'|translate}}.</div>
+              </div>
+
+          </div>
+
+          <div class="col-md-6">
+              <label for="" class="form-label">{{'numberOfProvidedVisas' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <input type="text" formControlName="numberOfProvidedVisas" [ngClass]="{ 'is-invalid': submitted && f['numberOfProvidedVisas'].errors }" [(ngModel)]="visa.numberOfProvidedVisas" id="numberOfProvidedVisas" name="numberOfProvidedVisas" class="form-control mt-2 text-line">
+              <div *ngIf="submitted && f['approvalNumber'].errors" class="invalid-feedback">
+                  <div *ngIf="f['numberOfProvidedVisas'].errors">{{'reqired'|translate}}.</div>
+              </div>
+
+          </div>
+      </div>
+      <div class="m-3 row">
+          <div class="col-md-6">
+              <label for="" class="form-label">{{'Nationality' | translate }}<span style="font-size: large;color: red;">*</span></label>
+              <ng-select formControlName="nationality" [ngClass]="{ 'is-invalid': submitted && f['nationality'].errors }" [(ngModel)]="visa.nationality" name="nationality" class="form-select" placeholder="-- {{'SelectNationality' | translate }} --">
+                  <ng-option *ngFor="let item of countryList" value="{{item.name}}">
+                      {{item.name}}
+                  </ng-option>
+              </ng-select>
+              <div *ngIf="submitted && f['nationality'].errors" class="invalid-feedback">
+                  <div *ngIf="f['nationality'].errors">{{'reqired'|translate}}.</div>
+              </div>
+          </div>
+          <div class="col-md-6">
+              <label for="" class="form-label">{{'gender' | translate }}<span style="font-size: large;color: red;">*</span></label>
+              <ng-select formControlName="gender" [ngClass]="{ 'is-invalid': submitted && f['gender'].errors }" [(ngModel)]="visa.gender" name="gender" class="form-select" placeholder="-- {{'SelectGender' | translate }} --">
+                  <ng-option value="ذكر">{{'Male' | translate }}</ng-option>
+                  <ng-option value="انثى">{{'Female' | translate }}</ng-option>
+              </ng-select>
+              <div *ngIf="submitted && f['gender'].errors" class="invalid-feedback">
+                  <div *ngIf="f['gender'].errors"> {{'reqired'|translate}}.</div>
+              </div>
+          </div>
+      </div>
+      <div class="m-3 row">
+          <div class="col-md-6">
+              <label for="" class="form-label">{{'jobs' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <input type="text" formControlName="jobs" [ngClass]="{ 'is-invalid': submitted && f['jobs'].errors }" [(ngModel)]="visa.jobs" id="jobs" name="jobs" class="form-control mt-2 text-line">
+              <div *ngIf="submitted && f['jobs'].errors" class="invalid-feedback">
+                  <div *ngIf="f['jobs'].errors"> {{'reqired'|translate}}.</div>
+              </div>
+          </div>
+          <div class="col-md-6">
+              <label for="" class="form-label"> {{'approvalDate' | translate}}<span style="font-size: large;color: red;">*</span> </label>
+              <mat-form-field appearance="outline">
+                  <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+                  <input type="date"
+                   name="approvalDate" formControlName="approvalDate" [ngClass]="{ 'is-invalid': submitted && f['approvalDate'].errors }" [(ngModel)]="visa.approvalDate" matInput  class="form-control mt-2 text-line">
+
+              </mat-form-field>
+              <div *ngIf="submitted && f['approvalDate'].errors" class="invalid-feedback">
+                  <div *ngIf="f['approvalDate'].errors">{{'reqired'|translate}}.</div>
+              </div>
+          </div>
+      </div>
+      <div class="m-3 row">
+          <div class="col-md-6">
+              <label for="" class="form-label">{{'addcopy' | translate}}</label>
+              <input type="file" [(ngModel)]="visa.copy" [ngModelOptions]="{standalone: true}" id="copy" name="copy" class="form-control mt-2 text-line">
+          </div>
+      </div>
+    </form>
+</div>
+<!-- <div class="col-md-12">
+      <label for="" class="form-label">{{'Description:' | translate}}</label>
+      <textarea  [(ngModel)]="companyData.description" class="form-control mt-2 text-line"
+      id="description" name="description" id="" cols="50" rows="10" placeholder="{{'Description' | translate}}"></textarea>
+    </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--Page header-->
+<!-- <div class="page-header">
+  <div class="page-leftheader">
+    <h2 class="page-title">{{'UpdateInternalCompany' | translate}}</h2>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/dashboard/']" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'Home' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/companies/companies/']">{{'InternalCompany' | translate}}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{'UpdateInternalCompany' | translate}}</li>
+    </ol>
+  </div>
+</div> -->
+<!--End Page header-->
+<!-- <div class="card">
+  <form #editForm="ngForm" (ngSubmit)="onUpdateCompany(editForm.value)" class="form-horizontal">
+    <div class="card-header">
+      <button type="submit" id="add-company-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+      <a [routerLink]="['/companies/companies']" class="btn btn-light m-3">{{'DISCARD' | translate}}</a>
+    </div>
+
+    <div class="m-3 row">
+      <div class="col-md-12">
+        <label for="" class="form-label">{{'CompanyName:' | translate}}</label>
+        <input type="text"  [(ngModel)]="company.companyName" id="companyName" name="companyName"
+        class="form-control mt-2 text-line" placeholder="{{'ComapnyName' | translate}}" >
+      </div>
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-12">
+        <label for="" class="form-label">{{'ComapnyPrefixName:' | translate}}</label>
+        <input type="text"  [(ngModel)]="company.companyNamePrefix" id="companyNamePrefix" name="companyNamePrefix"
+        class="form-control mt-2 text-line" placeholder="{{'ComapnyPrefixName' | translate}}" >
+      </div>
+    </div>
+
+    <div class="m-3 row">
+      <div class="col-md-12">
+        <label for="" class="form-label">{{'Description:' | translate}}</label>
+        <textarea  [(ngModel)]="company.description" class="form-control mt-2 text-line"
+        id="description" name="description" id="" cols="50" rows="10" placeholder="{{'Description' | translate}}"></textarea>
+      </div>
+    </div>
+    </form>
+</div> -->

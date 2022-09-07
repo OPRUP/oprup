@@ -1,0 +1,98 @@
+						<!--Page header-->
+						<div class="page-header">
+							<div class="page-leftheader">
+								<h2 class="page-title">{{'CreateLeave' | translate}}</h2>
+							</div>
+							<div class="page-rightheader ms-auto d-lg-flex d-none">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="javascript:void(0)" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'Home' | translate}}</span></a></li>
+									<li class="breadcrumb-item"><a href="javascript:void(0)">{{'Vacations' | translate}}</a></li>
+									<li class="breadcrumb-item active" aria-current="page">{{'CreateLeave' | translate}}</li>
+								</ol>
+							</div>
+						</div>
+						<!--End Page header-->
+
+            <div class="card">
+              <form  (ngSubmit)="onUpdateEmployeeLeave()" class="form-horizontal">
+                <div class="card-header">
+                  <button type="submit" id="update-employee-leave-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+                  <a [routerLink]="['/employee-leave/employee-leaves']" class="btn btn-light">{{'DISCARD' | translate}}</a>
+                </div>
+                <div class="m-3 row mb-6">
+                  <div class="col-md-5">
+                    <label for="" class="form-label">{{'EmployeeName' | translate}}</label>
+                    <ng-select name="employee"   [(ngModel)]="employeeLeave.employee.employeeId" class="form-control form-select" placeholder="-- {{'SelectEmployee' | translate}} --">
+                        <ng-option *ngFor="let emp of employees" [value] ="emp.employeeId">{{emp.employeeName}}</ng-option>
+                    </ng-select>
+
+                  </div>
+                </div>
+                <div class="m-3 row">
+                  <div class="col-md-6">
+                    <label for="" class="form-label">{{'LeaveDate' | translate}}</label>
+                      <mat-form-field appearance="fill">
+                        <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+                      <!-- #docregion toggle -->
+                        <input type="date" #leaveDate [(ngModel)]="employeeLeave.leaveDate" name="leaveDate" id="leaveDate" matInput >
+                        <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker> -->
+                      <!-- #enddocregion toggle -->
+                      </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="m-3 row">
+                  <div class="col-md-6">
+                    <label for="" class="form-label">{{'From' | translate}} </label>
+                        <mat-label>{{'ChooseTheLeavingHour' | translate}}</mat-label>
+                      <!-- #docregion toggle -->
+                      <ngx-timepicker-field [defaultTime]="'11:11 am'" #leaveFrom [(ngModel)]="employeeLeave.leaveFrom" name="leaveFrom" id="leaveFrom"></ngx-timepicker-field>
+                      <!-- #enddocregion toggle -->
+                  </div>
+                  <div class="col-md-6">
+                    <label for="" class="form-label">{{'To' | translate}} </label>
+                      <mat-label>{{'ChooseTheBackHour' | translate}}</mat-label>
+                    <!-- #docregion toggle -->
+                    <ngx-timepicker-field [defaultTime]="'11:11 am'" #leaveTo [(ngModel)]="employeeLeave.leaveTo" name="leaveTo" id="leaveTo"></ngx-timepicker-field>
+                    <!-- #enddocregion toggle -->
+                  </div>
+                </div>
+
+                <div class="m-3 row">
+                  <div class="col-md-6">
+                    <label for="" class="form-label">{{'TypeofLeave' | translate}} </label>
+                        <ng-select #employeeLeaveType [(ngModel)]="employeeLeave.employeeLeaveType" name="employeeLeaveType" id="employeeLeaveType"
+                          class="form-control form-select">
+                          <ng-option value="النوع">{{'Types' | translate}}</ng-option>
+                          <ng-option value="سنوي">{{'Annual' | translate}}</ng-option>
+                          <ng-option value="مرض">{{'Sick' | translate}}</ng-option>
+                          <ng-option value="رضاعة">{{'Breastfeeding' | translate}}</ng-option>
+                          <ng-option value="كوفيد-19">{{'COVID-19' | translate}}</ng-option>
+                          <ng-option value="دراسة">{{'Study' | translate}}</ng-option>
+                          <ng-option value="اخرى">{{'Other-PleaseExplinaitintheDescriptionField' | translate}}</ng-option>
+                        </ng-select>
+                  </div>
+                </div>
+
+                <div class="m-3 row">
+                  <div class="col-md-6">
+                    <label for="" class="form-label">{{'ApprovedBy' | translate}} </label>
+                    <input type="text" #approvedBy  [(ngModel)]="employeeLeave.approvedBy" id="approvedBy" name="approvedBy" class="form-control mt-2 text-line"  >
+                  </div>
+                </div>
+                <div class="m-3 row">
+                  <div class="col-md-6">
+                    <label for="" class="form-label">{{'Description' | translate}} </label>
+                    <input type="text" #description [(ngModel)]="employeeLeave.description" id="description" name="description" class="form-control mt-2 text-line"  >
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="" class="form-label">{{'Attachment' | translate}} </label>
+                  <input type="file" class="btn btn-default">
+                </div>
+
+              </form>
+
+            </div>
+

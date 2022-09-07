@@ -1,0 +1,371 @@
+<!--Page header-->
+<!--create quotation-->
+<div class="page-header">
+    <div class="page-leftheader">
+        <h2 class="page-title">{{'Quotation' | translate}}</h2>
+    </div>
+    <div class="page-rightheader ms-auto d-lg-flex d-none">
+        <ol class="breadcrumb">
+
+            <li class="breadcrumb-item">
+                <a [routerLink]="['/sales/']" class="d-flex">
+                    <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M0 0h24v24H0V0z" fill="none"/>
+          <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+          <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+            {{'HOME' | translate}}</span></a>
+            </li>
+            <li class="breadcrumb-item"><a [routerLink]="['/sales/view-quotation/view-quotation']">
+        {{"Quotation" | translate}} </a></li>
+            <li class="breadcrumb-item active" aria-current="page"> {{'ADD' | translate}}</li>
+
+        </ol>
+    </div>
+</div>
+<!--End Page header-->
+<div class="card">
+    <form [formGroup]="form" class="form-horizontal">
+        <div class="card-header">
+            <button type="button" (click)="onAddQuotation()" id="add-visit-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+            <a [routerLink]="['/sales/view-quotation/view-quotation']" class="btn btn-light">{{'DISCARD' | translate}}</a>
+        </div>
+        <!-- invoice header  -->
+        <div class="m-3 row">
+            <div class="col-md-6">
+                <label class="form-label">{{'quotationNumber' | translate}} <span style="font-size: large;color: red;">*</span> </label>
+                <input disabled="true" type="text" #quotationAutoNum [(ngModel)]="quotationData.quotationAutoNum" [ngModelOptions]="{standalone: true}" value="{{quotationData.quotationAutoNum}}" id="quotationAutoNum" name="quotationNumber" class="form-control mt-2 text-line" placeholder="">
+            </div>
+            <div class="col-md-6">
+                <label for="" class="form-label">{{ 'date' | translate }} <span style="font-size: large;color: red;">*</span></label>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+                    <input type="date" id="date" name="date" #date [(ngModel)]="quotationData.date" [ngModelOptions]="{standalone: true}" matInput >
+                    <!-- <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2>
+                    </mat-datepicker> -->
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="m-3 row">
+
+            <div class="col-md-6">
+                <label for="" class="form-label">{{ 'quotationStatus' | translate }} <span style="font-size: large;color: red;">*</span> </label>
+                <ng-select formControlName="quotationStatus" #quotationStatus name="quotationStatus" [(ngModel)]="quotationData.quotationStatus"  id="quotationStatus" class="form-control form-select">
+                    <ng-option value="Acceptable">{{ 'Acceptable' | translate }}</ng-option>
+                    <ng-option value="unacceptable">{{ 'unacceptable' | translate }}</ng-option>
+                    <ng-option value="Transfer">{{ 'Transfer' | translate }}</ng-option>
+
+                </ng-select>
+            </div>
+
+            <div class="col-md-6">
+                <label for="" class="form-label">{{'advancedPayment' | translate}}  <span style="font-size: large;color: red;">*</span></label>
+                <input type="text" #advancedPayment [(ngModel)]="quotationData.advancedPayment" [ngModelOptions]="{standalone: true}" id="advancedPayment" name="advancedPayment" class="form-control" placeholder="">
+                <!-- <div *ngIf="submitted && f['durationofContract'].errors" class="invalid-feedback">
+                    <div *ngIf="f['durationofContract'].errors['required']">Is required</div>
+                </div> -->
+            </div>
+        </div>
+        <div class="m-3 row">
+          <div class="col-md-6">
+              <label for="" class="form-label">{{ 'GeneralTermsandConditions' | translate }} <span style="font-size: large;color: red;">*</span></label>
+              <textarea #generalTerms name="generalTerms" [(ngModel)]="quotationData.generalTerms" [ngModelOptions]="{standalone: true}" id="description" class="form-control form-select">
+          </textarea>
+          </div>
+          <div class="col-md-6">
+              <label for="" class="form-label">{{ 'notesAndUpdates' | translate }} <span style="font-size: large;color: red;">*</span></label>
+              <textarea #description name="description" [(ngModel)]="quotationData.description" [ngModelOptions]="{standalone: true}" id="description" class="form-control form-select">
+              </textarea>
+          </div>
+      </div>
+
+        <div class="m-3 row mb-6">
+            <div class="col-md-6">
+                <label for="" class="form-label">{{ 'empName' | translate }} <span style="font-size: large;color: red;">*</span></label>
+                <ng-select name="employeeId" #employeeId  [(ngModel)]="quotationData.employee.employeeId" [ngModelOptions]="{standalone: true}" id="description" class="form-control form-select">
+                    <ng-option *ngFor="let emp of employees" [value]="emp.employeeId">{{emp.employeeName}}</ng-option>
+                </ng-select>
+
+            </div>
+
+            <div class="col-md-6">
+                <label for="" class="form-label">{{ 'customerName' | translate }} <span style="font-size: large;color: red;">*</span></label>
+                <ng-select f class="form-control form-select" (change)="getCustomerDetails($event)">
+                    <ng-option *ngFor="let emp of customers" [value]="emp.customerId">{{emp.nameAr}}</ng-option>
+
+                </ng-select>
+
+            </div>
+
+
+            <div *ngIf="!isLoggedIn">
+                <div class="m-3 row">
+                    <div class="col-md-6">
+                        <label for="" class="form-label">{{ 'nameAr' | translate }} </label>
+                        <input type="text" #nameAr [value]="customerDetails.nameAr" id="nameAr" name="nameAr" class="form-control mt-2 text-line">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" class="form-label">{{ 'nameEn' | translate }} </label>
+                        <input type="text" #nameEn [value]="customerDetails.nameEn" id="nameEn" name="nameEn" class="form-control mt-2 text-line">
+                    </div>
+                </div>
+
+                <div class="m-3 row">
+                    <div class="col-md-6">
+                        <label for="" class="form-label">{{'CountryAr' | translate }}</label>
+                        <input #countryAr [value]="customerDetails.countryAr" name="countryAr" id="countryAr" class="form-control form-select">
+
+                        <!-- <div *ngIf="submitted && f['countryAr'].errors" class="invalid-feedback">
+                          <div *ngIf="f['countryAr'].errors['required']">Is required</div>
+                        </div> -->
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="" class="form-label">{{'CountryEn' | translate }}</label>
+                        <input #countryEn [value]="customerDetails.countryEn" name="countryEn" id="countryEn" class="form-control form-select">
+                        <!-- <ng-option *ngFor="let item of countryList" value="{{item.name}}">
+                              {{item.name}}
+                          </ng-option> -->
+
+                        <!-- <div *ngIf="submitted && f['countryEn'].errors" class="invalid-feedback">
+                          <div *ngIf="f['countryEn'].errors['required']">Is required</div>
+                        </div> -->
+                    </div>
+
+                </div>
+                <div class="m-3 row">
+                    <div class="col-md-6">
+                        <label for="" class="form-label">{{ 'contractSignerNameAr' | translate }} </label>
+                        <input type="text" #contractSignerNameAr [value]="customerDetails.contractSignerNameAr" id="contractSignerNameAr" name="contractSignerNameAr" class="form-control mt-2 text-line">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" class="form-label">{{ 'contractSignerNameEn' | translate }} </label>
+                        <input type="text" #contractSignerNameEn [value]="customerDetails.contractSignerNameEn" id="contractSignerNameEn" name="contractSignerNameEn" class="form-control mt-2 text-line">
+                    </div>
+                </div>
+                <div class="m-3 row">
+                    <div class="col-md-6">
+                        <label for="" class="form-label">{{ 'designation' | translate }} </label>
+                        <input type="text" #designation [value]="customerDetails.designation" id="designation" name="designation" class="form-control mt-2 text-line">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" class="form-label">{{'Nationality' | translate }}</label>
+                        <input #nationality [value]="customerDetails.nationality" name="nationality" id="nationality" class="form-control form-select">
+
+
+                        <!-- <div *ngIf="submitted && f['nationality'].errors" class="invalid-feedback">
+                          <div *ngIf="f['nationality'].errors['required']">Is required</div>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="m-3 row">
+                    <div class="col-md-6">
+                        <label for="" class="form-label">{{'.MOB' | translate}}:</label>
+                        <input type="text" #contactNumber [value]="customerDetails.contactNumber" id="contactNumber" name="contactNumber" class="form-control" placeholder="">
+                        <!-- <div *ngIf="submitted && f['contactNumber'].errors" class="invalid-feedback">
+                          <div *ngIf="f['contactNumber'].errors['required']">Is required</div>
+                          <div *ngIf="f['contactNumber'].errors['pattern']">Start with 07 or 00962 or contains 7 or 8 or 9 digits</div>
+                        </div> -->
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="" class="form-label">{{'email' | translate}}:</label>
+                        <input type="email" #email [value]="customerDetails.email" id="email" name="email" class="form-control" placeholder="">
+                        <!-- <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                          <div *ngIf="f['email'].errors['required']">Is required</div>
+                          <div *ngIf="f['pattern'].errors['email']">Email is invalid</div>
+                        </div> -->
+                    </div>
+
+                </div>
+
+                <div class="m-3 row">
+                    <div class="col-md-6">
+                        <label for="" class="form-label">{{ 'followerNameAr' | translate }} </label>
+                        <input type="text" #followerNameAr [value]="customerDetails.followerNameAr" id="followerNameAr" name="followerNameAr" class="form-control mt-2 text-line">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="" class="form-label">{{ 'followerNameEn' | translate }} </label>
+                        <input type="text" #followerNameEn [value]="customerDetails.followerNameEn" id="followerNameEn" name="followerNameEn" class="form-control mt-2 text-line">
+                    </div>
+                </div>
+                <div class="m-3 row">
+                    <div class="col-md-6">
+                        <label for="" class="form-label">{{'followerContactNumber' | translate}}:</label>
+                        <input type="text" followerContactNumber="followerContactNumber" #contactNumber [value]="customerDetails.followerContactNumber" id="followerContactNumber" name="followerContactNumber" class="form-control">
+                        <!-- <div *ngIf="submitted && f['followerContactNumber'].errors" class="invalid-feedback">
+                          <div *ngIf="f['followerContactNumber'].errors['required']">Is required</div>
+                          <div *ngIf="f['followerContactNumber'].errors['pattern']">Start with 07 or 00962 or contains 7 or 8 or 9 digits</div>
+                        </div> -->
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="" class="form-label">{{'followerEmailAdrress' | translate}}:</label>
+                        <input type="followerEmailAdrress" #followerEmailAdrress [value]="customerDetails.followerEmailAdrress" id="followerEmailAdrress" name="followerEmailAdrress" class="form-control" placeholder="">
+                        <!-- <div *ngIf="submitted && f['followerEmailAdrress'].errors" class="invalid-feedback">
+                          <div *ngIf="f['followerEmailAdrress'].errors['required']">Is required</div>
+                          <div *ngIf="f['followerEmailAdrress'].errors['pattern']">Email is invalid</div>
+                        </div> -->
+                    </div>
+
+                </div>
+                <div class="m-3 row">
+                    <div class="col-md-6">
+                        <label for="" class="form-label">{{ 'numberCR' | translate }} </label>
+                        <input type="text" #numberCR [value]="customerDetails.numberCR" id="numberCR" name="numberCR" class="form-control mt-2 text-line">
+                    </div>
+                </div>
+
+                <!-- this is end of customer details -->
+            </div>
+            <div class="text-center;">
+                <div class="dynamicTable">
+                    <table mat-table [dataSource]="dataSource" formArrayName="marks">
+
+                        <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                        <tr mat-row *matRowDef="let row; let i = index; columns: displayColumns;"></tr>
+                        <ng-container matColumnDef="itemCode">
+                            <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> {{'itemCode'| translate}} </th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <mat-form-field appearance="outline" class="dynamic">
+                                    <input matInput type="text" value="" formControlName="itemCode" size="20" (change)="getItemDetailsByItemCode($event,index)">
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="itemId">
+                            <th mat-header-cell *matHeaderCellDef style="display:none;"> itemId </th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index" style="display:none;">
+                                <mat-form-field appearance="outline" class="dynamic">
+                                    <input readonly matInput type="text" [(ngModel)]="items[index].itemId" formControlName="itemId" size="15">
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="itemNameAr" style="white-space: nowrap;">
+                            <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> {{'itemName'| translate}} </th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index" style="white-space: nowrap;">
+                                <mat-form-field appearance="outline" class="dynamic" style="white-space: nowrap;">
+                                    <input matInput type="text" [(ngModel)]="items[index].itemNameAr" formControlName="itemNameAr" size="15" readonly>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="nationality" style="white-space: nowrap;">
+                            <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> {{'nationality'|translate}} </th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index" style="white-space: nowrap;">
+                                <mat-form-field appearance="outline" class="dynamic" style="white-space: nowrap;">
+                                    <input matInput type="text" [(ngModel)]="items[index].nationality" formControlName="nationality" size="15" readonly>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="gender" style="white-space: nowrap;">
+                            <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> {{'gender'|translate}} </th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index" style="white-space: nowrap;">
+                                <mat-form-field appearance="outline" class="dynamic" style="white-space: nowrap;">
+                                    <input matInput type="text" [(ngModel)]="items[index].gender" formControlName="gender" size="15" readonly>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="foodAllowance" style="white-space: nowrap;">
+                            <th mat-header-cell style="white-space: nowrap;" *matHeaderCellDef> {{'foodAllowance'|translate}} </th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <mat-form-field appearance="outline" class="dynamic">
+                                    <input matInput type="text" [(ngModel)]="items[index].foodAllowance" formControlName="foodAllowance" size="15" readonly>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="housingAllowance" style="white-space: nowrap;">
+                            <th mat-header-cell style="white-space: nowrap;" *matHeaderCellDef> {{'housingAllowance'|translate}} </th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <mat-form-field appearance="outline" class="dynamic">
+                                    <input matInput type="text" [(ngModel)]="items[index].housingAllowance" formControlName="housingAllowance" size="15" readonly>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="otherAllowance" style="white-space: nowrap;">
+                            <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> {{'otherAllowance'|translate}} </th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <mat-form-field appearance="outline" class="dynamic">
+                                    <input matInput type="text" [(ngModel)]="items[index].otherAllowance" formControlName="otherAllowance" size="15" readonly>
+                                </mat-form-field>
+
+
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="profession" style="white-space: nowrap;">
+                            <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> {{'profession'|translate}} </th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <mat-form-field appearance="outline" class="dynamic">
+                                    <input matInput type="text" [(ngModel)]="items[index].profession" formControlName="profession" size="15" readonly>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="salary" style="white-space: nowrap;">
+                            <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> {{'hourlyRate'|translate}} </th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <mat-form-field appearance="outline" class="dynamic">
+                                    <input matInput type="text" formControlName="salary" [(ngModel)]="items[index].salary" size="15">
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="employeeNumber" style="white-space: nowrap;">
+                            <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> {{'employeeNumber'|translate}} </th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <mat-form-field appearance="outline" class="dynamic">
+                                    <input matInput type="text" [(ngModel)]="items[index].employeeNumber" formControlName="employeeNumber" (change)="getValueQuantity($event,items[index])" size="15">
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="operationFee" style="white-space: nowrap;">
+                            <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> {{'operationFee'|translate}} </th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <mat-form-field appearance="outline" class="dynamic">
+                                    <input matInput type="text" [(ngModel)]="items[index].operationFee" (change)="getMonthlyCost($event,items[index])" formControlName="operationFee" size="15">
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="quotationItemValue" style="white-space: nowrap;">
+                            <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> {{'value'|translate}} </th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <mat-form-field appearance="outline" class="dynamic">
+                                    <input matInput type="text" [(ngModel)]="items[index].value" formControlName="quotationItemValue" size="15" readonly>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="quotationItemTotalValue" style="white-space: nowrap;">
+                            <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> {{'total'|translate}} </th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <mat-form-field appearance="outline" class="dynamic">
+                                    <input matInput type="text" [(ngModel)]="items[index].total" formControlName="quotationItemTotalValue" size="15" readonly>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="taxRate" style="white-space: nowrap;">
+                            <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> {{'taxRate'|translate}} </th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <mat-form-field appearance="outline" class="dynamic">
+                                    <input matInput type="text" [(ngModel)]="items[index].taxRate" formControlName="taxRate" size="15" readonly>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="monthlyOperationFee" style="white-space: nowrap; display: none;">
+                            <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> {{'monthlyOperationFee'|translate}} </th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <mat-form-field appearance="outline" class="dynamic">
+                                    <input matInput type="text" [(ngModel)]="items[index].monthytotal" formControlName="monthlyOperationFee" size="15" readonly>
+                                </mat-form-field>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="delete" style="white-space: nowrap;">
+                            <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;">{{'delete'|translate}} </th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <button type="button" class="btn btn-dark m-3" (click)="deleteRow(index)" formControlName="delete" placeholder="Delete">{{'deleteRow'|translate}}</button>
+                            </td>
+                        </ng-container>
+                    </table>
+                </div>
+            </div>
+            <button type="button" class="btn btn-dark m-3" (click)="addRow()">{{'AddRow'|translate}}</button>
+
+        </div>
+    </form>
+</div>

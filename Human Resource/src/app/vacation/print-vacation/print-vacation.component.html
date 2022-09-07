@@ -1,0 +1,138 @@
+<!--Page header-->
+<div class="page-header">
+  <div class="page-leftheader">
+    <h2 class="page-title">{{'vacation' | translate}}</h2>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+
+      <li class="breadcrumb-item"><a [routerLink]="['/operation/']" class="d-flex">
+          <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0V0z" fill="none" />
+            <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z" />
+            <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3" />
+          </svg><span class="breadcrumb-icon">
+            {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/operation/vacation/vacation/']">
+          {{"vacation" | translate}} </a></li>
+      <li class="breadcrumb-item active" aria-current="page"> {{'PRINT' | translate}}</li>
+
+    </ol>
+  </div>
+</div>
+
+<div class="row row-sm">
+  <div class="col-xl-12">
+    <div class="card">
+      <div class="card-header pb-0">
+        &nbsp;&nbsp;&nbsp;
+        <a (click)="printPage()" class="btn btn-default"><i class="fe fe-plus"></i>{{'Print' | translate}}</a>
+
+      </div>
+      <div class="card-body">
+
+        <div class="table-responsive table-bordered table-hover table-striped">
+          <div class="m-3 row">
+            <h1 class="text-center" style="font-weight:bold ;text-decoration: underline;">
+              {{'Rejectedrequests'|translate}}</h1>
+          </div>
+          <table mat-table matSort [dataSource]="vacationReject">
+            <ng-container matColumnDef="employeeName" style="text-align: center;">
+              <th mat-header-cell *matHeaderCellDef>{{'employeeName' | translate}}</th>
+              <th mat-cell *matCellDef="let vacation" style="text-align:center;">{{ vacation.employee.employeeName }}
+              </th>
+            </ng-container>
+            <ng-container matColumnDef="dateFrom" style="text-align: center;">
+              <th mat-header-cell *matHeaderCellDef style="text-align:center;">{{'dateFrom' | translate}}</th>
+              <th mat-cell *matCellDef="let vacation" style="text-align:center;">{{ vacation.dateFrom }}</th>
+            </ng-container>
+            <ng-container matColumnDef="dateTo" style="text-align: center;">
+              <th mat-header-cell *matHeaderCellDef style="text-align:center;">{{'dateTo' | translate}}</th>
+              <th mat-cell *matCellDef="let vacation" style="text-align:center;">{{ vacation.dateTo }}</th>
+            </ng-container>
+            <ng-container matColumnDef="daysOfVacation" style="text-align: center;">
+              <th mat-header-cell *matHeaderCellDef style="text-align:center;">{{'daysOfVacation' | translate}}</th>
+              <th mat-cell *matCellDef="let vacation" style="text-align:center;">{{ vacation.daysOfVacation }}</th>
+            </ng-container>
+
+            <ng-container matColumnDef="vacationType" style="text-align: center;">
+              <th mat-header-cell *matHeaderCellDef style="text-align:center;">{{'vacationType' | translate}}</th>
+              <th mat-cell *matCellDef="let vacation" style="text-align:center;">{{ vacation.vacationType }}</th>
+            </ng-container>
+
+            <ng-container matColumnDef="description" style="text-align: center;">
+              <th mat-header-cell *matHeaderCellDef style="text-align:center;">{{'description' | translate}}</th>
+              <th mat-cell *matCellDef="let vacation" style="text-align:center;">{{ vacation.description }}</th>
+            </ng-container>
+            <ng-container matColumnDef="approvedBy" style="text-align: center;">
+              <th mat-header-cell *matHeaderCellDef style="text-align:center;">{{'ApprovedBy' | translate}}</th>
+              <th mat-cell *matCellDef="let vacation" style="text-align:center;">{{ vacation.approvedBy }}</th>
+            </ng-container>
+
+            <ng-container matColumnDef="stauts" style="text-align: center;">
+              <th mat-header-cell *matHeaderCellDef style="text-align:center;">{{'Stauts' | translate}}</th>
+              <td mat-cell *matCellDef="let final" style="text-align:center;">{{'Rejecte' | translate}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+        </div>
+
+        <br>
+        <br>
+
+        <div class="table-responsive table-bordered table-hover table-striped">
+          <div class="m-3 row">
+            <h1 class="text-center" style="font-weight:bold ;text-decoration: underline;">
+              {{'Acceptedrequests'|translate}}</h1>
+          </div>
+
+          <table mat-table matSort [dataSource]="vacationAprove">
+            <ng-container matColumnDef="employeeName" style="text-align: center;">
+              <th mat-header-cell *matHeaderCellDef>{{'employeeName' | translate}}</th>
+              <th mat-cell *matCellDef="let vacation" style="text-align:center;">{{ vacation.employee.employeeName }}
+              </th>
+            </ng-container>
+            <ng-container matColumnDef="dateFrom" style="text-align: center;">
+              <th mat-header-cell *matHeaderCellDef style="text-align:center;">{{'dateFrom' | translate}}</th>
+              <th mat-cell *matCellDef="let vacation" style="text-align:center;">{{ vacation.dateFrom }}</th>
+            </ng-container>
+            <ng-container matColumnDef="dateTo" style="text-align: center;">
+              <th mat-header-cell *matHeaderCellDef style="text-align:center;">{{'dateTo' | translate}}</th>
+              <th mat-cell *matCellDef="let vacation" style="text-align:center;">{{ vacation.dateTo }}</th>
+            </ng-container>
+            <ng-container matColumnDef="daysOfVacation" style="text-align: center;">
+              <th mat-header-cell *matHeaderCellDef style="text-align:center;">{{'daysOfVacation' | translate}}</th>
+              <th mat-cell *matCellDef="let vacation" style="text-align:center;">{{ vacation.daysOfVacation }}</th>
+            </ng-container>
+
+            <ng-container matColumnDef="vacationType" style="text-align: center;">
+              <th mat-header-cell *matHeaderCellDef style="text-align:center;">{{'vacationType' | translate}}</th>
+              <th mat-cell *matCellDef="let vacation" style="text-align:center;">{{ vacation.vacationType }}</th>
+            </ng-container>
+
+            <ng-container matColumnDef="description" style="text-align: center;">
+              <th mat-header-cell *matHeaderCellDef style="text-align:center;">{{'description' | translate}}</th>
+              <th mat-cell *matCellDef="let vacation" style="text-align:center;">{{ vacation.description }}</th>
+            </ng-container>
+            <ng-container matColumnDef="approvedBy" style="text-align: center;">
+              <th mat-header-cell *matHeaderCellDef style="text-align:center;">{{'ApprovedBy' | translate}}</th>
+              <th mat-cell *matCellDef="let vacation" style="text-align:center;">{{ vacation.approvedBy }}</th>
+            </ng-container>
+            <ng-container matColumnDef="stauts" style="text-align: center;">
+              <th mat-header-cell *matHeaderCellDef style="text-align:center;">{{'Stauts' | translate}}</th>
+              <td mat-cell *matCellDef="let final" style="text-align:center;">{{'Approve' | translate}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>

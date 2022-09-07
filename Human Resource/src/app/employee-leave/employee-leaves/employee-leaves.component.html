@@ -1,0 +1,89 @@
+<!--Page header-->
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{'ListOfLeaves' | translate}}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="javascript:void(0)" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'Home' | translate}}</span></a></li>
+			<li class="breadcrumb-item"><a href="javascript:void(0)">{{'Leaves' | translate}}</a></li>
+			<li class="breadcrumb-item active" aria-current="page">{{'AllLeaves' | translate}}</li>
+		</ol>
+	</div>
+</div>
+<!--End Page header-->
+
+
+<!-- row opened -->
+<div class="row row-sm">
+  <div class="col-xl-12">
+    <div class="card">
+      <div class="card-header pb-0">
+        <a [routerLink]="['/employee-leave/create-employee-leave']" class="btn btn-dark"><i class="fe fe-plus"></i>{{'CreateEmployeeLeave' | translate}}</a>
+      </div>
+      <div class="card-body">
+        <div class="search-container">
+          <mat-form-field appearance="fill">
+            <input matInput placeholder="{{'SearchByEmployeeName' | translate}}" autocomplete="off" (keyup)="filterData($event)">
+          </mat-form-field>
+        </div>
+        <div class="table-responsive table-bordered table-hover table-striped">
+
+          <table mat-table matSort [dataSource]="employeeLeaves">
+
+            <ng-container matColumnDef="employeeName">
+              <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'EmployeeName' | translate}}</th>
+              <th mat-cell *matCellDef="let employeeLeave">{{ employeeLeave.employee.employeeName }}</th>
+            </ng-container>
+            <ng-container matColumnDef="leaveDate">
+              <th mat-header-cell  *matHeaderCellDef>{{'LeaveDate' | translate}}</th>
+              <th mat-cell *matCellDef="let employeeLeave">{{ employeeLeave.leaveDate }}</th>
+            </ng-container>
+            <ng-container matColumnDef="leaveFrom">
+              <th mat-header-cell  *matHeaderCellDef>{{'LeaveFrom' | translate}}</th>
+              <th mat-cell *matCellDef="let employeeLeave">{{ employeeLeave.leaveFrom }}</th>
+            </ng-container>
+            <ng-container matColumnDef="leaveTo">
+              <th mat-header-cell  *matHeaderCellDef>{{'LeaveTo' | translate}}</th>
+              <th mat-cell *matCellDef="let employeeLeave">{{ employeeLeave.leaveTo }}</th>
+            </ng-container>
+            <ng-container matColumnDef="leaveType">
+              <th mat-header-cell  *matHeaderCellDef>{{'LeaveType' | translate}}</th>
+              <th mat-cell *matCellDef="let employeeLeave">{{ employeeLeave.leaveType }}</th>
+            </ng-container>
+            <ng-container matColumnDef="approvedBy">
+              <th mat-header-cell  *matHeaderCellDef>{{'ApprovedBy' | translate}}</th>
+              <th mat-cell *matCellDef="let employeeLeave">{{ employeeLeave.approvedBy }}</th>
+            </ng-container>
+            <ng-container matColumnDef="description">
+              <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'Description' | translate}}</th>
+              <th mat-cell *matCellDef="let employeeLeave">{{ employeeLeave.description }}</th>
+            </ng-container>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell  *matHeaderCellDef > {{'ACTIONS' | translate}} </th>
+              <td mat-cell *matCellDef="let employeeLeave">
+                  <button class="btn btn-default" (click) = "onEditEmployeeLeaveById(employeeLeave.leaveId)" ><i class="fe fe-edit me-2"></i> {{'Edit' | translate}}</button>
+                  <button class="btn btn-default" (click) = "onDeleteEmployeeLeaveById(employeeLeave.leaveId)" ><i class="fe fe-trash me-2"></i> {{'Delete' | translate}}</button>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator #paginator
+                  [pageSize]="5"
+                  [pageSizeOptions]="[5, 10, 25,50, 100]"
+            >
+            </mat-paginator>
+
+        </div>
+      </div>
+    </div>
+</div>
+
+
+	<!--div-->
+
+
+
+
+

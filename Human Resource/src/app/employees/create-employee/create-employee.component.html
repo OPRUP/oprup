@@ -1,0 +1,326 @@
+<!--Page header-->
+<div class="page-header">
+  <div class="page-leftheader">
+
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/dashboard-hr/']" class="d-flex">
+          <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0V0z" fill="none"/>
+            <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+            <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+              {{'HOME' | translate}}</span></a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/employees/employees/']">
+          {{"employee" | translate}} </a></li>
+        <li class="breadcrumb-item active" aria-current="page"> {{'ADD' | translate}}</li>
+      </ol>
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+
+<!-- <div class="card"> -->
+<div class="card">
+  <form #addForm="ngForm"
+  [formGroup]="form"
+  (ngSubmit)="onAddEmployee()" class="form-horizontal">
+    <div class="card-header">
+      <button type="submit" id="add-employee-form" class="btn btn-dark m-3">{{'SAVE' | translate }}</button>
+      <a [routerLink]="['/employees/employees']" class="btn btn-light m-3">{{'DISCARD' | translate }}</a>
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-12">
+        <!-- {{addForm.value|json}} -->
+        <label for="" class="form-label">{{'InternalCompanyName' | translate }}<span style="font-size: large;color: red;">*</span></label>
+        <ng-select name="companies.companyId"
+        formControlName="companyId"
+        [ngClass]="{ 'is-invalid': submitted && f['companyId'].errors }"
+        [(ngModel)]="employeeData.companies.companyId"
+        class="form-control form-select" placeholder="-- {{'SelectCompanyName' | translate }} --">
+            <ng-option *ngFor="let company of companies2" [value] ="company.companyId">{{company.companyName}}</ng-option>
+
+
+
+          </ng-select>
+          <div *ngIf="submitted && f['companyId'].errors" class="invalid-feedback">
+            <div *ngIf="f['companyId'].errors['required']">{{'isReqired'|translate}}.</div>
+          </div>
+      </div>
+      </div>
+      <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'EmployeeName:' | translate }}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text" #employeeName
+        formControlName="employeeName"
+        [ngClass]="{ 'is-invalid': submitted && f['employeeName'].errors }"
+        [(ngModel)]="employeeData.employeeName" id="employeeName" name="employeeName"
+        class="form-control mt-2 text-line"  >
+        <div *ngIf="submitted && f['employeeName'].errors" class="invalid-feedback">
+          <div *ngIf="f['employeeName'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+      </div>
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'EmployeeName(Arabic)' | translate }}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text" #employeeNameAr
+        formControlName="employeeNameAr"
+        [ngClass]="{ 'is-invalid': submitted && f['employeeNameAr'].errors }"
+        [(ngModel)]="employeeData.employeeNameAr" id="employeeNameAr" name="employeeNameAr"
+        class="form-control mt-2 text-line" >
+
+        <div *ngIf="submitted && f['employeeNameAr'].errors" class="invalid-feedback">
+          <div *ngIf="f['employeeNameAr'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+      </div>
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'Gender' | translate }}<span style="font-size: large;color: red;">*</span></label>
+        <ng-select
+        formControlName="gender"
+        [ngClass]="{ 'is-invalid': submitted && f['gender'].errors }"
+
+        [(ngModel)]="employeeData.gender" name="gender"  class="form-select"
+        placeholder="-- {{'SelectGender' | translate }} --">
+            <ng-option  value ="ذكر">{{'Male' | translate }}</ng-option>
+            <ng-option  value ="انثى">{{'Female' | translate }}</ng-option>
+
+        </ng-select>
+        <div *ngIf="submitted && f['gender'].errors" class="invalid-feedback">
+          <div *ngIf="f['gender'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'MaritalStatus' | translate }}<span style="font-size: large;color: red;">*</span></label>
+        <ng-select
+        formControlName="maritalStatus"
+        [ngClass]="{ 'is-invalid': submitted && f['maritalStatus'].errors }"
+
+         [(ngModel)]="employeeData.maritalStatus" name="maritalStatus"  class="form-select"
+        placeholder="-- Select Marital Status{{'createNewEmployee' | translate }} --">
+          <ng-option  value ="اعزب">{{'Single' | translate }}</ng-option>
+          <ng-option  value ="متزوج">{{'Married' | translate }}</ng-option>
+        </ng-select>
+        <div *ngIf="submitted && f['maritalStatus'].errors" class="invalid-feedback">
+          <div *ngIf="f['maritalStatus'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+      </div>
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'Nationality' | translate }}<span style="font-size: large;color: red;">*</span></label>
+        <ng-select
+        formControlName="nationality"
+        [ngClass]="{ 'is-invalid': submitted && f['nationality'].errors }"
+
+        [(ngModel)]="employeeData.nationality" name="nationality"  class="form-select"
+        placeholder="-- {{'SelectNationality' | translate }} --">
+        <span *ngIf="ar">
+        <ng-option   *ngFor="let item of countryList" value="{{item.code}}">
+          {{item.name}}
+        </ng-option>
+      </span>
+      <span *ngIf="en">
+        <ng-option   *ngFor="let item of countryListEn" value="{{item.code}}">
+          {{item.name}}
+        </ng-option>
+      </span>
+        </ng-select>
+        <div *ngIf="submitted && f['nationality'].errors" class="invalid-feedback">
+          <div *ngIf="f['nationality'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'Religion' | translate }}<span style="font-size: large;color: red;">*</span></label>
+        <ng-select
+        formControlName="religion"
+        [ngClass]="{ 'is-invalid': submitted && f['religion'].errors }"
+
+        [(ngModel)]="employeeData.religion" name="religion"  class="form-select"
+        placeholder="-- {{'SelectReligion' | translate }} --">
+        <ng-option  value ="الاسلام">{{'Islamic' | translate }}</ng-option>
+        <ng-option  value ="المسيحية">{{'Christian' | translate }}</ng-option>
+        <ng-option  value ="اخرى">{{'Others' | translate }}</ng-option>
+        </ng-select>
+        <div *ngIf="submitted && f['religion'].errors" class="invalid-feedback">
+          <div *ngIf="f['religion'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+      </div>
+    </div>
+    <!-- <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'EmployeeCompanyNo:' | translate }}</label>
+        <input type="text" #employeeCompanyId [(ngModel)]="employeeData.employeeCompanyId"
+        id="employeeCompanyId" name="employeeCompanyId" class="form-control mt-2 text-line"
+        placeholder="{{'EmployeeCompanyId' | translate }}" >
+      </div>
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'employeePartCompanyId' | translate }}:</label>
+        <input type="text" #employeePartCompanyId [(ngModel)]="employeeData.employeePartCompanyId"
+        id="employeePartCompanyId" name="employeePartCompanyId" class="form-control mt-2 text-line" placeholder="{{'EmployeeInernalCompanyNo' | translate }}" >
+      </div>
+    </div> -->
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'PlaceOfBirth' | translate }}<span style="font-size: large;color: red;">*</span></label>
+        <!-- <input type="text" #placeOfBirth
+
+        formControlName="placeOfBirth"
+        [ngClass]="{ 'is-invalid': submitted && f['placeOfBirth'].errors }"
+        [(ngModel)]="employeeData.placeOfBirth" id="placeOfBirth" name="placeOfBirth"
+        class="form-control mt-2 text-line" > -->
+        <ng-select
+        formControlName="placeOfBirth"
+        [ngClass]="{ 'is-invalid': submitted && f['placeOfBirth'].errors }"
+
+        [(ngModel)]="employeeData.placeOfBirth" name="placeOfBirth"  class="form-select"
+        placeholder="-- {{'SelectNationality' | translate }} --">
+        <span *ngIf="ar">
+        <ng-option   *ngFor="let item of countryList" value="{{item.code}}">
+          {{item.name}}
+        </ng-option>
+      </span>
+      <span *ngIf="en">
+        <ng-option   *ngFor="let item of countryListEn" value="{{item.code}}">
+          {{item.name}}
+        </ng-option>
+      </span>
+        </ng-select>
+        <div *ngIf="submitted && f['placeOfBirth'].errors" class="invalid-feedback">
+          <div *ngIf="f['placeOfBirth'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'DateOfBirth' | translate }}<span style="font-size: large;color: red;">*</span></label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+          <input type="date" name="dateOfBirth"
+
+          formControlName="dateOfBirth"
+          [ngClass]="{ 'is-invalid': submitted && f['dateOfBirth'].errors }"
+
+          [(ngModel)]="employeeData.dateOfBirth" matInput display="dateInput">
+          <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker> -->
+          <div *ngIf="submitted && f['dateOfBirth'].errors" class="invalid-feedback">
+            <div *ngIf="f['dateOfBirth'].errors['required']">{{'isReqired'|translate}}.</div>
+          </div>
+        </mat-form-field>
+      </div>
+
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'DateOfJoin(FirstContractDate)' | translate }}<span style="font-size: large;color: red;">*</span></label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+          <input type="date" name="dateOfJoin"
+          formControlName="dateOfJoin"
+          [ngClass]="{ 'is-invalid': submitted && f['dateOfJoin'].errors }"
+          [(ngModel)]="employeeData.dateOfJoin" matInput >
+          <!-- <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker> -->
+          <div *ngIf="submitted && f['dateOfJoin'].errors" class="invalid-feedback">
+            <div *ngIf="f['dateOfJoin'].errors['required']">{{'isReqired'|translate}}.</div>
+          </div>
+        </mat-form-field>
+      </div>
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'HijriDateOfJoin(FirstContractDate):' | translate }}</label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'HijriFirstContractDate' | translate }}</mat-label>
+          <input name="hijriDateOfJoin" [(ngModel)]="employeeData.hijriDateOfJoin" matInput [matDatepicker]="picker2">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div> -->
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'HijriDateOfJoin(Hiring Date)' | translate }}<span style="font-size: large;color: red;">*</span></label>
+        <div class="input-group mb-3">
+
+        <input class="form-control col-4" placeholder="{{'DD/MM/YYYY' | translate}}" name="fechaHasta"
+
+        [(ngModel)]="model" [ngModelOptions]="{standalone: true}" ngbDatepicker #d10="ngbDatepicker">
+        <div class="input-group-prepend" (click)="d10.toggle()">
+          <span class="input-group-text" id="basic-addon1"><img src="../../../assets/images/icons/ic13.png" style="width: 1.2rem; height: 1.5rem; cursor: pointer;"/></span>
+        </div>
+      </div>
+        <!-- <div >
+           <img src="../../../assets/images/icons/ic13.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+        </div> -->
+    </div>
+
+    <!-- <div >
+        <input [id]="id" [name]="name" class="form-control" name="dp" [(ngModel)]="value" ngbDatepicker #dp="ngbDatepicker" container="body" [firstDayOfWeek]="7">
+        <div >
+          <button class="btn btn-outline-secondary" (click)="dp.toggle()" type="button">
+            <i class="fa fa-calendar" style="width: 1.2rem; height: 1rem; cursor: pointer;"></i>
+          </button>
+        </div>
+      </div> -->
+
+
+    </div>
+
+    <!-- <div class="m-3 row">
+      <div class="col-md-12">
+        <label for="" class="form-label">{{'Resedincename' | translate }}:</label>
+        <input type="text" #contactno [(ngModel)]="employeeData.residenceName"
+        id="residenceName" name="residenceName" class="form-control mt-2 text-line"
+        >
+      </div>
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-12">
+        <label for="" class="form-label">{{'ResedinceNumber' | translate }}:</label>
+        <input type="text" #residenceNumber [(ngModel)]="employeeData.residenceNumber" id="residenceNumber" name="residenceNumber" class="form-control mt-2 text-line" placeholder="{{'ResidenceNo' | translate }}" >
+      </div>
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'IssueDate:' | translate }}</label>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'Chooseadate' | translate }}</mat-label>
+            <input #residenceIssue name="residenceIssue"
+            [(ngModel)]="employeeData.residenceIssue" matInput [matDatepicker]="picker4">
+            <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+            <mat-datepicker #picker4></mat-datepicker>
+          </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'residenceExpiry' | translate }}:</label>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'Chooseadate' | translate }}</mat-label>
+            <input #residenceExpiry name="residenceExpiry"
+            [(ngModel)]="employeeData.residenceExpiry" matInput [matDatepicker]="picker5">
+            <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+            <mat-datepicker #picker5></mat-datepicker>
+          </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'Country' | translate }}</label>
+            <ng-select  #country [(ngModel)]="employeeData.country" name="country" id="country"
+              class="form-control form-select">
+                  <ng-option *ngFor="let item of countryList" value="{{item.name}}">
+                    {{item.name}}
+                  </ng-option>
+
+            </ng-select>
+      </div>
+
+    </div>
+
+    <div class="m-3 row">
+      <div class="col-md-12">
+        <div class="col-md-6">
+          <input type="file" class="btn btn-dark m-3">
+      </div>
+      </div>
+    </div> -->
+
+  </form>
+</div>

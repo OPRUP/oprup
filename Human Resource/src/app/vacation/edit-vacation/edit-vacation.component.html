@@ -1,0 +1,94 @@
+<!--Page header-->
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{ 'vocation' | translate }}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/operation/']" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/operation/vacation/create-vacation/']">{{'vocation' | translate}}</a></li>
+			<li class="breadcrumb-item active" aria-current="page">{{'EDIT' | translate}}</li>
+								</ol>
+							</div>
+						</div>
+						<!--End Page header-->
+
+            <div class="card">
+              <form  (ngSubmit)="onUpdateVacation()" class="form-horizontal">
+                <div class="card-header">
+                  <button type="submit" id="update-vacation-form" class="btn btn-dark m-3">{{ 'SAVE' | translate }}</button>
+                  <a [routerLink]="['/vacation/vacations']" class="btn btn-light">{{ 'DISCARD' | translate }}</a>
+                </div>
+                <div class="m-3 row mb-6">
+                  <div class="col-md-5">
+                    <label for="" class="form-label">{{ 'EmployeeName:' | translate }}</label>
+                    <ng-select name="employee"   [(ngModel)]="vacation.employee.employeeId" class="form-control form-select" placeholder="-- {{ 'SelectEmployee' | translate }} --">
+                        <ng-option *ngFor="let emp of employees" [value] ="emp.employeeId">{{emp.employeeName}}</ng-option>
+                    </ng-select>
+
+                  </div>
+                </div>
+
+                <div class="m-3 row">
+                  <div class="col-md-6">
+                    <label for="" class="form-label">{{ 'VacationDateFrom:' | translate }} </label>
+                      <mat-form-field appearance="fill">
+                        <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+                      <!-- #docregion toggle -->
+                        <input type="date" #dateFrom [(ngModel)]="vacation.dateFrom" id="dateFrom" name="dateFrom" matInput >
+                        <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker> -->
+                      <!-- #enddocregion toggle -->
+                      </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="" class="form-label">{{ 'VacationDateTo:' | translate }} </label>
+                      <mat-form-field appearance="fill">
+                        <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+                      <!-- #docregion toggle -->
+                        <input type="date" #dateTo [(ngModel)]="vacation.dateTo" id="dateTo" name="dateTo" matInput >
+                        <!-- <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker> -->
+                      <!-- #enddocregion toggle -->
+                      </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="m-3 row">
+                  <div class="col-md-6">
+                    <label for="" class="form-label">{{ 'TypeofVacation:' | translate }} </label>
+                        <ng-select #vacationType [(ngModel)]="vacation.vacationType" name="vacationType" id="vacationType"
+                          class="form-control form-select">
+                          <ng-option value="">{{ 'Types' | translate }}</ng-option>
+                          <ng-option value="سنوية">{{ 'Annual' | translate }}</ng-option>
+                          <ng-option value="مرض">{{ 'Sick' | translate }}</ng-option>
+                          <ng-option value="زواج">{{ 'wedding' | translate }}</ng-option>
+                          <ng-option value="كوفيد-19">{{ 'COVID-19' | translate }}</ng-option>
+                          <ng-option value="دراسة">{{ 'Study' | translate }}</ng-option>
+                          <ng-option value="اخرى">{{ 'Other-PleaseExplinaitintheDescriptionField' | translate }}</ng-option>
+                        </ng-select>
+                  </div>
+                </div>
+
+                <div class="m-3 row">
+                  <div class="col-md-6">
+                    <label for="" class="form-label">{{ 'ApprovedBy:' | translate }} </label>
+                    <input type="text" #approvedBy  [(ngModel)]="vacation.approvedBy" id="approvedBy" name="approvedBy" class="form-control mt-2 text-line" >
+                  </div>
+                </div>
+                <div class="m-3 row">
+                  <div class="col-md-6">
+                    <label for="" class="form-label">{{ 'Description' | translate }} </label>
+                    <input type="text" #description [(ngModel)]="vacation.description" id="description" name="description" class="form-control mt-2 text-line" >
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="" class="form-label">{{ 'Attachment:' | translate }} </label>
+                  <input type="file" class="btn btn-default">
+                </div>
+
+              </form>
+
+            </div>
+
+

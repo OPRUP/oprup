@@ -1,0 +1,51 @@
+table {
+    width: 100%;
+  }
+  
+  th {
+    padding-left: 8px;
+    font-weight: normal;
+  }
+  
+  ::ng-deep th.mat-header-cell {
+    // width: 140px;
+    // min-width: 140px;
+    // background-color: #fff;
+    // color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  
+  th.mat-header-cell,
+  td.mat-cell,
+  td.mat-footer-cell {
+    padding: 5px;
+  }
+  
+  th {
+    padding-left: 8px;
+    width: 25%;
+    font-weight: normal;
+  }
+  
+  .calculate{
+    width: 5%;
+    margin-bottom: 2%;
+  
+  }
+  .calculate td{
+    border: 1px black solid;
+    min-width:100px;
+    font-size: 1.2em;
+    text-align: center;
+    padding: 5px;
+  }
+  .invoiceFooter{
+    display: flex;
+    justify-content: space-around;
+  }
+  .footer{
+    display: flex;
+    justify-content: space-around;
+  }
+  

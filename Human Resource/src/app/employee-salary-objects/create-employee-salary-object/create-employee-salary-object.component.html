@@ -1,0 +1,198 @@
+
+						<!--Page header-->
+						<div class="page-header">
+							<div class="page-leftheader">
+								<h2 class="page-title">{{'CreateEmployeeSalaryObject' | translate}}</h2>
+							</div>
+							<div class="page-rightheader ms-auto d-lg-flex d-none">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="javascript:void(0)" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'Home' | translate}}</span></a></li>
+									<li class="breadcrumb-item"><a href="javascript:void(0)">{{'EmployeeSalaryObject' | translate}}</a></li>
+									<li class="breadcrumb-item active" aria-current="page">{{'CreateEmployeeSalaryObject' | translate}}</li>
+								</ol>
+							</div>
+						</div>
+						<!--End Page header-->
+
+
+            <mat-card>
+              <form  *ngIf="employee" (ngSubmit)="onAddEmloyeeSalaryObject()">
+                <mat-card-header>
+                  <button type="submit" id="add-employee-salary-object-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+                  <a [routerLink]="['/employee-salary-objects/employee-salary-objects']" class="btn btn-light m-3">{{'DISCARD' | translate}}</a>
+                </mat-card-header>
+                <div class="h-divider mb-5"></div>
+                <mat-card-content>
+                  <div class="row">
+                    <div class="col-md-8 offset-md-2">
+
+
+
+
+                      <mat-form-field  appearance="outline" class="mt20 w-100">
+                        <mat-label>{{'EmployeeName' | translate}}</mat-label>
+                        <input
+                        disabled
+                        type="text"
+                        name="employeeNameAr"
+                        matInput
+
+                        required
+                        [(ngModel)]="employee.employeeNameAr"
+                        value="employee.employeeId"
+                         />
+                      </mat-form-field>
+
+
+                     <!-- <mat-form-field appearance="fill" class="mt20 w-100">
+                        <mat-label>{{'EmployeeName' | translate}}</mat-label>
+                        <mat-select   name="employeess"  [(ngModel)]="employee.employeeId" class="form-control form-select">
+                          <mat-option  [value] ="employee.employeeId">{{ employee.employeeName }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+ -->
+
+
+
+
+                      <!-- <input type="hidden" name="employeeId" [(ngModel)]="employeeSalaryObjectData.employee.employeeId">
+                      <mat-form-field class="w100" appearance="outline" class="mt20 w-100">
+                        <mat-label>Employee Name</mat-label>
+                        <input
+                        type="text"
+                        name="employee.employeeId"
+                        matInput
+                        disabled
+                        [(ngModel)]="employee.employeeName"
+                         />
+                      </mat-form-field> -->
+
+                      <mat-form-field appearance="fill" class="mt20 w-100">
+                        <mat-label>{{'SalaryObject' | translate}}</mat-label>
+                        <mat-select  name="salaryObjectsss"  [(ngModel)]="employeeSalaryObjectData.salaryObject.salaryObjectId" class="form-control form-select">
+                          <mat-option *ngFor="let salaryObject of salaryObjects" [value] ="salaryObject.salaryObjectId">{{salaryObject.salaryObjectName}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+
+                      <mat-form-field appearance="fill" class="mt20 w-100">
+                        <mat-label>{{'SalaryObjectType' | translate}}</mat-label>
+                        <mat-select [(ngModel)]="employeeSalaryObjectData.type" name="type"  class="form-select">
+                          <mat-option  value ="Allowance">{{'Allowance' | translate}}</mat-option>
+                          <mat-option  value ="Deduction">{{'Deduction' | translate}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+
+                      <mat-form-field class="w100" appearance="outline" class="mt20 w-100">
+                        <mat-label>{{'Amount' | translate}}</mat-label>
+                        <input
+                        type="text"
+                        name="amount"
+                        matInput
+                        placeholder="{{'Amount' | translate}}" autofocus
+                        required
+                        [(ngModel)]="employeeSalaryObjectData.amount"
+                         />
+                      </mat-form-field>
+
+
+                      <!-- <div class="row">
+                        <div class="col-md-6">
+                          <mat-form-field appearance="fill">
+                            <mat-label>Created date</mat-label>
+                            <input name="createdDate" [(ngModel)]="employeeSalaryObjectData.createdDate" matInput [matDatepicker]="picker">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+
+                        <div class="col-md-6">
+                          <mat-form-field appearance="fill">
+                            <mat-label>End date</mat-label>
+                            <input name="endDate" [(ngModel)]="employeeSalaryObjectData.endDate" matInput [matDatepicker]="picker">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+
+                      </div>
+ -->
+
+                    </div>
+                  </div>
+                </mat-card-content>
+              </form>
+
+
+
+              <mat-card-footer>
+
+                <div class="card-footer">
+                  <div class="card-title bg-dark p-3 text-white">
+                    <!-- List Of Employee Salary Object -->
+                  </div>
+                  <div class="table-responsive table-bordered table-hover table-striped">
+                    <table class="table text-md-nowrap" id="myTable1">
+                      <thead>
+                        <tr>
+                          <!-- <th class="wd-15p border-bottom-0">{{'Name' | translate}}</th> -->
+                          <th class="wd-15p border-bottom-0">{{'SalaryObject' | translate}}</th>
+                          <th class="wd-15p border-bottom-0">{{'SalaryObjectType' | translate}}</th>
+                          <th class="wd-15p border-bottom-0">{{'Allowance' | translate}}</th>
+                          <th class="wd-15p border-bottom-0">{{'Deduction' | translate}}</th>
+                          <th class="wd-15p border-bottom-0">{{'Action' | translate}}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+                        <tr *ngFor="let employeeSalaryObject of employeeSalaryObjects" ng-init="counter=counter+employeeSalaryObject.allowanceAmount">
+                          <!-- <td>{{ employeeSalaryObject.employee.employeeName }}</td> -->
+                          <td>{{ employeeSalaryObject.salaryObject.salaryObjectName }}</td>
+                          <td>{{ employeeSalaryObject.type }}</td>
+                          <td>{{ employeeSalaryObject.allowanceAmount }}</td>
+                          <td>{{ employeeSalaryObject.deductionAmount }}</td>
+
+                          <td class="align-middle">
+                            <div class="btn-group align-top">
+                              <button  class="btn btn-sm btn-light btn-svg" type="button" (click)="deleteEmployeeDocument(employeeSalaryObject.employeeSalaryObjectId)" ><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M8 9h8v10H8z" opacity=".3"/><path d="M15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"/></svg></button>
+                            </div>
+                          </td>
+
+                        </tr>
+
+                        <tr>
+                          <td colspan="1">{{'AllowanceTotal' | translate}}</td>
+                          <td>{{ allowanceCounter }}</td>
+                          <td colspan="1">{{'DeductionTotal' | translate}}</td>
+                          <td>{{ deductionCounter }}</td>
+                          <td>
+
+                          </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+              </mat-card-footer>
+            </mat-card>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

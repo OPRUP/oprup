@@ -1,0 +1,174 @@
+<!--Page header-->
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{ 'TimeSheet' | translate }}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/dashboard/']" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/sheets/sheets/']">{{'TimeSheet' | translate}}</a></li>
+			<li class="breadcrumb-item active" aria-current="page">{{'VIEW' | translate}}</li>
+		</ol>
+	</div>
+</div>
+
+<div class="card-header pb-0">
+  &nbsp;&nbsp;&nbsp;
+  <a (click)="toggleDivs()" class="btn btn-default"><i class="fe fe-plus"></i>{{'view' | translate}}</a>
+
+  <a (click)="printPage()" class="btn btn-default"><i class="fe fe-plus"></i>{{'Print' | translate}}</a>
+  <a style="float: left;" type="submit" id="add-employee-form" (click)="ExportTOExcel() "
+  class="btn btn-default noPrint" ><i class="fe fe-plus"></i>{{'ExportTOExcel' | translate }}</a>
+
+</div>
+<!--End Page header-->
+
+
+<!-- row opened -->
+<div class="row row-sm">
+  <div class="col-xl-12">
+    <div class="card" *ngIf="employees">
+
+      <div class="card-body">
+        <div class="row mb-6">
+            <div class="col-md-3">
+              <label for="" class="form-label">{{ 'employeeNameAr' | translate }}</label>
+                <ng-select name="employees.employeeId"  [(ngModel)]="employees.employeeId" class="form-control form-select" (change)="getEmpSheetT(employees.employeeId,this.monthNumber,this.yearNumber);getContractDetailsByEmployeeId(employees.employeeId)">
+                <ng-option *ngFor="let emp of employees" [value] ="emp.employeeId" >{{emp.employeeNameAr}} </ng-option>
+              </ng-select>
+            </div>
+
+
+
+            <div class="col-md-3">
+              <label for="" class="form-label">{{ 'Month' | translate }}</label>
+                 <ng-select  class="form-control form-select" [(ngModel)]="monthNumber"
+                  (change)="getEmpSheetT(employees.employeeId,monthNumber,yearNumber)"
+                  placeholder="-- {{ 'SelectMonth' | translate }} --">
+
+                 <ng-option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="i" >{{i}}</ng-option>
+              </ng-select>
+
+            </div>
+            <div class="col-md-3">
+                <label for="" class="form-label">{{ 'Year' | translate }}</label>
+                   <ng-select   class="form-control form-select" [(ngModel)]="yearNumber" (change)="getEmpSheetT(employees.employeeId,monthNumber,yearNumber)" placeholder="-- {{ 'SelectYear' | translate }} --">
+
+                   <ng-option *ngFor="let i of [2020,2021,2022,2023,2024]" [value]="i" >{{i}}</ng-option>
+                </ng-select>
+
+              </div>
+
+            <div class="col-md-3" style="margin-top:25px ;">
+
+                <a  class="btn btn-default noPrint" (click) = "onGenerateSheet(employees.employeeId)">
+                    <i class="fe fe-plus noPrint m-1"></i>{{'generate' | translate}}</a>
+
+              </div>
+
+          </div>
+          </div>
+
+
+        <div class="card-body">
+
+        <div class="table-responsive table-bordered table-hover table-striped">
+
+          <table #TABLE #table class="table">
+
+  <thead>
+    <tr>
+    <th> {{ 'AttDate' | translate }} </th>
+    <th>{{ 'AttDay' | translate }} </th>
+    <th>{{ 'projectName' | translate }} </th>
+    <th>{{ 'ATT' | translate }} </th>
+    <th>{{ 'ATTValue' | translate }} </th>
+
+    <th> {{ 'OverTime' | translate }}</th>
+    <th> {{ 'OverTimeValue' | translate }}</th>
+
+    <th> {{ 'Total' | translate }}</th>
+    <th class="noPrint">{{ 'ACTIONS' | translate }}</th>
+  </tr>
+  </thead>
+
+<tbody>
+<tr *ngFor="let item of timeSheets">
+  <!--   {{ ' Date' | translate }}   -->
+  <td>{{item.attDay}}</td>
+  <!--  {{ 'Day' | translate }} > -->
+  <td>{{item.attWeekDay}}</td>
+
+  <td>{{empProject}}</td>
+   <!--  {{ 'ATT.' | translate }}   -->
+  <td> <input type="text" [(ngModel)]="item.attHour" (change)="item.attValue=getAttValue($event.target.value)
+    ;finalTotalAtt=getFinalTotaAtt($event.target.value);
+    ; finalTotalAttValue= getFinalTotalAttValue($event.target.value)
+    ;finalTotalofTotals=getFinalTotalOfTotals(finalTotalAttValue,finalTotalOverValue)"
+    class="form-control mt-2 text-line col-md-3"></td>
+
+  <!--   {{ 'ATT.Value' | translate }}   -->
+  <td>{{item.attValue}}</td>
+
+
+    <!-- {{ 'O.T.' | translate }}  -->
+
+   <td> <input type="text"  [(ngModel)]="item.overTimeHour" (change)="item.otValue=getOtValue($event.target.value)
+    ; item.attTotalValue=getTotalValue(item.otValue,item.attValue)
+    ; finalTotalOver= getFinalTotalOver($event.target.value)
+    ; finalTotalOverValue= getFinalTotalOverValue($event.target.value)
+    ;finalTotalofTotals=getFinalTotalOfTotals(finalTotalAttValue,finalTotalOverValue)"
+    class="form-control mt-2 text-line col-md-3"></td>
+
+
+    <!--  {{ 'O.T.Value' | translate }}  -->
+
+   <td> {{item.otValue}}</td>
+
+
+
+  <!--   {{ 'Total' | translate }}  -->
+  <td>{{item.attTotalValue}}</td>
+
+ <!-- <td *ngIf="viewFlag"> <button [disabled]="item.saveFlag === '1'"; [disabled]="saveToggle==false" class="btn btn-default" (click) = "onUpdateTimeSheet(item)" >Save<i class="fe fe-edit me-2"></i> </button> -->
+  <td class="noPrint"> <button [disabled]="item.saveFlag=='1' " class="btn btn-default" (click) = "onUpdateTimeSheet(item)" >{{'SAVE'|translate}} <i class="fe fe-edit me-2"></i> </button>
+
+</td>
+</tr>
+
+
+<tr>
+  <td> </td>
+  <td></td>
+  <td></td>
+  <td>  {{'AttendHour'|translate}} </td>
+  <td>  {{'TotalAttValue'|translate}} </td>
+  <td>  {{'TotalOverTime'|translate}}</td>
+  <td>  {{'TotalOverTimeValue'|translate}} </td>
+  <td>  {{'TotalAmount'|translate}} </td>
+</tr>
+
+<tr>
+  <td>  {{'Total'|translate}} </td>
+  <td></td>
+  <td></td>
+
+
+  <td> {{finalTotalAtt}} </td>
+  <td> {{finalTotalAttValue}} </td>
+  <td> {{finalTotalOver}} </td>
+  <td> {{finalTotalOverValue}}</td>
+
+  <td>{{finalTotalAttValue+finalTotalOverValue}}</td>
+</tr>
+</tbody>
+
+          </table>
+
+        </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+

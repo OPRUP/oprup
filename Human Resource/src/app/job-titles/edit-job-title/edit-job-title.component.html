@@ -1,0 +1,97 @@
+<div class="page-header">
+  <div class="page-leftheader">
+    <h2 class="page-title">{{ 'JobTitle' | translate }}</h2>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/dashboard-hr/']" class="d-flex">
+          <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0V0z" fill="none" />
+            <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z" />
+            <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3" />
+          </svg><span class="breadcrumb-icon">
+            {{ 'HOME' | translate }}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/job-titles/job-titles/']">
+          {{ 'JobTitle' | translate }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ 'EDIT' | translate }}</li>
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+
+<div class="card">
+  <form *ngIf="jobTitle" #editForm="ngForm" [formGroup]="form" (ngSubmit)="onUpdateJobTitle(editForm.value)"
+    class="form-horizontal">
+    <div class="card-header">
+      <button type="submit" id="add-job-title-form" class="btn btn-dark m-3">{{ 'SAVE' | translate }}</button>
+      <a [routerLink]="['/job-titles/job-titles']" class="btn btn-light">{{ 'DISCARD' | translate }}</a>
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-12">
+        <label for="" class="form-label">{{ 'JobTitles:' | translate }}</label>
+        <input type="text" formControlName="jobTitleName"
+          [ngClass]="{ 'is-invalid': submitted && f['jobTitleName'].errors }" [(ngModel)]="jobTitle.jobTitleName"
+          id="jobTitleName" name="jobTitleName" class="form-control mt-2 text-line"
+          placeholder="{{ 'JobTitle' | translate }}">
+
+        <div *ngIf="submitted && f['jobTitleName'].errors" class="invalid-feedback">
+          <div *ngIf="f['jobTitleName'].errors['required']">Is required</div>
+          <div *ngIf="f['jobTitleName'].errors['minlength']">Minimum 3 Characters</div>
+        </div>
+
+
+
+      </div>
+    </div>
+
+    <div class="m-3 row">
+      <div class="col-md-12">
+        <label for="" class="form-label">{{ 'CentralJobs' | translate }}:</label>
+        <ng-select name="centralJob" formControlName="centralId"
+          [ngClass]="{ 'is-invalid': submitted && f['centralId'].errors }" [(ngModel)]="jobTitle.centralJobs.centralId"
+          class="form-control form-select" placeholder="-- Select Central Job{{ 'Home' | translate }} --">
+          <ng-option *ngFor="let central of centralJobs" [value]="central.centralId">{{central.centralJobName}}
+          </ng-option>
+        </ng-select>
+
+        <div *ngIf="submitted && f['centralId'].errors" class="invalid-feedback">
+          <div *ngIf="f['centralId'].errors['required']">Is required</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="m-3 row">
+      <div class="col-md-12">
+        <label for="" class="form-label">{{ 'job Code:' | translate }}</label>
+        <ng-select name="jobTitleData.jobCode" formControlName="jobCode"
+          [ngClass]="{ 'is-invalid': submitted && f['jobCode'].errors }" [(ngModel)]="jobTitle.jobCode"
+          class="form-control form-select">
+          <ng-option (ngModel)='jobTitle.jobCode' value="L">L-ادراي</ng-option>
+          <ng-option (ngModel)='jobTitle.jobCode' value="M">M-عامل</ng-option>
+          <ng-option (ngModel)='jobTitle.jobCode' value="S">S-عن بعد </ng-option>
+        </ng-select>
+
+        <div *ngIf="submitted && f['jobCode'].errors" class="invalid-feedback">
+          <div *ngIf="f['jobCode'].errors['required']">Is required</div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+    <div class="m-3 row">
+      <div class="col-md-12">
+        <label for="" class="form-label">{{ 'Description' | translate }}</label>
+        <textarea [(ngModel)]="jobTitle.description" class="form-control mt-2 text-line" id="description"
+          [ngModelOptions]="{standalone: true}" name="description" id="" cols="50" rows="10"
+          placeholder="{{ 'Description' | translate }}"></textarea>
+      </div>
+    </div>
+  </form>
+</div>

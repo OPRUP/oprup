@@ -1,0 +1,148 @@
+<!--Page header-->
+<div class="page-header">
+  <div class="page-leftheader">
+    <div class="card-header" *ngIf="this.translate.currentLang=='en'">
+      <h2 > {{employee.employeeName}}</h2>
+   </div>
+   <div class="card-header" *ngIf="this.translate.currentLang=='ar'">
+    <h2 > {{employee.employeeNameAr}}</h2>
+ </div>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/dashboard/']" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'HOME' | translate}}</span></a></li>
+       <li class="breadcrumb-item"><a [routerLink]="['/employees/employees/']">{{'Employees' | translate}}</a></li>
+      <li class="breadcrumb-item" aria-current="page">{{'Detailsemployee' | translate}}</li>
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+<div class="main">
+  <div class="column-1">
+    <ul class="vertical-menu">
+      <li [routerLink]="['/employees/create-employee-details/'                    +  employee.employeeId]"                     [ngClass]="{'active':viewMode =='tab01'}">{{'BasicInformation' | translate}}</li>
+      <li [routerLink]="['/employees/create-employee11-employeed-information/'+  employee.employeeId]" [ngClass]="{'active':viewMode  =='tab03'}">{{'EmployeedInformation' | translate}}</li>
+        <li [routerLink]="['/employees/create-employee03-documents/'              +  employee.employeeId]"              [ngClass]="{'active':viewMode =='tab03'}">{{'Documents' | translate}}</li>
+        <li [routerLink]="['/employees/create-employee05-address/'                +  employee.employeeId]"                [ngClass]="{'active':viewMode =='tab05'}">{{'Address' | translate}}</li>
+        <li [routerLink]="['/employees/create-employee06-qualification/'          +  employee.employeeId]"          [ngClass]="{'active':viewMode =='tab06'}">{{'Qualifications' | translate}}</li>
+        <li [routerLink]="['/employees/create-employee07-work-experience/'        +  employee.employeeId]"        [ngClass]="{'active':viewMode =='tab07'}">{{'WorkExperiences' | translate}}</li>
+        <li [routerLink]="['/employees/create-employee08-bank-account/'           +  employee.employeeId]"           [ngClass]="{'active':viewMode =='tab08'}">{{'BankAccounts' | translate}}</li>
+        <li [routerLink]="['/employees/create-employee09-contract/'               +  employee.employeeId]"               [ngClass]="{'active':viewMode =='tab09'}">{{'Contract' | translate}}</li>
+        <li [routerLink]="['/employees/create-employee10-health-insurance/'       +  employee.employeeId]"       [ngClass]="{'active':viewMode =='tab10'}">{{'HealthInsurances' | translate}}</li>
+        <!-- <li [routerLink]="['/employees/create-employee11-employeed-information/'  +  employee.employeeId]"  [ngClass]="{'active':viewMode =='tab11'}">{{'EmployeedInformation' | translate}}</li> -->
+    </ul>
+  </div>
+  <div class="column-2" [ngSwitch]="viewMode">
+
+    <div *ngSwitchCase="'tab03'">
+      <div class="card">
+        <form (ngSubmit)="onAddDocument()">
+          <div class="card-header">
+            <h2>{{'AddEmployeeDocument' | translate}}</h2>
+         </div>
+
+         <mat-card-header>
+          <button type="submit" id="add-document-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+          <a [routerLink]="['/employees/employees']" class="btn btn-light m-3">{{'DISCARD' | translate}}</a>
+        </mat-card-header>
+        <div class="m-3 row">
+          <div class="col-md-12">
+            <!-- <label for="" class="form-label">Employee ID:</label> -->
+            <input type="hidden" [(ngModel)]="employee.employeeId" #employee.employeeId  name="employee.employeeId" id="employee.employeeId" class="form-control mt-2 text-line" >
+          </div>
+        </div>
+        <div class="m-3 row">
+          <div class="col-md-12">
+            <!-- <label for="" class="form-label">Employee Name:</label> -->
+            <input type="hidden" ngModel="{{employee.employeeName}}" #employeeName  id="employeeName" name="employeeName" class="form-control mt-2 text-line" placeholder="{{'TopManagementName' | translate}}" >
+          </div>
+        </div>
+        <div class="m-3 row">
+          <div class="col-md-12">
+            <label for="" class="form-label">{{'DocumentType:' | translate}}</label>
+            <ng-select #documentType [(ngModel)]="emp03.documentType" name="documentType" id="documentType"
+              class="form-control form-select">
+              <ng-option value="Passport">{{'Passport' | translate}}</ng-option>
+              <ng-option value="Residence">{{'Residences' | translate}}</ng-option>
+              <ng-option value="Identity">{{'Identity' | translate}}</ng-option>
+              <ng-option value="Others">{{'Others' | translate}}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <div class="m-3 row">
+          <div class="col-md-12">
+            <label for="" class="form-label">{{'DocumentNumber:' | translate}}</label>
+            <input type="text" #documentNumber [(ngModel)]="emp03.documentNumber" id="documentNumber" name="documentNumber" class="form-control mt-2 text-line" placeholder="{{'DocumentNumber' | translate}}" >
+          </div>
+        </div>
+        <div class="row m-3">
+          <div class="col-md-5">
+            <label for="form-label">{{'ExpiryDate' | translate}}</label><br/>
+            <mat-form-field appearance="fill">
+              <mat-label>{{'ExpiryDate' | translate}}</mat-label>
+              <input type="date" name="documentDateExpiry"
+              [(ngModel)]="emp03.documentDateExpiry"
+              matInput
+              placeholder="Expiry Date">
+              <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker> -->
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+            <label for="" class="form-label">{{'UploadDocument' | translate}}</label>
+            <input type="file"
+            (change)="onFileSelected($event)" class="btn btn-default"
+            id="documentFile" name="documentFile"
+            placeholder="Upload Employee Image Profile" autofocus
+            required
+            [(ngModel)]="emp03.documentFile">
+          </div>
+        </div>
+        </form>
+      <card-footer>
+
+          <div class="card-footer">
+            <div class="card-title bg-dark p-3 text-white">
+            </div>
+            <div class="table-responsive table-bordered table-hover table-striped">
+              <table class="table text-md-nowrap" id="myTable1">
+                <thead>
+                  <tr>
+                    <th class="wd-15p border-bottom-0">{{'DocumentType' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'DocumentNumber' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'DocumentDateExpire' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">تحميل المرفقات</th>
+                    <th class="wd-15p border-bottom-0">{{'ACTIONS' | translate}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let document of documents">
+                    <td>{{ document.documentType }}</td>
+                    <td>{{ document.documentNumber }}</td>
+                    <td>{{ document.documentDateExpiry }}</td>
+                    <td><a href="#">{{ document.documentFile }}</a></td>
+                    <td class="align-middle">
+                      <div class="btn-group align-top">
+                        <button  class="btn btn-sm btn-light btn-svg" type="button"
+                        (click)="deleteEmployeeDocument(document.documentId)" >
+                          <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg"
+                          height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z"
+                          fill="none"/><path d="M8 9h8v10H8z" opacity=".3"/>
+                          <path d="M15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"/>
+                        </svg></button>
+                      </div>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </card-footer>
+
+      </div>
+    </div>
+
+  </div>
+  </div>

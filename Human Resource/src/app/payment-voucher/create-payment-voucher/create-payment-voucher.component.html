@@ -1,0 +1,241 @@
+
+<div class="page-header">
+    <div class="page-leftheader">
+        <h2 class="page-title">{{'paymentVoucher' | translate}}</h2>
+    </div>
+    <div class="page-rightheader ms-auto d-lg-flex d-none">
+        <ol class="breadcrumb">
+
+            <li class="breadcrumb-item">
+                <a [routerLink]="['/accounts/']" class="d-flex">
+                    <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M0 0h24v24H0V0z" fill="none"/>
+          <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+          <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+            {{'HOME' | translate}}</span></a>
+            </li>
+            <li class="breadcrumb-item"><a [routerLink]="['/accounts/paymentVouchers/paymentVouchers/']">
+        {{"paymentVoucher" | translate}} </a></li>
+            <li class="breadcrumb-item active" aria-current="page"> {{'ADD' | translate}}</li>
+
+        </ol>
+    </div>
+</div>
+<div class="card">
+    <form [formGroup]="form" class="form-horizontal">
+        <div class="card-header">
+            <button type="button" id="add-visit-form" class="btn btn-dark m-3" (click)="onAddPaymentVoucher()">{{'SAVE' | translate}}</button>
+            <a [routerLink]="['/accounts/paymentVouchers/paymentVouchers']" class="btn btn-light">{{'DISCARD' | translate}}</a>
+        </div>
+        <!-- invoice header  -->
+        <div class="m-3 row">
+            <div class="col-md-5 m-2">
+                <label for="" class="form-label">{{'automatedVoucherNumber' | translate}}</label>
+                <input name="paymentVoucherId" value="{{paymentVoucherData.paymentVoucherNumber}}" class="form-control form-select" readonly>
+            </div>
+            <div class="col-md-6">
+                <label for="" class="form-label">{{ 'voucherDate' | translate }}<span style="font-size: large;color: red;">*</span></label>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+                    <input type="date" id="voucherDate" name="voucherDate" #date formControlName="voucherDate" [(ngModel)]="paymentVoucherData.voucherDate" matInput >
+                    <!-- <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2>
+
+                    </mat-datepicker> -->
+                </mat-form-field>
+            </div>
+
+        </div>
+        <div class="m-3 row">
+            <div class="col-md-6" hidden>
+                <label class="form-label">{{'paymentVoucherId' | translate}}<span style="font-size: large;color: red;">*</span></label>
+                <input type="text" #paymentVoucherId formControlName="paymentVoucherId" [(ngModel)]="paymentVoucherData.paymentVoucherId" id="paymentVoucherId" name="invoiceNumber" class="form-control mt-2 text-line" placeholder="">
+            </div>
+            <div class="col-md-6">
+                <label for="" class="form-label">{{'accountName' | translate }}<span style="font-size: large;color: red;">*</span></label>
+                <ng-select name="chartAccount.accountId" #accountId [(ngModel)]="paymentVoucherData.vendorAccount.accountId" class="form-control form-select" formControlName="accountId">
+                    <ng-option *ngFor="let value of codeValue" [value]="value.accountId">{{value.accountCode}} : {{value.accountName}} </ng-option>
+                </ng-select>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">{{'cashAmount' | translate}}<span style="font-size: large;color: red;">*</span></label>
+                <input type="number"  #cashAmount formControlName="cashAmount" [(ngModel)]="paymentVoucherData.cashAmount" id="cashAmount" name="cashAmount" class="form-control mt-2 text-line" placeholder="" min="0" oninput="this.value = Math.abs(this.value)" (change)="calculateInvoice()">
+            </div>
+        </div>
+        <div class="m-3 row">
+            <div class="col-md-6">
+                <label class="form-label">{{'description' | translate}}</label>
+                <textarea type="text" #description formControlName="description" [(ngModel)]="paymentVoucherData.description" id="description" name="description" class="form-control mt-2 text-line" placeholder=""></textarea>
+            </div>
+        </div>
+        <!-- <div class="m-3 row mb-6">
+            <label class="form-label">{{ 'accountCode' | translate }}:</label>
+            <div class="col-md-5" class="form-label">
+                <input type="text" #accountCode name="accountCode" value="" size="15" (change)="getAccountNameByAccountCode($event)" class="form-control mt-2 text-line">
+            </div>
+
+
+            <label for="" class="form-label">{{ 'accountName' | translate }}:</label>
+            <div class="col-md-5" *ngFor="let item of codeValue">
+                <input matInput type="text" [(value)]="bb" size="15" class="form-control mt-2 text-line">
+            </div>
+        </div> -->
+        <!-- <div class="m-3 row mb-6">
+            <div class="col-md-5">
+                <select matNativeControl required>
+                    <option selected>Select Account Code</option>
+                    <option *ngFor="let value of codeValue" [(value)]="value.accountId">{{value.accountCode}}:{{value.accountName}}</option>
+                   </select>
+            </div>
+        </div> -->
+
+
+
+        <div style="overflow-x:auto;" class="text-center;">
+            <div class="dynamicTable">
+                <table mat-table [dataSource]="dataSource" formArrayName="marks">
+
+                    <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                    <tr mat-row *matRowDef="let row; let i = index; columns: displayColumns;"></tr>
+
+
+                    <ng-container matColumnDef="checkNumber">
+                        <th mat-header-cell *matHeaderCellDef> {{ 'checkNumber' | translate }} </th>
+                        <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                            <mat-form-field appearance="outline" class="dynamic">
+                                <input matInput type="text" value="" formControlName="checkNumber" size="15">
+                            </mat-form-field>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="checkId">
+                        <th mat-header-cell *matHeaderCellDef style="display:none;"> checkId </th>
+                        <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index" style="display:none;">
+                            <mat-form-field appearance="outline" class="dynamic">
+                                <input readonly matInput type="text" formControlName="checkId" size="15">
+                            </mat-form-field>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="checkValue">
+                        <th mat-header-cell *matHeaderCellDef> {{ 'checkValue' | translate }} </th>
+                        <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                            <mat-form-field appearance="outline" class="dynamic">
+                                <input matInput type="text" formControlName="checkValue" size="15" (change)="calculateInvoice()">
+                            </mat-form-field>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="bankName">
+                        <th mat-header-cell *matHeaderCellDef> {{ 'bankName' | translate }} </th>
+                        <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <ng-select name="bank"
+                                #bank
+
+                                formControlName="bank"
+                                 class="form-control form-select">
+                                 <ng-option *ngFor="let bank of banks" [value] ="bank.bankId">{{bank.bankName}}</ng-option>
+                                 </ng-select>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="checkDate">
+                        <th mat-header-cell *matHeaderCellDef> {{ 'checkDate' | translate }} </th>
+                        <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                            <mat-form-field appearance="outline" class="dynamic">
+                                <input matInput type="date" formControlName="checkDate" size="15">
+                            </mat-form-field>
+                        </td>
+                    </ng-container>
+
+
+                    <!-- <div class="col-md-5">
+                        <label for="" class="form-label">{{ 'bankName' | translate }}:</label>
+                        <ng-container matColumnDef="bankName">
+                            <th mat-header-cell *matHeaderCellDef> {{ 'bankName' | translate }} </th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <ng-select matInput name="bankId" #bankId formControlName="bankId" class="form-control form-select">
+                                    <ng-option *ngFor="let bank of banks" [value]="bank.bankId">{{bank.bankName}}</ng-option>
+                                </ng-select>
+                            </td>
+                        </ng-container>
+                    </div> -->
+                    <!-- <div class="col-md-5">
+                         <label for="" class="form-label">{{ 'bankName' | translate }}:</label> -->
+                    <!--   <ng-container matColumnDef="bankName">
+                            <th mat-header-cell *matHeaderCellDef> {{ 'bankName' | translate }} </th>
+                            <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                                <mat-label></mat-label>
+                                <select *ngFor="let bank of banks" matNativeControl required>
+                                 <option value="bank.bankId">{{bank.bankName}}</option>
+                                </select>
+                            </td>
+                        </ng-container>
+                    </div> -->
+
+
+                    <!-- <ng-container matColumnDef="bankName">
+                        <th mat-header-cell *matHeaderCellDef> {{ 'bankName' | translate }} </th>
+                        <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+
+                            <ng-select name="bankId" #bankId formControlName="bankId" class="form-control form-select">
+                                <ng-option *ngFor="let bank of banks" [value]="bank.bankId">{{bank.bankName}}</ng-option>
+                            </ng-select>
+                        </td>
+                    </ng-container> -->
+                    <ng-container matColumnDef="delete">
+                        <th mat-header-cell *matHeaderCellDef> {{ 'ACTIONS' | translate }} </th>
+                        <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                            <button type="button" class="btn btn-dark m-3" (click)="deleteRow(index)" formControlName="delete" placeholder="Delete">{{ 'DELETE' | translate }}</button>
+
+                        </td>
+                    </ng-container>
+                </table>
+            </div>
+        </div>
+        <button type="button" class="btn btn-dark m-3" (click)="addRow()">{{ 'addRow' | translate }}</button>
+    </form>
+    <div class="m-3 row mb-6 footer" *ngIf="paymentVoucherData.checksAmount || paymentVoucherData.cashAmount ">
+        <table class="col-md-5 calculate">
+            <tr>
+                <td>{{ 'costCenter' | translate }}</td>
+                <td><ng-select
+                  #cashAccount
+                  [(ngModel)]="paymentVoucherData.costCenter.costCenterId"
+                  name="cashAccount"  class="form-control form-select">
+                      <ng-option *ngFor="let centers of costCenters" [value] ="centers.costCenterId">{{centers.costCenterName}}</ng-option>
+                  </ng-select></td>
+            </tr>
+            <tr>
+                <td>{{ 'fundAccount' | translate }}</td>
+                <td>
+                    <ng-select name="fundAccount" #fundAccount [(ngModel)]="paymentVoucherData.cashAccount.accountId" class="form-control form-select">
+                        <ng-option *ngFor="let code of codeValue" [value]="code.accountId">{{code.accountCode}} : {{code.accountName}} </ng-option>
+                    </ng-select>
+                </td>
+            </tr>
+            <tr>
+                <td>{{ 'checkAccount' | translate }}</td>
+                <td>
+                    <ng-select name="checkAccount" #checkAccount [(ngModel)]="paymentVoucherData.checksAccount.accountId" class="form-control form-select">
+                        <ng-option *ngFor="let code of codeValue" [value]="code.accountId">{{code.accountCode}} : {{code.accountName}} </ng-option>
+                    </ng-select>
+                </td>
+            </tr>
+
+        </table>
+    <table class="col-md-5 calculate"   >
+      <tr>
+        <td>{{ 'amount' | translate }}</td>
+        <td>{{paymentVoucherData.cashAmount}}</td>
+    </tr>
+    <tr>
+      <td>{{ 'laterChecks' | translate }}</td>
+      <td>{{paymentVoucherData.checksAmount}}</td>
+  </tr>
+  <tr>
+    <td>{{ 'total' | translate }}</td>
+    <td>{{totalCashAndChecks}}</td>
+</tr>
+    </table>
+
+      </div>

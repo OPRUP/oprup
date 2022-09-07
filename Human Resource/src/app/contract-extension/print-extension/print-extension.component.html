@@ -1,0 +1,277 @@
+<!--Page header-->
+<div class="page-header">
+  <div class="page-leftheader">
+      <h2 class="page-title">{{'contractExtensions' | translate}}</h2>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+      <ol class="breadcrumb">
+
+          <li class="breadcrumb-item">
+              <a [routerLink]="['/sales/']" class="d-flex">
+                  <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M0 0h24v24H0V0z" fill="none" />
+          <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z" />
+          <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3" /></svg><span class="breadcrumb-icon">
+          {{'HOME' | translate}}</span></a>
+          </li>
+          <li class="breadcrumb-item"><a [routerLink]="['/sales/Contract-Extensions/Extensions/']">
+        {{"contractExtensions" | translate}} </a></li>
+          <li class="breadcrumb-item active" aria-current="page"> {{'PRINT' | translate}}</li>
+
+      </ol>
+  </div>
+</div>
+<!--End Page header-->
+<div class="row row-sm">
+  <div class="col-xl-12">
+      <div class="card">
+          <div class="card-header pb-0">
+              &nbsp;&nbsp;&nbsp;
+              <a (click)="printPage()" class="btn btn-default"><i class="fe fe-plus"></i>{{'Print' | translate}}</a>
+
+          </div>
+          <br class="card-body">
+          <div class="table-responsive table-bordered table-hover table-striped">
+
+              <div class="m-3 row">
+                  <h1 class="text-center" style="font-weight:bold ;text-decoration: underline;"> {{'Contracts'|translate}}</h1>
+              </div>
+              <div class="m-3 row">
+                  <div class="col-md-6">
+                      <label for="" class="form-label">{{'types' | translate}}:</label>
+                      <input type="text" disabled="true" #contractNumber [value]="Contracts.type" class="form-control mt-2 text-line">
+                  </div>
+                  <div class="col-md-6">
+                      <label for="" class="form-label">{{'ContractNumber' | translate}}:</label>
+                      <input type="text" disabled="true" #contractNumber [value]="Contracts.contractNumber" class="form-control mt-2 text-line">
+                  </div>
+              </div>
+              <div class="m-3 row">
+                  <div class="col-md-6">
+                      <label for="" class="form-label">{{'durationofContract' | translate}}:</label>
+                      <input type="text" disabled="true" [value]="Contracts.durationofContract" class="form-control" placeholder="">
+                  </div>
+                  <div class="col-md-6">
+                      <label for="" class="form-label">{{'downpayment' | translate}}:</label>
+                      <input type="text" disabled="true" [value]="Contracts.downpayment" id="downpayment" name="downpayment" class="form-control" placeholder="">
+                  </div>
+              </div>
+              <div class="m-3 row">
+                  <div class="col-md-6">
+                      <label for="" class="form-label">{{'Description' | translate}}</label>
+                      <input #description disabled="true" [value]="Contracts.description" class="form-control mt-2 text-line" placeholder="">
+                  </div>
+
+                  <div class="col-md-6">
+                      <label for="" class="form-label"> {{'Date' | translate}} </label>
+
+                      <input disabled="true" class="form-control mt-2 text-line" [value]="Contracts.date">
+
+                  </div>
+              </div>
+              <br>
+              <div class="m-3 row">
+                  <h1 class="text-center" style="font-weight:bold ;text-decoration: underline;"> {{'Customer'|translate}}</h1>
+              </div>
+
+              <div class="m-3 row">
+
+                  <div class="m-3 row">
+                      <div class="col-md-6">
+                          <label for="" class="form-label">{{ 'nameAr' | translate }} </label>
+                          <input readonly type="text" #nameAr [value]="Contracts.customer.nameAr" class="form-control mt-2 text-line">
+                      </div>
+                      <div class="col-md-6">
+                          <label for="" class="form-label">{{ 'nameEn' | translate }} </label>
+                          <input readonly type="text" #nameEn [value]="Contracts.customer.nameEn" id="nameEn" name="nameEn" class="form-control mt-2 text-line">
+                      </div>
+                  </div>
+
+
+                  <div class="m-3 row">
+                      <div class="col-md-6">
+                          <label for="" class="form-label">{{ 'Date' | translate }}</label>
+                          <input readonly type="text" class="form-control mt-2 text-line" [value]="Contracts.customer.date">
+                      </div>
+                      <div class="col-md-6">
+                          <label for="" class="form-label">{{ 'numberCR' | translate }} </label>
+                          <input readonly type="text" #numberCR [value]="Contracts.customer.numberCR" id="numberCR" name="numberCR" class="form-control mt-2 text-line">
+                      </div>
+                  </div>
+                  <div class="m-3 row">
+                      <div class="col-md-6">
+                          <label for="" class="form-label">{{'customerAccountNumber' | translate}}:</label>
+                          <input readonly type="text" #customerAccountNumber [value]="Contracts.customer.customerAccountNumber" id="customerAccountNumber" name="customerAccountNumber" class="form-control" placeholder="">
+                      </div>
+                      <div class="col-md-6">
+                          <label for="" class="form-label">{{'customerAccNo' | translate}}:</label>
+                          <input readonly type="text" [value]="Contracts.customer.customerName" id="customerName" name="customerName" class="form-control" placeholder="">
+                      </div>
+                  </div>
+
+                  <div class="m-3 row">
+                      <div class="col-md-6">
+                          <label for="" class="form-label">{{'CountryAr' | translate }}</label>
+                          <input readonly type="text" class="form-control mt-2 text-line" [value]="Contracts.customer.countryAr">
+                      </div>
+
+                      <div class="col-md-6">
+                          <label for="" class="form-label">{{'CountryEn' | translate }}</label>
+                          <input readonly type="text" class="form-control mt-2 text-line" [value]="Contracts.customer.countryEn">
+                      </div>
+                  </div>
+
+                  <div class="m-3 row">
+                      <div class="col-md-6">
+                          <label for="" class="form-label">{{ 'contractSignerNameAr' | translate }} </label>
+                          <input readonly type="text" #contractSignerNameAr [value]="Contracts.customer.contractSignerNameAr" id="contractSignerNameAr" name="contractSignerNameAr" class="form-control mt-2 text-line">
+                      </div>
+                      <div class="col-md-6">
+                          <label for="" class="form-label">{{ 'contractSignerNameEn' | translate }} </label>
+                          <input readonly type="text" #contractSignerNameEn [value]="Contracts.customer.contractSignerNameEn" id="contractSignerNameEn" name="contractSignerNameEn" class="form-control mt-2 text-line">
+                      </div>
+                  </div>
+                  <div class="m-3 row">
+                      <div class="col-md-6">
+                          <label for="" class="form-label">{{ 'designation' | translate }} </label>
+                          <input readonly type="text" #designation [value]="Contracts.customer.designation" id="designation" name="designation" class="form-control mt-2 text-line">
+                      </div>
+                      <div class="col-md-6">
+                          <label for="" class="form-label">{{'Nationality' | translate }}</label>
+                          <input readonly type="text" #contactNumber [value]="Contracts.customer.nationality" id="nationality" name="nationality" class="form-control" placeholder="">
+
+                      </div>
+                  </div>
+                  <div class="m-3 row">
+                      <div class="col-md-6">
+                          <label for="" class="form-label">{{'.MOB' | translate}}:</label>
+                          <input readonly type="text" #contactNumber [value]="Contracts.customer.contactNumber" id="contactNumber" name="contactNumber" class="form-control" placeholder="">
+
+                      </div>
+
+                      <div class="col-md-6">
+                          <label for="" class="form-label">{{'email' | translate}}:</label>
+                          <input readonly type="email" #email [value]="Contracts.customer.email" id="email" name="email" class="form-control" placeholder="">
+
+                      </div>
+
+                  </div>
+
+                  <div class="m-3 row">
+                      <div class="col-md-6">
+                          <label for="" class="form-label">{{ 'followerNameAr' | translate }} </label>
+                          <input readonly type="text" #followerNameAr [value]="Contracts.customer.followerNameAr" id="followerNameAr" name="followerNameAr" class="form-control mt-2 text-line">
+                      </div>
+                      <div class="col-md-6">
+                          <label for="" class="form-label">{{ 'followerNameEn' | translate }}:</label>
+                          <input readonly type="text" #followerNameEn [value]="Contracts.customer.followerNameEn" id="followerNameEn" name="followerNameEn" class="form-control mt-2 text-line">
+                      </div>
+                  </div>
+                  <div class="m-3 row">
+                      <div class="col-md-6">
+                          <label for="" class="form-label">{{'followerContactNumber' | translate}}:</label>
+                          <input readonly type="text" #contactNumber [value]="Contracts.customer.followerContactNumber" id="followerContactNumber" name="followerContactNumber" class="form-control">
+
+                      </div>
+
+                      <div class="col-md-6">
+                          <label for="" class="form-label">{{'followerEmailAdrress' | translate}}:</label>
+                          <input readonly type="followerEmail" #followerEmail [value]="Contracts.customer.followerEmail" id="followerEmail" name="followerEmail" class="form-control" placeholder="">
+
+                      </div>
+                  </div>
+                  <div class="m-3 row">
+                      <div class="col-md-6">
+                          <label for="" class="form-label">{{ 'customerStatus' | translate }} </label>
+                          <input readonly type="text" class="form-control mt-2 text-line" [value]="Contracts.customer.customerStatus">
+                      </div>
+                      <div class="col-md-6">
+                          <label for="" class="form-label">{{'contactPerson' | translate}}:</label>
+                          <input readonly type="text" #contactPerson [value]="Contracts.customer.contactPerson" id="contactPerson" name="contactPerson" class="form-control" placeholder="">
+                      </div>
+                  </div>
+              </div>
+
+
+              <br>
+              <br><br>
+              <div class="m-3 row">
+                  <div class="m-3 row">
+                      <h1 style="font-weight:bold ;text-decoration: underline;"> {{'Items'|translate}}</h1>
+
+                      <div class="text-center">
+                          <table mat-table matSort [dataSource]="Contractt">
+                              <ng-container matColumnDef="itemCode">
+                                  <th mat-header-cell *matHeaderCellDef class="text-center" style="white-space: nowrap;">{{'itemCode' | translate}}</th>
+                                  <td mat-cell *matCellDef="let Contractts">{{ Contractts.item.itemCode }}</td>
+                              </ng-container>
+                              <ng-container matColumnDef="itemNameAr">
+                                  <th mat-header-cell *matHeaderCellDef class="text-center" style="white-space: nowrap;">{{'itemName' | translate}}</th>
+                                  <td mat-cell *matCellDef="let Contractts">{{ Contractts.item.itemNameAr }}</td>
+                              </ng-container>
+                              <ng-container matColumnDef="nationality">
+                                  <th mat-header-cell *matHeaderCellDef class="text-center" style="white-space: nowrap;"> {{'nationality' | translate}}</th>
+                                  <td mat-cell *matCellDef="let Contractts">{{ Contractts.item.nationality }}</td>
+                              </ng-container>
+                              <ng-container matColumnDef="gender">
+                                  <th mat-header-cell *matHeaderCellDef class="text-center" style="white-space: nowrap;"> {{'gender' | translate}}</th>
+                                  <td mat-cell *matCellDef="let Contractts">{{ Contractts.item.gender }}</td>
+                              </ng-container>
+                              <ng-container matColumnDef="foodAllowance">
+                                  <th mat-header-cell *matHeaderCellDef class="text-center" style="white-space: nowrap;"> {{'foodAllowance' | translate}}</th>
+                                  <td mat-cell *matCellDef="let Contractts">{{ Contractts.item.foodAllowance }}</td>
+                              </ng-container>
+                              <ng-container matColumnDef="housingAllowance">
+                                  <th mat-header-cell *matHeaderCellDef class="text-center" style="white-space: nowrap;"> {{'housingAllowance' | translate}}</th>
+                                  <td mat-cell *matCellDef="let Contractts">{{ Contractts.item.housingAllowance }}</td>
+                              </ng-container>
+                              <ng-container matColumnDef="otherAllowance">
+                                  <th mat-header-cell *matHeaderCellDef class="text-center" style="white-space: nowrap;"> {{'otherAllowance' | translate}}</th>
+                                  <td mat-cell *matCellDef="let Contractts">{{ Contractts.item.otherAllowance }}</td>
+                              </ng-container>
+                              <ng-container matColumnDef="profession">
+                                  <th mat-header-cell *matHeaderCellDef class="text-center" style="white-space: nowrap;"> {{'profession' | translate}}</th>
+                                  <td mat-cell *matCellDef="let Contractts">{{ Contractts.item.profession }}</td>
+                              </ng-container>
+                              <ng-container matColumnDef="salary">
+                                  <th mat-header-cell *matHeaderCellDef class="text-center" style="white-space: nowrap;"> {{'salary' | translate}}</th>
+                                  <td mat-cell *matCellDef="let Contractts">{{ Contractts.item.salary }}</td>
+                              </ng-container>
+                              <ng-container matColumnDef="employeeNumber">
+                                  <th mat-header-cell *matHeaderCellDef class="text-center" style="white-space: nowrap;"> {{'employeeNumber' | translate}}</th>
+                                  <td mat-cell *matCellDef="let Contractts">{{ Contractts.employeeNumber }}</td>
+                              </ng-container>
+                              <ng-container matColumnDef="operationFee">
+                                  <th mat-header-cell *matHeaderCellDef class="text-center" style="white-space: nowrap;"> {{'contractItemValue' | translate}}</th>
+                                  <td mat-cell *matCellDef="let Contractts">{{ Contractts.operationFee }}</td>
+                              </ng-container>
+                              <ng-container matColumnDef="contractItemValue">
+                                  <th mat-header-cell *matHeaderCellDef class="text-center" style="white-space: nowrap;"> {{'contractItemTotalValue' | translate}}</th>
+                                  <td mat-cell *matCellDef="let Contractts">{{ Contractts.contractItemValue }}</td>
+                              </ng-container>
+                              <ng-container matColumnDef="contractItemTotalValue">
+                                  <th mat-header-cell *matHeaderCellDef class="text-center" style="white-space: nowrap;"> {{'contractItemTotalValue' | translate}}</th>
+                                  <td mat-cell *matCellDef="let Contractts">{{ Contractts.contractItemTotalValue }}</td>
+                              </ng-container>
+                              <ng-container matColumnDef="monthlyOperationFee">
+                                  <th mat-header-cell *matHeaderCellDef class="text-center" style="white-space: nowrap;"> {{'contractItemTotalValue' | translate}}</th>
+                                  <td mat-cell *matCellDef="let Contractts">{{ Contractts.monthlyOperationFee }}</td>
+                              </ng-container>
+                              <ng-container matColumnDef="taxRate">
+                                  <th mat-header-cell *matHeaderCellDef class="text-center" style="white-space: nowrap;"> {{'taxRate' | translate}}</th>
+                                  <td mat-cell *matCellDef="let Contractts">{{ Contractts.item.taxRate }}</td>
+                              </ng-container>
+                              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                          </table>
+
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+
+
+      </div>
+  </div>
+</div>

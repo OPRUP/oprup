@@ -1,0 +1,183 @@
+/* You can add global styles to this file, and also import other style files */
+
+// html:not(:lang(ar)){
+//   @import "./assets/css/sidemenu.css";
+
+// }
+// html:not(:lang(en)){
+//   @import "./assets/css-rtl/sidemenu.css";
+
+// }
+/* Customized SCSS files*/
+@import "assets/scss-rtl/style.scss";
+@import "assets/plugins/web-fonts/icons.css";
+@import "assets/plugins/web-fonts/font-awesome/font-awesome.min.css";
+@import "assets/plugins/web-fonts/plugin.css";
+@import "assets/css-rtl/animated.css";
+@import "assets/css-rtl/dark.scss";
+@import "assets/css-rtl/skins.css";
+
+// boxed
+@import "assets/css-rtl/boxed.css";
+@import "assets/css-rtl/dark-boxed.css";
+
+// /* Importing Bootstrap SCSS file. */
+@import '~bootstrap/dist/css/bootstrap.rtl.css';
+@import "~material-icons/iconfont/material-icons.scss";
+// perfext axrollbar
+@import '~perfect-scrollbar/css/perfect-scrollbar.css';
+
+// ng-select
+@import "~@ng-select/ng-select/themes/default.theme.css";
+// owl carousel
+@import '~ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+@import '~leaflet/dist/leaflet.css';
+@import "~chartist/dist/scss/chartist.scss";
+// table
+@import "~intl-tel-input/build/css/intlTelInput.css";
+@import "~simple-datatables/dist/style.css";
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/themes/bootstrap.scss';
+@import '~@swimlane/ngx-datatable/themes/dark.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+//calendar
+@import "~flatpickr/dist/flatpickr.css";
+@import "~angular-calendar/scss/angular-calendar.scss";
+
+//dropzone
+@import '~dropzone/dist/min/dropzone.min.css';
+
+@import '~animate.css/animate.min.css';
+
+    @import '~quill/dist/quill.core.css';
+    @import '~quill/dist/quill.bubble.css';
+    @import '~quill/dist/quill.snow.css';
+
+@import '~angular-archwizard/styles/archwizard.css';
+@import '~ngx-toastr/toastr.css';
+
+@import "./assets/css-rtl/sidemenu.css";
+
+
+
+
+ng-select{
+    padding: 0 !important;
+    border: none !important;
+    ng-dropdown-panel{
+        border: 1px solid rgba($color: #000000, $alpha: 0.1) !important;
+    }
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected,
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked,
+.ng-option.ng-option-selected.ng-option-marked{
+    color: #fff !important;
+    background-color: #02030a !important;
+}
+
+// .dropdown-toggle::after,
+// .dropup .dropdown-toggle::after
+// {
+//     display: none;
+// }
+
+
+
+.dropdown-menu{
+    height: max-content;
+}
+// .dropdown-toggle::after,
+// .dropup .dropdown-toggle::after{
+//     display: none;
+// }
+
+html, body { height: 100%;  font-family:cairo;}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.dark-mode{
+    .ng-select.ng-select-opened>.ng-select-container {
+        background: #010207;
+        border-color: #06070a #060607 #000105;
+        color: #fff !important;
+    }
+    .ng-select .ng-select-container {
+        color: #eee;
+        background-color: #05060a;
+        border: 1px solid #000208;
+    }
+    input{
+        color: #eee !important;
+        background-color: #02030a !important;
+    }
+    .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected,
+    .ng-option.ng-option-selected.ng-option-marked{
+        background-color: #02030a !important;
+    }
+    .ng-option{
+        background-color: #020308 !important;
+        color: #fff !important;
+    }
+
+    .ng-dropdown-panel {
+        background-color: #272e48;
+    }
+    .ng-dropdown-panel, .list-area {
+        border: 1px solid #050508 !important;
+    }
+    .ng-select.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
+        color: #eee;
+        background-color: #050508;
+        border: 1px solid #08080c;
+    }
+    .dropzone {
+        border: 1px solid #040405;
+        border-radius: 4px;
+        background: #060607;
+    }
+    .dz-message.needsclick {
+        color: #ababab;
+    }
+
+    .ps .ps__rail-x.ps--clicking, .ps .ps__rail-x:focus, .ps .ps__rail-x:hover, .ps .ps__rail-y.ps--clicking, .ps .ps__rail-y:focus, .ps .ps__rail-y:hover{
+        background-color: #8ba2f8 !important;
+    }
+    perfect-scrollbar>.ps.ps--scrolling-x>.ps__rail-x, perfect-scrollbar>.ps.ps--scrolling-y>.ps__rail-y{
+        background-color: #8ba2f8 !important;
+    }
+
+    text tspan
+    {
+        fill: #fff;
+    }
+}
+
+.dark-mode .table thead th, .dark-mode .text-wrap table thead th {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07) !important;
+}
+
+.ps__rail-y{
+    left: initial !important;
+    right: 0;
+}
+
+// boxed
+.boxed{
+    .dropdown-menu{
+        left: initial !important;
+        right: 0;
+    }
+}
+
+.dropup .dropdown-toggle::after{
+    display: none;
+}
+
+
+.table > :not(:first-child) {
+    border-top: 0px solid currentColor !important;
+}
+
+

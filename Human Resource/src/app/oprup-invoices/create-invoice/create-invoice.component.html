@@ -1,0 +1,74 @@
+
+<!--Page header-->
+<div class="page-header">
+  <div class="page-leftheader">
+    <h1>{{'createInvoice'|translate}}</h1>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/sales/']" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'Home'|translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/sales/oprup-invoices/invoices/']">{{'einvoice'|translate}}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{'createInvoice'|translate}}</li>
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+<div class="card">
+<form #g="ngForm" (ngSubmit)="onAddInvoice()" class="form-horizontal">
+  <div class="card-header">
+    <button type="submit" id="add-job-title-form" class="btn btn-dark m-3">{{'SAVE'|translate}}</button>
+    <a [routerLink]="['/sales/oprup-invoices/invoices']" class="btn btn-light m-3">{{'DISCARD'|translate}}</a>
+  </div>
+
+  <div class="m-3 row">
+    <div class="col-md-6">
+      <label for="" class="form-label"> {{'customerName'|translate}}</label>
+      <input type="text"  [(ngModel)]="invoiceData.customerName" id="customerName" name="customerName"
+      class="form-control mt-2 text-line" placeholder="{{'customerName'|translate}}" >
+    </div>
+  </div>
+
+  <div class="m-3 row">
+    <div class="col-md-6">
+      <label for="" class="form-label"> {{'taxNumber'|translate}}</label>
+      <input type="text"  [(ngModel)]="invoiceData.taxNumber" id="taxNumber" name="taxNumber"
+      class="form-control mt-2 text-line" placeholder="{{'taxNumber'|translate}}" >
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <label for="" class="form-label"> {{'invoiceDate'|translate}}</label>
+    <mat-form-field appearance="outline">
+      <mat-label> {{'invoiceDate'|translate}}</mat-label>
+      <input type="date" name="invoiceDate" [(ngModel)]="invoiceData.invoiceDate" matInput  display="dateInput">
+      <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker> -->
+    </mat-form-field>
+  </div>
+
+  <div class="m-3 row">
+    <div class="col-md-6">
+      <label for="" class="form-label"> {{'tax'|translate}}</label>
+      <input type="text"  [(ngModel)]="invoiceData.tax" id="tax" name="tax"
+      class="form-control mt-2 text-line" placeholder="{{'tax'|translate}}" >
+    </div>
+  </div>
+
+  <div class="m-3 row">
+    <div class="col-md-6">
+      <label for="" class="form-label"> {{'price'|translate}}</label>
+      <input type="text"  [(ngModel)]="invoiceData.price" id="price" name="price"
+      class="form-control mt-2 text-line" placeholder="{{'price'|translate}}" >
+    </div>
+  </div>
+
+
+
+
+  </form>
+
+  <div>
+      <!-- <img src="${qrCodeContent}" alt=""> -->
+
+  </div>
+</div>

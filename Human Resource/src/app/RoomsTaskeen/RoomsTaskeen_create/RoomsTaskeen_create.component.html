@@ -1,0 +1,232 @@
+<!--Page header-->
+<div class="page-header">
+  <div class="page-leftheader">
+    <h2 class="page-title">{{'Room' | translate}}</h2>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/dashboard-hr/']" class="d-flex">
+          <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0V0z" fill="none"/>
+            <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+            <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+              {{'HOME' | translate}}</span></a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/Taskeen/Taskeen/']">
+          {{'Room' | translate}}</a></li>
+        <li class="breadcrumb-item active" aria-current="page"> {{'ADD' | translate}}</li>
+      </ol>
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+
+<!-- <div class="card"> -->
+<div class="card">
+  <form #addForm="ngForm"
+  [formGroup]="form"
+   (ngSubmit)="onAddRoomsTaskeen()" class="form-horizontal">
+    <div class="card-header">
+      <button type="submit" id="add-taskeen-form" class="btn btn-dark m-3">{{'SAVE' | translate }}</button>
+      <a [routerLink]="['/operation/RoomsTaskeen/RoomsTaskeen']" class="btn btn-light m-3">{{'DISCARD' | translate }}</a>
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'roomCode' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text"
+
+        formControlName="roomCode"
+        [ngClass]="{ 'is-invalid': submitted && f['roomCode'].errors }"
+        #roomCode
+        [(ngModel)]="roomTaskeen.roomCode" id="roomCode" name="roomCode"
+        class="form-control mt-2 text-line"  >
+
+        <div *ngIf="submitted && f['roomCode'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['roomCode'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+      </div>
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'roomCode' | translate}}:</label>
+        <input type="text" #roomCode [(ngModel)]="roomTaskeen.roomCode" id="roomCode" name="roomCode"
+        class="form-control mt-2 text-line"  >
+      </div> -->
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'bids' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text"
+
+        formControlName="bids"
+        [ngClass]="{ 'is-invalid': submitted && f['bids'].errors }"
+        #bids
+        [(ngModel)]="roomTaskeen.bids" id="bids" name="bids"
+        class="form-control mt-2 text-line"  >
+
+        <div *ngIf="submitted && f['bids'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['bids'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+      </div>
+     <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'bids' | translate}}:</label>
+        <input type="text" #bids [(ngModel)]="roomTaskeen.bids" id="bids" name="bids"
+        class="form-control mt-2 text-line"  >
+      </div> -->
+      </div>
+
+      <div class="m-3 row">
+        <div class="col-md-6">
+          <label for="" class="form-label">{{'lockers' | translate}}<span style="font-size: large;color: red;">*</span></label>
+          <input type="text"
+
+          formControlName="lockers"
+          [ngClass]="{ 'is-invalid': submitted && f['lockers'].errors }"
+          #lockers
+          [(ngModel)]="roomTaskeen.lockers" id="lockers" name="lockers"
+          class="form-control mt-2 text-line"  >
+
+          <div *ngIf="submitted && f['lockers'].errors" class="invalid-feedback">
+            <div
+            *ngIf="f['lockers'].errors['required']">{{'isReqired'|translate}}.</div>
+          </div>
+
+        </div>
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'lockers' | translate}}:</label>
+        <input type="text" #lockers [(ngModel)]="roomTaskeen.lockers" id="lockers" name="lockers"
+        class="form-control mt-2 text-line"  >
+      </div> -->
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'conditioners' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text"
+
+        formControlName="conditioners"
+        [ngClass]="{ 'is-invalid': submitted && f['conditioners'].errors }"
+        #conditioners
+        [(ngModel)]="roomTaskeen.conditioners" id="conditioners" name="conditioners"
+        class="form-control mt-2 text-line"  >
+
+        <div *ngIf="submitted && f['conditioners'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['conditioners'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+      </div>
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'conditioners' | translate}}:</label>
+        <input type="text" #lessorName [(ngModel)]="roomTaskeen.conditioners" id="conditioners" name="conditioners"
+        class="form-control mt-2 text-line" >
+      </div> -->
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'tools' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text"
+
+        formControlName="tools"
+        [ngClass]="{ 'is-invalid': submitted && f['tools'].errors }"
+        #tools
+        [(ngModel)]="roomTaskeen.tools" id="tools" name="tools"
+        class="form-control mt-2 text-line"  >
+
+        <div *ngIf="submitted && f['tools'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['tools'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+      </div>
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'tools' | translate}}:</label>
+        <input type="text" #tools [(ngModel)]="roomTaskeen.tools"
+        id="tools" name="tools" class="form-control mt-2 text-line">
+      </div> -->
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'Description' | translate}}</label>
+        <input type="text"
+        #description
+        [(ngModel)]="roomTaskeen.description" [ngModelOptions]="{standalone: true}" id="description" name="description"
+        class="form-control mt-2 text-line"  >
+      </div>
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'Description' | translate}}:</label>
+        <input type="text" #description [(ngModel)]="roomTaskeen.description"
+        id="description" name="description" class="form-control mt-2 text-line" >
+      </div> -->
+    </div>
+    <div class="m-3 row">
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'habitationName' | translate}}:</label>
+        <input type="text" #habitationName [(ngModel)]="roomTaskeen.taskeens.habitationId" id="habitationName" name="habitationName"
+        class="form-control mt-2 text-line" > -->
+        <div class="col-md-6">
+          <label for="" class="form-label">{{'habitationCode' | translate}}<span style="font-size: large;color: red;">*</span></label>
+          <ng-select name="habitationId"
+          formControlName="habitationId"
+          [ngClass]="{ 'is-invalid': submitted && f['habitationId'].errors }"
+           [(ngModel)]="roomTaskeen.taskeens.habitationId"
+          class="form-control form-select">
+              <ng-option *ngFor="let taskeen of taskeens" [value] ="taskeen.habitationId">{{taskeen.habitationCode}}</ng-option>
+          </ng-select>
+          <div *ngIf="submitted && f['habitationId'].errors" class="invalid-feedback">
+            <div
+            *ngIf="f['habitationId'].errors['required']">{{'isReqired'|translate}}<span style="font-size: large;color: red;">*</span></div>
+          </div>
+
+        </div>
+        <!-- <div class="col-md-6">
+          <label for="" class="form-label">{{'habitationName' | translate}}:</label>
+          <ng-select name="taskeens.habitationId"  [(ngModel)]="roomTaskeen.taskeens.habitationId"
+          class="form-control form-select">
+              <ng-option *ngFor="let taskeen of taskeens" [value] ="taskeen.habitationId">{{taskeen.habitationCode}}</ng-option>
+          </ng-select>
+        </div> -->
+      </div>
+      <!-- <div class="col-md-3">
+        <label for="" class="form-label">{{'rentContractStartingDate' | translate}}:</label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'rentContractStartingDate' | translate}}</mat-label>
+          <input name="rentContractStartingDate" [(ngModel)]="roomTaskeen.rentContractStartingDate" matInput [matDatepicker]="picker1">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <label for="" class="form-label">{{'rentContractEndingDate' | translate}}:</label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'rentContractEndingDate' | translate}}</mat-label>
+          <input name="rentContractEndingDate" [(ngModel)]="roomTaskeen.rentContractEndingDate" matInput [matDatepicker]="picker2">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div> -->
+    <!-- </div> -->
+
+
+
+    <!-- <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'habitationName' | translate}}:</label>
+        <input type="text" #habitationName [(ngModel)]="roomTaskeen.taskeens.habitationName" id="habitationName" name="habitationName"
+        class="form-control mt-2 text-line" >
+      </div>
+      </div> -->
+
+
+    <!-- <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'ManagingDirector' | translate}}:</label>
+        <ng-select name="employees.employeeId"  [(ngModel)]="taskeenEmdadat.employees.employeeId"
+        class="form-control form-select">
+            <ng-option *ngFor="let employee of employees" [value] ="employee.employeeId">{{employee.employeeName}}</ng-option>
+        </ng-select>
+      </div>
+    </div> -->
+
+
+
+  </form>
+  <!-- {{projectEmdadat.projectName | json}} -->
+</div>
+

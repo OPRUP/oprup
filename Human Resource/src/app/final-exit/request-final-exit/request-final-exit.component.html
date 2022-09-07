@@ -1,0 +1,97 @@
+
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{ 'finalExit' | translate }}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+            <li class="breadcrumb-item"><a [routerLink]="['/operation/']" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'HOME' | translate}}</span></a></li>
+            <li class="breadcrumb-item"><a [routerLink]="['/operation/finalExit/final-exits']">{{'finalExit' | translate}}</a></li>
+			<li class="breadcrumb-item active" aria-current="page"> {{'ADD' | translate}}</li>
+		</ol>
+	</div>
+</div>
+
+<div class="card">
+    <form #addForm="ngForm" [formGroup]="form" (ngSubmit)="onAddFinalExit()" class="form-horizontal">
+         <div class="card-header">
+
+            <button  type="submit" id="add-finalExit-form" class="btn btn-dark m-3" >{{ 'SAVE' | translate }}</button>
+            <a [routerLink]="['/operation/finalExit/final-exits']" class="btn btn-light">{{'DISCARD' | translate}}</a>
+         </div>
+
+         <div class="m-3 row">
+            <div class="col-md-6">
+                <label for="" class="form-label">{{'EmployeeName' | translate }}<span style="font-size: large;color: red;">*</span></label>
+                    <ng-select name="employee.employeeId" formControlName="employeeId"
+                    [ngClass]="{ 'is-invalid': submitted && f['employeeId'].errors }"
+                    #employeeId
+                     [(ngModel)]="finalExitData.employee.employeeId" class="form-control form-select" placeholder="-- {{'SelectEmployeeName' | translate }} --" [searchable]="true" [clearable]="true">
+                        <ng-option *ngFor="let employee of employees" [value] ="employee.employeeId">{{employee.employeeName}}</ng-option>
+                        <div *ngIf="submitted && f['employeeId'].errors" class="invalid-feedback">
+                            <div *ngIf="f['employeeId'].errors['required']">Is required</div>
+                        </div>
+                    </ng-select>
+            </div>
+        </div>
+        <div class="m-3 row">
+             <div class="col-md-6">
+                 <label for="" class="form-label" >{{ 'ticket' | translate }}<span style="font-size: large;color: red;">*</span> </label>
+                    <input type="text"formControlName="ticket"
+                    [ngClass]="{ 'is-invalid': submitted && f['ticket'].errors }"
+
+                     #ticket  [(ngModel)]="finalExitData.ticket" id="ticket" name="ticket" class="form-control mt-2 text-line"  >
+                     <div *ngIf="submitted && f['ticket'].errors" class="invalid-feedback">
+                        <div *ngIf="f['ticket'].errors['required']">Is required</div>
+                     </div>
+             </div>
+        </div>
+
+        <div class="m-3 row">
+            <div class="col-md-6">
+               <label for="" class="form-label">{{ 'reason' | translate }}<span style="font-size: large;color: red;">*</span> </label>
+                   <input type="text" formControlName="reason"
+                   [ngClass]="{ 'is-invalid': submitted && f['reason'].errors }"
+
+                    #reason [(ngModel)]="finalExitData.reason" id="reason" name="reason" class="form-control mt-2 text-line" >
+                    <div *ngIf="submitted && f['reason'].errors" class="invalid-feedback">
+                        <div *ngIf="f['reason'].errors['required']">Is required</div>
+                    </div>
+            </div>
+       </div>
+
+         <div class="m-3 row">
+            <div class="col-md-6">
+                <label for="" class="form-label">{{ 'exitDate' | translate }}<span style="font-size: large;color: red;">*</span> </label>
+                    <mat-form-field appearance="outline">
+                          <mat-label>{{ 'Chooseadate' | translate }}</mat-label>
+                          <input type="date" formControlName="exitDate"
+                          [ngClass]="{ 'is-invalid': submitted && f['exitDate'].errors }"
+                          #customerAccountNumber
+                          #dateFrom [(ngModel)]="finalExitData.exitDate" id="exitDate" name="exitDate" matInput >
+                          <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker> -->
+                          <div *ngIf="submitted && f['exitDate'].errors" class="invalid-feedback">
+                            <div *ngIf="f['exitDate'].errors['required']">Is required</div>
+                          </div>
+                    </mat-form-field>
+           </div>
+         </div>
+
+         <!-- <div class="m-3 row">
+             <div class="col-md-6">
+                <label for="" class="form-label">{{ 'reason' | translate }} </label>
+                    <input type="text" #reason [(ngModel)]="finalExitData.reason" id="reason" name="reason" class="form-control mt-2 text-line" >
+             </div>
+        </div> -->
+
+
+
+        </form>
+</div>
+
+
+
+
+
+

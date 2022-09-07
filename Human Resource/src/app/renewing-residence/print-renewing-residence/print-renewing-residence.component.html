@@ -1,0 +1,83 @@
+
+<!--Page header-->
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{'RenewingResidence' | translate}}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+
+      <li class="breadcrumb-item"><a [routerLink]="['/operation/']" class="d-flex">
+        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M0 0h24v24H0V0z" fill="none"/>
+          <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+          <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+            {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/operation/renewingresidence/renewingresidence/']">
+        {{"RenewingResidence" | translate}} </a></li>
+      <li class="breadcrumb-item active" aria-current="page"> {{'Print' | translate}}</li>
+
+		</ol>
+	</div>
+</div>
+<!--End Page header-->
+<div class="row row-sm">
+  <div class="col-xl-12">
+    <div class="card">
+      <div class="card-header pb-0">
+        &nbsp;&nbsp;&nbsp;
+        <a (click)="printPage()" class="btn btn-default"><i class="fe fe-plus"></i>{{'Print' | translate}}</a>
+
+      </div>
+
+      <div class="table-responsive table-bordered table-hover table-striped">
+
+        <table mat-table matSort [dataSource]="renewingResidences">
+
+
+          <ng-container matColumnDef="employeeId" >
+            <th mat-header-cell *matHeaderCellDef>{{'EmployeeID' | translate}}</th>
+            <td mat-cell *matCellDef="let renewingResidence">{{ renewingResidence.employee.employeeId }}</td>
+          </ng-container>
+
+          <!-- <ng-container matColumnDef="habitationName" >
+            <th mat-header-cell  *matHeaderCellDef style="text-align:center;" >{{'habitationName' | translate}}</th>
+            <th mat-cell *matCellDef="let renewingResidence" style="text-align:center;">{{ renewingResidence.habitationName }}</th>
+          </ng-container>
+          <ng-container matColumnDef="roomCode" >
+            <th mat-header-cell mat-sort-header *matHeaderCellDef style="text-align:center;">{{'roomCode' | translate}}</th>
+            <th mat-cell *matCellDef="let renewingResidence" style="text-align:center;">{{ renewingResidence.roomCode }}</th>
+          </ng-container> -->
+          <ng-container matColumnDef="employeeName" >
+            <th mat-header-cell *matHeaderCellDef>{{'employeeName' | translate}}</th>
+            <td mat-cell *matCellDef="let renewingResidence">{{ renewingResidence.employee.employeeName }}</td>
+          </ng-container>
+          <ng-container matColumnDef="employeeNameAr">
+            <th mat-header-cell *matHeaderCellDef >{{'employeeNameAr' | translate}}</th>
+            <td mat-cell *matCellDef="let renewingResidence">{{ renewingResidence.employee.employeeNameAr }}</td>
+          </ng-container>
+          <ng-container matColumnDef="expiryDate">
+            <th mat-header-cell *matHeaderCellDef>{{'ExpiryDate' | translate}}</th>
+            <td mat-cell *matCellDef="let renewingResidence">{{ renewingResidence.expiryDate }}</td>
+          </ng-container>
+          <ng-container matColumnDef="submittingDate">
+            <th mat-header-cell *matHeaderCellDef>{{'submittingDate' | translate}}</th>
+            <td mat-cell *matCellDef="let travelingEmployee">{{ travelingEmployee.submittingDate }}</td>
+          </ng-container>
+
+                  <ng-container matColumnDef="actions">
+            <th mat-header-cell  *matHeaderCellDef> {{'ACTIONS' | translate}} </th>
+            <td mat-cell *matCellDef="let travelingEmployee">
+              <button class="btn btn-gray" (click) = "onEditTravelingEmployeeById(travelingEmployee.renewingResidenceId)"   style="text-align:center;"><i class="fe fe-edit me-2"></i> {{'EDIT' | translate}}</button>
+              <button class="btn btn-dark" (click) ="onDeleteTravelingEmployeeById(travelingEmployee.renewingResidenceId)"  style="text-align:center;"><i class="fe fe-trash me-2"></i> {{'Delete' | translate}}</button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+      </div>
+</div>
+</div>
+</div>

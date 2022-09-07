@@ -1,0 +1,116 @@
+<!--Page header-->
+<div class="page-header">
+    <div class="page-leftheader">
+        <h2 class="page-title">{{'insurances' | translate}}</h2>
+    </div>
+    <div class="page-rightheader ms-auto d-lg-flex d-none">
+        <ol class="breadcrumb">
+
+            <li class="breadcrumb-item">
+                <a [routerLink]="['/operation/']" class="d-flex">
+                    <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M0 0h24v24H0V0z" fill="none"/>
+          <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+          <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+            {{'HOME' | translate}}</span></a>
+            </li>
+            <li class="breadcrumb-item"><a [routerLink]="['/operation/customer-portal/employee-insurance']">
+        {{"insurances" | translate}} </a></li>
+            <li class="breadcrumb-item active" aria-current="page"> {{'VIEW' | translate}}</li>
+
+        </ol>
+    </div>
+</div>
+<!--End Page header-->
+
+<!-- row opened -->
+<div class="row row-sm">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-header pb-0">
+                <!-- <a [routerLink]="['/employee-projects/create-employeeProjects']" class="btn btn-dark">
+                    <i class="fe fe-plus">
+        </i> {{'ADD' | translate}}</a>
+                &nbsp;&nbsp;&nbsp;
+                <a [routerLink]="['/employee-projects/print-employeeProjects']" class="btn btn-dark">
+                    <i class="fe fe-plus">
+        </i> {{'PREVIEW' | translate}}</a> -->
+            </div>
+            <div class="card-body">
+                <div class="search-container">
+                    <!-- <mat-form-field appearance="fill" style="width:50%;">
+                        <input matInput placeholder="{{'SEARCH' | translate}}" autocomplete="off" (keyup)="filterData($event)">
+                    </mat-form-field> -->
+                </div>
+                <div class="table-responsive table-bordered table-hover table-striped">
+
+                    <table class="table table-bordered table-responsive">
+
+
+                        <thead>
+                            <tr>
+                                <th> {{'employeeName'|translate}} </th>
+                                <!-- <th> {{'visa'|translate}} </th> -->
+                                <!-- <th> {{'startVisaDate'|translate}} </th> -->
+                                <!-- <th> {{'endVisaDate'|translate}} </th> -->
+                                <!-- <th> {{'jobByVisa'|translate}} </th> -->
+                                <!-- <th> {{'typeVisa'|translate}} </th> -->
+                                <!-- <th> {{'enterVisaDate'|translate}} </th> -->
+                                <th> {{'medicalExaminationCode'|translate}} </th>
+                                <th> {{'procedureDate'|translate}} </th>
+                                <th> {{'medicalResultDate'|translate}} </th>
+                                <th> {{'medicalTestResult'|translate}} </th>
+                                <th> {{'insurancesCode'|translate}} </th>
+                                <th> {{'insurancesType'|translate}} </th>
+                                <th> {{'insurancesStartDate'|translate}} </th>
+                                <th> {{'insurancesEndDate'|translate}} </th>
+                                <!-- <th> {{'residencyCode'|translate}} </th>
+                                <th> {{'residenceStartDate'|translate}} </th>
+                                <th> {{'jobByResidence'|translate}} </th> -->
+                                <!-- <th> {{'warrantyDate'|translate}} </th>
+                                <th> {{'exitDate'|translate}} </th>
+                                <th> {{'escapeReports'|translate}} </th> -->
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            <tr *ngFor="let item of insuranceData">
+
+                                <td> {{item.employee.employeeNameAr}} </td>
+                                <!-- <td> {{item.visa}} </td>
+                                <td> {{item.startVisaDate}} </td>
+                                <td> {{item.endVisaDate}} </td>
+                                <td> {{item.jobByVisa}} </td>
+                                <td> {{item.typeVisa}} </td>
+                                <td> {{item.enterVisaDate}} </td> -->
+                                <td> {{item.medicalExaminationCode}} </td>
+                                <td> {{item.procedureDate}} </td>
+                                <td> {{item.medicalResultDate}} </td>
+                                <td> {{item.medicalTestResult}} </td>
+                                <td> {{item.insurancesCode}} </td>
+                                <td> {{item.insurancesType}} </td>
+                                <td> {{item.insurancesStartDate}} </td>
+                                <td> {{item.insurancesEndDate}} </td>
+                                <!-- <td> {{item.residencyCode}} </td>
+                                <td> {{item.residenceStartDate}} </td>
+                                <td> {{item.jobByResidence}} </td> -->
+                                <!-- <td> {{item.warrantyDate}} </td>
+                                <td> {{item.exitDate}} </td>
+                                <td> {{item.escapeReports}} </td> -->
+
+                                <!-- <td colspan="6" class="text-end">
+                                    <button type="button" class="btn btn-gray-dark" onClick="javascript:window.print();">طباعة</button>
+                                </td> -->
+                            </tr>
+                    </table>
+                    <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25,50, 100]">
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--div-->

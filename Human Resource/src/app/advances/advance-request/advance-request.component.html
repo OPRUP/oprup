@@ -1,0 +1,131 @@
+<div class="row">
+  <div class="col-xl-12">
+    <div class="card">
+      <h2 class="p-5">{{ 'AdvanceRequest' | translate }}</h2>
+      <form  (ngSubmit)="onAddAdvance()">
+
+        <div class="card-header">
+          <br>
+            <button type="submit" id="add-contract-details-form" class="btn btn-dark m-3">{{ 'SAVE' | translate }}</button>
+            <a [routerLink]="['/operation/advances/advances']" class="btn btn-light m-3">{{'DISCARD' | translate}}</a>
+
+        </div>
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col">
+              <!--  input -->
+              <div class="form-outline">
+                <label class="form-label" for="form8Example1"> {{'employeeNameAr'|translate}} <span style="font-size: large;color: red;">*</span></label>
+                <ng-select name="employeeId"   [(ngModel)]="advanceData.employee.employeeId" class="form-control form-select" placeholder="-- اختر اسم الموظف --">
+                  <ng-option *ngFor="let emp of employees" [value] ="emp.employeeId">{{emp.employeeNameAr}}</ng-option>
+              </ng-select>
+              </div>
+
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col">
+              <!--  input -->
+              <div class="form-outline">
+                <label class="form-label" for="form8Example2">{{'advanceDate'|translate}}<span style="font-size: large;color: red;">*</span></label>
+                <mat-form-field appearance="outline">
+                  <mat-label>{{'selectDate'|translate}}</mat-label>
+                <!-- #docregion toggle -->
+                  <input type="date"
+                  #dateFrom [(ngModel)]="advanceData.submissionDate"
+                  id="submissionDate"
+                   name="submissionDate" matInput>
+
+                <!-- #enddocregion toggle -->
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-4">
+              <!--  input -->
+              <div class="form-outline">
+                <label class="form-label" for="form8Example1">{{'advanceAmount'|translate}}<span style="font-size: large;color: red;">*</span></label>
+                <input type="text"  [(ngModel)]="advanceData.advanceAmount"
+                value="" id="advanceAmount" name="advanceAmount" class="form-control"  />
+              </div>
+            </div>
+            <div class="col-4">
+              <!--  input -->
+              <div class="form-outline">
+                <label class="form-label" for="form8Example2">{{'numberOfInstallment'|translate}}<span style="font-size: large;color: red;">*</span></label>
+                <input type="text"  [(ngModel)]="advanceData.numberOfInstallment"
+                value="" id="numberOfInstallment" name="numberOfInstallment" class="form-control"  />
+              </div>
+            </div>
+            <div class="row">
+            <div class="col-4">
+              <!--  input -->
+              <div class="form-outline">
+                <label class="form-label" for="form8Example2">{{'deductionstartMonth'|translate}}<span style="font-size: large;color: red;">*</span></label>
+                <input type="text"  [(ngModel)]="advanceData.deductionStartMonth"
+                value="" id="deductionStartMonth" name="deductionStartMonth" class="form-control"  />
+              </div></div>
+              <div class="col-4">
+              <div class="form-outline">
+                <label class="form-label" for="form8Example2">{{'deductionstartYear'|translate}}<span style="font-size: large;color: red;">*</span></label>
+                <input type="text"  [(ngModel)]="advanceData.deductionStartYear"
+                value="" id="deductionStartYear" name="deductionStartYear" class="form-control"  />
+              </div>
+            </div></div>
+
+            <div class="col-4">
+              <!--  input -->
+              <div class="form-outline">
+                <div class="form-outline">
+                  <a style="color:#fff;" (click)="calculate(); getAppEmp();" class="btn btn-gray-dark m-5">{{'Calculate'|translate}}</a>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <hr />
+
+          <div class="row">
+            <div class="col-4">
+              <!--  input -->
+              <div class="form-outline">
+                <label class="form-label" for="form8Example1"> {{'monthlyPayment'|translate}} </label>
+                <input type="text"   [(ngModel)]="advanceData.monthlyPayment"
+                value="" id="monthlyPayment" name="monthlyPayment" class="form-control" disabled />
+              </div>
+            </div>
+            <div class="col-4">
+              <!--  input -->
+              <div class="form-outline">
+                <label class="form-label" for="form8Example1"> {{'deductionEndMontn'|translate}} </label>
+                <input type="text"   [(ngModel)]="deductionEndMonth"
+                value="" id="deductionEndMonth" name="deductionEndMonth" class="form-control" disabled />
+              </div>
+            </div>
+            <div class="col-4">
+              <!--  input -->
+              <div class="form-outline">
+                <label class="form-label" for="form8Example1"> {{'deductionEndYear'|translate}} </label>
+                <input type="text"   [(ngModel)]="deductionEndYear"
+                value="" id="deductionEndYear" name="deductionEndYear" class="form-control" disabled />
+              </div>
+            </div>
+
+          </div>
+      </div>
+
+      </form>
+
+
+
+
+  </div>
+</div>
+
+
+

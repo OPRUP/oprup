@@ -1,0 +1,121 @@
+<!--Page header-->
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{'coa' | translate}}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+
+      <li class="breadcrumb-item"><a [routerLink]="['/finance/']" class="d-flex">
+        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M0 0h24v24H0V0z" fill="none"/>
+          <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+          <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+            {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['finance/coa/coa/']">
+        {{"coa" | translate}} </a></li>
+      <li class="breadcrumb-item active" aria-current="page"> {{'VIEW' | translate}}</li>
+
+		</ol>
+	</div>
+</div>
+<!--End Page header-->
+<div class="row row-sm">
+    <div class="col-xl-12">
+      <div class="card" style="height: 100vh ;">
+        <div class="card-header pb-0">
+          <a [routerLink]="['/finance/coa/create-coa']" class="btn btn-dark">
+            <i class="fe fe-plus">
+          </i> {{'ADD' | translate}}</a>
+          &nbsp;&nbsp;&nbsp;
+
+        </div>
+        <!-- <div class="card-body">
+
+          <div class="table-responsive table-bordered table-hover table-striped">
+            <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" >
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding >
+                <button mat-icon-button disabled></button>
+                {{node.name}}&nbsp;&nbsp;
+                <button class="btn btn-gray shicon" (click)="onEditAccountById(node)" ><i class="fe fe-edit me-2 sicon "></i></button>
+                &nbsp;&nbsp;
+                <button class="btn btn-dark shicon"(click)="onPrintAccountById(node)"><i class="fe fe-eye me-2 sicon "></i></button>
+                </mat-tree-node>
+                <mat-tree-node   *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding >
+                <button mat-icon-button matTreeNodeToggle
+                [attr.aria-label]="'toggle ' + node.name">
+                <mat-icon class="mat-icon-rtl-mirror">
+                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                </mat-icon>
+                </button>
+                {{node.name}}&nbsp;&nbsp;
+                <button class="btn btn-gray shicon" (click)="onEditAccountById(node)" ><i class="fe fe-edit me-2 sicon "></i></button>
+                &nbsp;&nbsp;
+                <button class="btn btn-dark shicon" (click)="onPrintAccountById(node)"><i class="fe fe-eye me-2 sicon "></i></button>
+                </mat-tree-node>
+                </mat-tree>
+
+
+
+          </div>
+        </div> -->
+        <div class="theChart">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <ng-container matColumnDef="code" style="width:10px ;"  >
+            <th mat-header-cell *matHeaderCellDef  >
+              <span [style.paddingLeft.px]="40"> {{'accountCode' | translate}} </span>
+            </th>
+            <td mat-cell *matCellDef="let data"
+            [style.color]="data.expandable ? 'red' : 'black'"
+            [style.fontWeight]="data.expandable ? '600' : ''"
+
+            >
+            <!-- <button mat-icon-button
+            [style.visibility]="!data.expandable ? 'hidden' : ''"
+            [style.color]="data.expandable ? 'red' : 'black'"
+            [style.marginLeft.px]="data.level * 32"
+            (click)="treeControl.toggle(data)">
+      <mat-icon class="mat-icon-rtl-mirror">
+        {{treeControl.isExpanded(data) ? 'expand_more' : 'chevron_right'}}
+      </mat-icon>
+    </button>  -->
+
+
+              {{data.name.slice(0,data.name.indexOf('-'))}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>
+              <span [style.paddingLeft.px]="40"> {{'accounts' | translate}} </span>
+            </th>
+            <td mat-cell *matCellDef="let data" [style.color]="data.expandable ? 'red' : 'black'"
+            [style.fontWeight]="data.expandable ? '600' : ''"
+
+            >
+              <button mat-icon-button
+                      [style.visibility]="!data.expandable ? 'hidden' : ''"
+                      [style.color]="data.expandable ? 'red' : 'black'"
+                      [style.marginLeft.px]="data.level * 32"
+                      (click)="treeControl.toggle(data)">
+                <mat-icon class="mat-icon-rtl-mirror">
+                  {{treeControl.isExpanded(data) ? 'remove' : 'add'}}
+                </mat-icon>
+              </button>
+
+              {{data.name.slice(data.name.indexOf('-')+1)}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="count">
+            <th mat-header-cell *matHeaderCellDef> {{'ACTIONS' | translate}} </th>
+            <td mat-cell *matCellDef="let data"> <button class="btn btn-gray shicon" (click)="onEditAccountById(data)" ><i class="fe fe-edit me-2 sicon "></i>{{'EDIT' | translate}}</button>
+              &nbsp;&nbsp;
+              <!-- <button class="btn btn-dark shicon" (click)="onPrintAccountById(data)"><i class="fe fe-eye me-2 sicon "></i>{{'VIEW' | translate}}&{{'PRINT' | translate}}</button> </td> -->
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+  </div></div>
+

@@ -1,0 +1,530 @@
+<!--Page header-->
+<div class="page-header" *ngIf="employee">
+  <div class="page-leftheader">
+    <div class="card-header" *ngIf="this.translate.currentLang=='en'">
+      <h2 > {{employee.employeeName}}</h2>
+   </div>
+   <div class="card-header" *ngIf="this.translate.currentLang=='ar'">
+    <h2 > {{employee.employeeNameAr}}</h2>
+ </div>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/dashboard/']" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'HOME' | translate}}</span></a></li>
+       <li class="breadcrumb-item"><a [routerLink]="['/employees/employees/']">{{'Employees' | translate}}</a></li>
+      <li class="breadcrumb-item" aria-current="page">{{'Detailsemployee' | translate}}</li>
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+<div class="main" *ngIf="employee">
+  <div class="column-1">
+    <ul class="vertical-menu">
+      <li [routerLink]="['/employees/create-employee-details/'+ employee.employeeId]" [ngClass]="{'active':viewMode =='tab01'}">{{'BasicInformation' | translate}}</li>
+      <li [routerLink]="['/employees/create-employee11-employeed-information/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab03'}">{{'EmployeedInformation' | translate}}</li>
+      <!-- <li [routerLink]="['/employees/create-employee03-documents/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab03'}">{{'Documents' | translate}}</li> -->
+      <li [routerLink]="['/employees/create-employee05-address/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab05'}">{{'Address' | translate}}</li>
+      <li [routerLink]="['/employees/create-employee06-qualification/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab06'}">{{'Qualifications' | translate}}</li>
+      <li [routerLink]="['/employees/create-employee07-work-experience/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab07'}">{{'WorkExperiences' | translate}}</li>
+      <li [routerLink]="['/employees/create-employee08-bank-account/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab08'}">{{'BankAccounts' | translate}}</li>
+      <li [routerLink]="['/employees/create-employee09-contract/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab09'}">{{'Contract' | translate}}</li>
+      <li [routerLink]="['/employees/create-employee10-hokome/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab10'}">{{'hokomedetails' | translate}}</li>
+      <!-- <li [routerLink]="['/employees/create-employee11-employeed-information/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab11'}">{{'EmployeedInformation' | translate}}</li> -->
+      <li [routerLink]="['/employees/employee-residence-transportation/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tabResTrans'}">{{'residenceTransport' | translate}}</li>
+    </ul>
+  </div>
+  <div class="column-2" [ngSwitch]="viewMode">
+    <div *ngSwitchCase="'tab10'">
+      <div class="card">
+        <form
+        [formGroup]="form"
+         (ngSubmit)="onAddInsuranceDependent()">
+          <div class="card-header">
+             <h2>{{'hokomedetails' | translate}}</h2>
+          </div>
+          <mat-card-header>
+            <button type="submit" id="add-InsuranceDependent-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+            <a [routerLink]="['/employees/employees']" class="btn btn-light m-3">{{'DISCARD' | translate}}</a>
+          </mat-card-header>
+          <div class="row m-3">
+            <div class="col-md-6">
+             <!-- <label for="" class="form-label">Employee Name:</label> -->
+             <input type="hidden" value={{employee.employeeName}} style="text-align: center;" readonly class="form-control mt-2 text-line">
+            </div>
+            <div class="col-md-6">
+             <!-- <label for="" class="form-label">Employee ID:</label> -->
+             <input type="hidden" value={{employee.employeeId}} style="text-align: center;" readonly class="form-control mt-2 text-line">
+            </div>
+          </div>
+          <u> <h1 style="font-weight: bold;">{{'visa' | translate}}</h1></u>
+          <br>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'visa' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <input type="text"
+
+              formControlName="visa"
+              [ngClass]="{ 'is-invalid': submitted && f['visa'].errors }"
+              #visa
+              [(ngModel)]="emp10.visa" id="visa" name="visa"
+              class="form-control mt-2 text-line"  >
+
+              <div *ngIf="submitted && f['visa'].errors" class="invalid-feedback">
+                <div
+                *ngIf="f['visa'].errors['required']">{{'isReqired' | translate }}.</div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'typeVisa' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <input type="text"
+
+              formControlName="typeVisa"
+              [ngClass]="{ 'is-invalid': submitted && f['typeVisa'].errors }"
+              #typeVisa
+              [(ngModel)]="emp10.typeVisa" id="typeVisa" name="typeVisa"
+              class="form-control mt-2 text-line"  >
+
+              <div *ngIf="submitted && f['typeVisa'].errors" class="invalid-feedback">
+                <div
+                *ngIf="f['typeVisa'].errors['required']">{{'isReqired' | translate }}.</div>
+              </div>
+
+            </div>
+
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'jobByVisa' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <input type="text"
+
+              formControlName="jobByVisa"
+              [ngClass]="{ 'is-invalid': submitted && f['jobByVisa'].errors }"
+              #jobByVisa
+              [(ngModel)]="emp10.jobByVisa" id="jobByVisa" name="jobByVisa"
+              class="form-control mt-2 text-line"  >
+
+              <div *ngIf="submitted && f['jobByVisa'].errors" class="invalid-feedback">
+                <div
+                *ngIf="f['jobByVisa'].errors['required']">{{'isReqired' | translate }}.</div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'enterVisaDate' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <mat-form-field appearance="outline">
+                <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+                <input type="date" name="enterVisaDate"
+                 formControlName="enterVisaDate"
+                [ngClass]="{ 'is-invalid': submitted && f['enterVisaDate'].errors }"
+                #enterVisaDate
+                [(ngModel)]="emp10.enterVisaDate" matInput>
+
+              </mat-form-field>
+
+            </div>
+
+          </div>
+            <div class="m-3 row">
+              <div class="col-md-6">
+                <label for="" class="form-label">{{'startVisaDate' | translate}}<span style="font-size: large;color: red;">*</span></label>
+                <mat-form-field appearance="outline">
+                  <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+                  <input type="date" name="startVisaDate"
+                   formControlName="startVisaDate"
+                  [ngClass]="{ 'is-invalid': submitted && f['startVisaDate'].errors }"
+                  #startVisaDate
+                  [(ngModel)]="emp10.startVisaDate" matInput >
+
+                </mat-form-field>
+
+              </div>
+
+              <div class="col-md-6">
+                <label for="" class="form-label">{{'endVisaDate' | translate}}<span style="font-size: large;color: red;">*</span></label>
+                <mat-form-field appearance="outline">
+                  <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+                  <input type="date" name="endVisaDate"
+                   formControlName="endVisaDate"
+                  [ngClass]="{ 'is-invalid': submitted && f['endVisaDate'].errors }"
+                  #endVisaDate
+                  [(ngModel)]="emp10.endVisaDate" matInput>
+
+                </mat-form-field>
+
+              </div>
+
+            </div>
+          <hr style="color:black; border-color: black;">
+          <u> <h1 style="font-weight: bold;">{{'medicalExamination' | translate}}</h1></u>
+          <br>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'medicalExaminationCode' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <input type="text"
+
+              formControlName="medicalExaminationCode"
+              [ngClass]="{ 'is-invalid': submitted && f['medicalExaminationCode'].errors }"
+              #medicalExaminationCode
+              [(ngModel)]="emp10.medicalExaminationCode" id="medicalExaminationCode" name="medicalExaminationCode"
+              class="form-control mt-2 text-line"  >
+
+              <div *ngIf="submitted && f['medicalExaminationCode'].errors" class="invalid-feedback">
+                <div
+                *ngIf="f['medicalExaminationCode'].errors['required']">{{'isReqired' | translate }}.</div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'medicalTestResult' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <ng-select type="text"
+
+              formControlName="medicalTestResult"
+              [ngClass]="{ 'is-invalid': submitted && f['medicalTestResult'].errors }"
+              #medicalTestResult
+              [(ngModel)]="emp10.medicalTestResult" id="medicalTestResult" name="medicalTestResult"
+              class="form-control mt-2 text-line" placeholder="-- {{'medicalTestResult' | translate }} --" >
+
+              <ng-option  value ="ايجابي">{{'positive' | translate }}</ng-option>
+              <ng-option  value ="سلبي">{{'negative' | translate }}</ng-option>
+              </ng-select>
+              <div *ngIf="submitted && f['medicalTestResult'].errors" class="invalid-feedback">
+                <div
+                *ngIf="f['medicalTestResult'].errors['required']">{{'isReqired' | translate }}.</div>
+              </div>
+            </div>
+
+            </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'procedureDate' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <mat-form-field appearance="outline">
+                <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+                <input type="date" name="procedureDate"
+                 formControlName="procedureDate"
+                [ngClass]="{ 'is-invalid': submitted && f['procedureDate'].errors }"
+                #procedureDate
+                [(ngModel)]="emp10.procedureDate" matInput >
+
+              </mat-form-field>
+
+            </div>
+            <!-- <div class="col-md-6">
+              <label for="" class="form-label">{{'procedureDate' | translate}}<span style="font-size: large;color: red;">*</span></label>
+                <mat-form-field appearance="outline">
+                  <mat-label>{{'Chooseadate' | translate}}</mat-label>
+
+                  <input #dateBirth name="procedureDate" [(ngModel)]="emp10.procedureDate" matInput [matDatepicker]="picker4">
+                  <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                  <mat-datepicker #picker4></mat-datepicker>
+
+                </mat-form-field>
+            </div> -->
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'medicalResultDate' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <mat-form-field appearance="outline">
+                <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+                <input type="date" name="medicalResultDate"
+                 formControlName="medicalResultDate"
+                [ngClass]="{ 'is-invalid': submitted && f['medicalResultDate'].errors }"
+                #medicalResultDate
+                [(ngModel)]="emp10.medicalResultDate" matInput>
+
+              </mat-form-field>
+
+            </div>
+
+          </div>
+          <hr style="color:black; border-color: black;">
+         <u> <h1 style="font-weight: bold;">{{'insurances' | translate}}</h1></u>
+         <br>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'insurancesCode' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <input type="text"
+
+              formControlName="insurancesCode"
+              [ngClass]="{ 'is-invalid': submitted && f['insurancesCode'].errors }"
+              #insurancesCode
+              [(ngModel)]="emp10.insurancesCode" id="insurancesCode" name="insurancesCode"
+              class="form-control mt-2 text-line"  >
+
+              <div *ngIf="submitted && f['insurancesCode'].errors" class="invalid-feedback">
+                <div
+                *ngIf="f['insurancesCode'].errors['required']">{{'isReqired' | translate }}.</div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'insurancesType' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <input type="text"
+
+              formControlName="insurancesType"
+              [ngClass]="{ 'is-invalid': submitted && f['insurancesType'].errors }"
+              #insurancesType
+              [(ngModel)]="emp10.insurancesType" id="insurancesType" name="insurancesType"
+              class="form-control mt-2 text-line"  >
+
+              <div *ngIf="submitted && f['insurancesType'].errors" class="invalid-feedback">
+                <div
+                *ngIf="f['insurancesType'].errors['required']">{{'isReqired' | translate }}.</div>
+              </div>
+
+            </div>
+
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'insurancesStartDate' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <mat-form-field appearance="outline">
+                <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+                <input type="date" name="insurancesStartDate"
+                 formControlName="insurancesStartDate"
+                [ngClass]="{ 'is-invalid': submitted && f['insurancesStartDate'].errors }"
+                #insurancesStartDate
+                [(ngModel)]="emp10.insurancesStartDate" matInput>
+
+              </mat-form-field>
+
+            </div>
+
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'insurancesEndDate' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <mat-form-field appearance="outline">
+                <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+                <input type="date" name="insurancesEndDate"
+                 formControlName="insurancesEndDate"
+                [ngClass]="{ 'is-invalid': submitted && f['insurancesEndDate'].errors }"
+                #insurancesEndDate
+                [(ngModel)]="emp10.insurancesEndDate" matInput >
+
+              </mat-form-field>
+
+            </div>
+
+          </div>
+          <hr style="color:black; border-color: black;">
+         <u> <h1 style="font-weight: bold;">{{'Residences' | translate}}</h1></u>
+          <br>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'residencyCode' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <input type="text"
+
+              formControlName="residenceNumber"
+              [ngClass]="{ 'is-invalid': submitted && f['residenceNumber'].errors }"
+              #residenceNumber
+              [(ngModel)]="emp10.residenceNumber" id="residenceNumber" name="residenceNumber"
+              class="form-control mt-2 text-line"  >
+
+              <div *ngIf="submitted && f['residenceNumber'].errors" class="invalid-feedback">
+                <div
+                *ngIf="f['residenceNumber'].errors['required']">{{'isReqired' | translate }}.</div>
+              </div>
+
+            </div>
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'jobByResidence' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <input type="text"
+
+              formControlName="jobByResidence"
+              [ngClass]="{ 'is-invalid': submitted && f['jobByResidence'].errors }"
+              #jobByResidence
+              [(ngModel)]="emp10.jobByResidence" id="jobByResidence" name="jobByResidence"
+              class="form-control mt-2 text-line"  >
+
+              <div *ngIf="submitted && f['jobByResidence'].errors" class="invalid-feedback">
+                <div
+                *ngIf="f['jobByResidence'].errors['required']">{{'isReqired' | translate }}.</div>
+              </div>
+
+            </div>
+            <!-- <div class="col-md-6">
+              <label for="" class="form-label">{{'residenceNumber' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <input type="text" #residenceNumber [(ngModel)]="emp10.residenceNumber" id="residenceNumber" name="residenceNumber"
+               class="form-control mt-2 text-line" >
+            </div> -->
+
+
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'residenceStartDate' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <mat-form-field appearance="outline">
+                <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+                <input type="date" name="residenceIssue"
+                 formControlName="residenceIssue"
+                [ngClass]="{ 'is-invalid': submitted && f['residenceIssue'].errors }"
+                #residenceIssue
+                [(ngModel)]="emp10.residenceIssue" matInput>
+
+              </mat-form-field>
+
+            </div>
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'residenceExpiry' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <mat-form-field appearance="outline">
+                <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+                <input  type="date" name="residenceExpiry"
+                 formControlName="residenceExpiry"
+                [ngClass]="{ 'is-invalid': submitted && f['residenceExpiry'].errors }"
+                #exitDate
+                [(ngModel)]="emp10.residenceExpiry" matInput >
+
+              </mat-form-field>
+
+            </div>
+
+            <!-- <div class="col-md-6">
+              <label for="" class="form-label">{{'jobByResidence' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <input type="text" #jobByResidence [(ngModel)]="emp10.jobByResidence" id="jobByResidence" name="jobByResidence"
+               class="form-control mt-2 text-line" >
+            </div> -->
+
+          </div>
+
+
+            <div class="m-3 row">
+
+
+
+
+            <!-- <div class="col-md-6">
+              <label for="" class="form-label">{{'escapeReports' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <input type="text"
+
+              formControlName="escapeReports"
+              [ngClass]="{ 'is-invalid': submitted && f['escapeReports'].errors }"
+              #escapeReports
+              [(ngModel)]="emp10.escapeReports" id="escapeReports" name="escapeReports"
+              class="form-control mt-2 text-line"  >
+
+              <div *ngIf="submitted && f['escapeReports'].errors" class="invalid-feedback">
+                <div
+                *ngIf="f['escapeReports'].errors['required']">{{'isReqired' | translate }}.</div>
+              </div>
+
+            </div> -->
+
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'warrantyDate' | translate}}</label>
+              <mat-form-field appearance="outline">
+                <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+                <input type="date" name="warrantyDate"
+                #warrantyDate
+                [(ngModel)]="emp10.warrantyDate" [ngModelOptions]="{standalone: true}"
+                 matInput >
+
+              </mat-form-field>
+
+            </div>
+
+<!--
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'exitDate' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <mat-form-field appearance="outline">
+                <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+                <input name="exitDate"
+                 formControlName="exitDate"
+                [ngClass]="{ 'is-invalid': submitted && f['exitDate'].errors }"
+                #exitDate
+                [(ngModel)]="emp10.exitDate" matInput [matDatepicker]="picker10">
+                <mat-datepicker-toggle matSuffix [for]="picker10"></mat-datepicker-toggle>
+
+                <mat-datepicker #picker10></mat-datepicker>
+              </mat-form-field>
+
+            </div> -->
+
+
+
+
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'hijriWarrantyDate' | translate }}</label>
+              <div class="input-group mb-3">
+
+              <input class="form-control col-6" placeholder="{{'DD/MM/YYYY' | translate}}" name="fechaHasta" [(ngModel)]="model"
+              [ngModelOptions]="{standalone: true}" ngbDatepicker #d110="ngbDatepicker">
+              <div class="input-group-prepend" (click)="d110.toggle()">
+                <span class="input-group-text" id="basic-addon1"><img src="../../../assets/images/icons/ic13.png"
+                  style="width: 1.2rem; height: 1.5rem; cursor: pointer;"/></span>
+              </div>
+              </div>
+
+</div>
+
+<div>
+
+            <div class="card-title bg-dark p-3 text-white">
+              {{'hokomedetails' | translate}}
+            </div>
+            <div class="table-responsive table-bordered table-hover table-striped">
+              <table class="table text-md-nowrap" id="myTable1">
+                <thead>
+                  <tr style="white-space: nowrap;" class="text-center">
+                    <th class="wd-15p border-bottom-0">{{'visa' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'startVisaDate' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'endVisaDate' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'jobByVisa' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'typeVisa' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'enterVisaDate' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'medicalExaminationCode' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'procedureDate' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'medicalResultDate' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'medicalTestResult' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'insurancesCode' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'insurancesType' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'insurancesStartDate' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'insurancesEndDate' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'jobByResidence' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'warrantyDate' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'hijriWarrantyDate' | translate}}</th>
+                    <!-- <th class="wd-15p border-bottom-0">{{'exitDate' | translate}}</th> -->
+
+                    <th class="wd-15p border-bottom-0">{{'Action' | translate}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="white-space: nowrap;" class="text-center" *ngFor="let empHealthInsurance of empHealthInsurances">
+                    <td>{{ empHealthInsurance.visa }}</td>
+                    <td>{{ empHealthInsurance.startVisaDate }}</td>
+                    <td>{{ empHealthInsurance.endVisaDate }}</td>
+                    <td>{{ empHealthInsurance.jobByVisa }}</td>
+                    <td>{{ empHealthInsurance.typeVisa }}</td>
+                    <td>{{ empHealthInsurance.enterVisaDate }}</td>
+                    <td>{{ empHealthInsurance.medicalExaminationCode }}</td>
+                    <td>{{ empHealthInsurance.procedureDate }}</td>
+                    <td>{{ empHealthInsurance.medicalResultDate }}</td>
+                    <td>{{ empHealthInsurance.medicalTestResult }}</td>
+                    <td>{{ empHealthInsurance.insurancesCode }}</td>
+                    <td>{{ empHealthInsurance.insurancesType }}</td>
+                    <td>{{ empHealthInsurance.insurancesStartDate }}</td>
+                    <td>{{ empHealthInsurance.insurancesEndDate }}</td>
+                    <td>{{ empHealthInsurance.jobByResidence }}</td>
+                    <td>{{ empHealthInsurance.warrantyDate }}</td>
+                    <td>{{ empHealthInsurance.hijriWarrantyDate }}</td>
+                    <!-- <td>{{ empHealthInsurance.exitDate }}</td> -->
+                    <td class="align-middle">
+                      <div class="btn-group align-top">
+                        <button  class="btn btn-sm btn-light btn-svg" type="button" (click)="deleteEmployeeHealth(empHealthInsurance.hokomeId)" ><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M8 9h8v10H8z" opacity=".3"/><path d="M15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"/></svg></button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+  </div>

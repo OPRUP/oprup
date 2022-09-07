@@ -1,0 +1,101 @@
+<!--Page header-->
+<div class="page-header">
+  <div class="page-leftheader">
+    <h2 class="page-title">{{'siteVisits' | translate}}</h2>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+
+      <li class="breadcrumb-item"><a [routerLink]="['/operation/']" class="d-flex">
+          <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0V0z" fill="none" />
+            <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z" />
+            <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3" />
+          </svg><span class="breadcrumb-icon">
+            {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/operation/site-visits/site-visits/']">
+
+          {{"siteVisits" | translate}} </a></li>
+      <li class="breadcrumb-item active" aria-current="page"> {{'ADD' | translate}}</li>
+
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+<div class="card">
+  <form (ngSubmit)="onAddSiteVisits()" [formGroup]="form" class="form-horizontal">
+
+    <div class="card-header">
+      <button type="submit" id="add-visit-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+      <a [routerLink]="['/operation/site-visits/site-visits']" class="btn btn-light">{{'DISCARD' | translate}}</a>
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'visitNumber' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <input readonly type="text" #visitNumber [(ngModel)]="siteVisitsData.visitNumber"
+          [ngModelOptions]="{standalone: true}" id="visitNumber" name="visitNumber" class="form-control mt-2 text-line"
+          placeholder="">
+      </div>
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'costumer' | translate}}
+          <span style="font-size: large;color: red;">*</span></label>
+        <ng-select name="customer.customerId" formControlName="customerId"
+          [ngClass]="{ 'is-invalid': submitted && f['customerId'].errors }" #customerId
+          [(ngModel)]="siteVisitsData.customer.customerId" class="form-control form-select">
+          <ng-option *ngFor="let customer of customers" [value]="customer.customerId">{{customer.nameAr}}
+          </ng-option>
+        </ng-select>
+        <div *ngIf="submitted && f['customerId'].errors" class="invalid-feedback">
+          <div *ngIf="f['customerId'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="m-3 row">
+
+      <div class="col-md-6">
+        <label for="" class="form-label"> {{'visitTime' | translate}} </label>
+            <input class="form-control mt-2 text-line" formControlName="visitTime"
+            [ngClass]="{ 'is-invalid': submitted && f['visitTime'].errors }" #visitTime
+            [(ngModel)]="siteVisitsData.visitTime" type="time" id="visitTime" name="visitTime"/>
+
+            <div *ngIf="submitted && f['visitTime'].errors" class="invalid-feedback">
+              <div *ngIf="f['visitTime'].errors['required']">{{'isReqired'|translate}}.</div>
+            </div>
+      </div>
+      <div class="col-md-6">
+
+        <label for="" class="form-label">{{'Project' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <ng-select name="project.projectId" formControlName="projectId"
+          [ngClass]="{ 'is-invalid': submitted && f['projectId'].errors }" #projectId
+          [(ngModel)]="siteVisitsData.project.projectId" class="form-control form-select">
+          <ng-option *ngFor="let project of projects" [value]="project.projectId">{{project.projectName}}</ng-option>
+        </ng-select>
+        <div *ngIf="submitted && f['projectId'].errors" class="invalid-feedback">
+          <div *ngIf="f['projectId'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+      </div>
+
+    </div>
+<br>
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'visitDate' | translate}}<span style="font-size: large;color: red;">*</span></label>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+          <input type="date" name="visitDate" formControlName="visitDate"
+            [ngClass]="{ 'is-invalid': submitted && f['visitDate'].errors }" #visitDate
+            [(ngModel)]="siteVisitsData.visitDate" matInput >
+
+          <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker> -->
+        </mat-form-field>
+        <div *ngIf="submitted && f['visitDate'].errors" class="invalid-feedback">
+          <div *ngIf="f['visitDate'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>

@@ -1,0 +1,239 @@
+<!--Page header-->
+<div class="page-header">
+  <div class="page-leftheader">
+    <h2 class="page-title">{{'Survey' | translate}}</h2>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+
+      <li class="breadcrumb-item"><a [routerLink]="['/operation/']" class="d-flex">
+          <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0V0z" fill="none" />
+            <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z" />
+            <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3" /></svg><span class="breadcrumb-icon">
+            {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/operation/survey/survey/']">
+          {{"Survey" | translate}} </a></li>
+      <li class="breadcrumb-item active" aria-current="page"> {{'VIEW' | translate}}</li>
+
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+
+<!-- row opened -->
+<div class="row row-sm">
+  <div class="col-xl-12">
+    <div class="card">
+
+      <div class="card-body">
+
+        <form
+        (ngSubmit)="onAddSurvey()"  >
+        <div class="card-header">
+          <button type="submit" id="add-store-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+          <a [routerLink]="['/operation/Survey/Survey']" class="btn btn-light">{{'DISCARD' | translate}}</a>
+        </div>
+                  <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'Name' | translate}}</label>
+              <input type="text"
+
+
+          [(ngModel)]="surveyData.question1"
+
+              id="Name" name="Name" class="form-control mt-2 text-line" placeholder="Name">
+            </div>
+
+
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'Email' | translate}}</label>
+              <input type="text"
+
+          [(ngModel)]="surveyData.question2"
+
+              id="question2" name="Email" class="form-control mt-2 text-line" placeholder="Email">
+            </div>
+</div>
+
+            <div class="m-3 row">
+              <div class="col-md-6">
+                <label for="" class="form-label">{{'Number' | translate}}</label>
+                <input type="text"
+
+                          [(ngModel)]="surveyData.question4"
+
+                id="Number" name="Number" class="form-control mt-2 text-line" placeholder="Number">
+              </div>
+            </div>
+
+            <br>
+            <br>
+              <div class="m-3 row">
+
+                <label for="" class="form-label">{{'Are you proud to work for our organization? (Yes/No) Why?' | translate}}</label>
+                <input type="text"
+
+
+          [(ngModel)]="surveyData.question3"
+
+
+                 id="text" name="text" class="form-control mt-2 text-line" >
+              </div>
+
+
+  <div class="m-3 row">
+
+              <label class="form-label">
+                {{'What was the number one reason you joined our organization?' | translate}}
+              </label><br>
+              <input type="text"
+
+              [(ngModel)]="surveyData.question5"
+
+    id="question5" name="question5" class="form-control mt-2 text-line" >
+  </div>
+              <!-- <select
+                class="form-select form-select-lg p-2"  [(ngModel)]='surveyData.question5' name="question5" required>
+                <option  [(ngModel)]='surveyData.question5' value="Excellent" >⭐⭐⭐⭐⭐(Lightening Fast)
+                </option>
+                <option  [(ngModel)]='surveyData.question5'
+                value="Good">⭐⭐⭐⭐(Fast)</option>
+                <option  [(ngModel)]='surveyData.question5'
+
+                value="Fair">⭐⭐⭐(Averagely Fast)</option>
+                <option  [(ngModel)]='surveyData.question5'
+
+                value="Poor">⭐⭐(Slow)</option>
+                <option  [(ngModel)]='surveyData.question5'
+
+                value="VeryPoor">⭐(Very Slow)</option>
+              </select> -->
+
+            <div class="m-3 row">
+
+                <label class="form-label">
+   {{'How likely would you leave this organization if another company offered you a 5% raise? Give a percentage' | translate}}
+                </label><br>
+            <input type="text"
+
+                [(ngModel)]="surveyData.question7"
+
+      id="question6" name="question6" class="form-control mt-2 text-line" >
+
+              </div>
+            <div class="m-3 row">
+
+                <label class="form-label">
+   {{'If you were to leave this organization tomorrow, what would the reason(s) be? Please explain in detail.' | translate}}
+                </label><br>
+            <input type="text"
+
+                [(ngModel)]="surveyData.question8"
+
+      id="question7" name="question7" class="form-control mt-2 text-line" >
+
+              </div>
+            <div class="m-3 row">
+
+                <label class="form-label">
+   {{'Name what you think our company three biggest strengths are that you think we should be focusing on more.' | translate}}
+                </label><br>
+            <input type="text"
+
+
+
+      id="question7" name="question7" class="form-control mt-2 text-line" >
+
+              </div>
+            <div class="m-3 row">
+
+                <label class="form-label">
+   {{'Are we a better organization now than we were six months ago? If we are, address at least three changes that had a positive impact on this' | translate}}
+                </label><br>
+            <input type="text"
+
+              
+
+      id="question8" name="question8" class="form-control mt-2 text-line" >
+
+              </div>
+
+
+
+
+            <!-- <div class="m-3 row">
+            <div
+
+
+            class="sub-group">
+              Where do you use VPN?
+              <br>
+
+              <label>
+                <input name="anything"  [(ngModel)]="surveyData.question6"   type="radio" value="home">
+                Home</label>
+              <br>
+              <label>
+                <input name="anything" [(ngModel)]="surveyData.question6"  type="radio" value="office">Office
+              </label>
+              <br>
+              <label>
+                <input name="anything"  [(ngModel)]="surveyData.question6"  type="radio" value="anywhere">Anywhere
+              </label>
+            </div>
+            <br>
+            <div
+
+            class="sub-group" required>
+              To validate this process tick as many colors not available on this page
+              <br>
+              <label [(ngModel)]="surveyData.question7" >
+                <input name="tickers"
+                value="white" [(ngModel)]="surveyData.question7" type="radio">
+                White
+              </label>
+              <br>
+              <label>
+                <input name="tickers"  [(ngModel)]="surveyData.question7" value="green" type="radio" required>
+                Green
+              </label>
+              <br>
+              <label>
+                <input name="tickers"  [(ngModel)]="surveyData.question7" value="black" type="radio">
+                Black
+              </label>
+              <br>
+              <label>
+                <input name="tickers" [(ngModel)]="surveyData.question7" value="purple" type="radio" required>
+                Purple
+              </label>
+              <br>
+              <label>
+                <input name="tickers" [(ngModel)]="surveyData.question7"  value="pink" type="radio" required>
+                Pink
+              </label>
+            </div>
+
+</div> -->
+
+            <!-- <div class="sub-group">
+              <label>
+                Comments:
+              </label>
+              <br>
+              <textarea
+
+
+          [(ngModel)]="surveyData.question8"
+
+              id="comment-box" class="form-control mt-2 text-line" name="comment" placeholder="Type here">
+                    </textarea>
+            </div>
+            <div class="sub-group">
+              <button type="submit"
+              class="btn btn-dark m-3" id="submit">
+                Submit
+              </button> -->
+            <!-- </div> -->
+        </form>

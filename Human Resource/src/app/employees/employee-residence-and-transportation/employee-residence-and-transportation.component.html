@@ -1,0 +1,181 @@
+<!--Page header-->
+<div class="page-header" *ngIf="employee" >
+    <div class="page-leftheader">
+      <div class="card-header" *ngIf="this.translate.currentLang=='en'">
+        <h2 > {{employee.employeeName}}</h2>
+     </div>
+     <div class="card-header" *ngIf="this.translate.currentLang=='ar'">
+      <h2 > {{employee.employeeNameAr}}</h2>
+   </div>
+    </div>
+    <div class="page-rightheader ms-auto d-lg-flex d-none">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/dashboard/']" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'HOME' | translate}}</span></a></li>
+         <li class="breadcrumb-item"><a [routerLink]="['/employees/employees/']">{{'Employees' | translate}}</a></li>
+        <li class="breadcrumb-item" aria-current="page">{{'Detailsemployee' | translate}}</li>
+      </ol>
+    </div>
+  </div>
+  <!--End Page header-->
+  <div class="main" *ngIf="employee">
+    <div class="column-1">
+      <ul class="vertical-menu">
+        <li [routerLink]="['/employees/create-employee-details/'+ employee.employeeId]" [ngClass]="{'active':viewMode =='tab01'}">{{'BasicInformation' | translate}}</li>
+        <li [routerLink]="['/employees/create-employee11-employeed-information/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab03'}">{{'EmployeedInformation' | translate}}</li>
+        <!-- <li [routerLink]="['/employees/create-employee03-documents/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab03'}">{{'Documents' | translate}}</li> -->
+        <li [routerLink]="['/employees/create-employee05-address/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab05'}">{{'Address' | translate}}</li>
+        <li [routerLink]="['/employees/create-employee06-qualification/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab06'}">{{'Qualifications' | translate}}</li>
+        <li [routerLink]="['/employees/create-employee07-work-experience/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab07'}">{{'WorkExperiences' | translate}}</li>
+        <li [routerLink]="['/employees/create-employee08-bank-account/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab08'}">{{'BankAccounts' | translate}}</li>
+        <li [routerLink]="['/employees/create-employee09-contract/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab09'}">{{'Contract' | translate}}</li>
+        <li [routerLink]="['/employees/create-employee10-hokome/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab10'}">{{'hokomedetails' | translate}}</li>
+        <!-- <li [routerLink]="['/employees/create-employee11-employeed-information/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab11'}">{{'EmployeedInformation' | translate}}</li> -->
+        <li [routerLink]="['/employees/employee-residence-transportation/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tabResTrans'}">{{'residenceTransport' | translate}}</li>
+    </ul>
+    </div>
+    <div class="column-2" [ngSwitch]="viewMode">
+      <div *ngSwitchCase="'tabResTrans'">
+        <div class="card">
+          <form
+          [formGroup]="form"
+
+
+          (ngSubmit)="onAddReseidenceTransportation()">
+            <div class="card-header">
+               <h2>{{'residenceTransport' | translate}}</h2>
+            </div>
+            <mat-card-header>
+              <button type="submit" id="add-InsuranceDependent-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+              <a [routerLink]="['/employees/employees']" class="btn btn-light m-3">{{'DISCARD' | translate}}</a>
+            </mat-card-header>
+            <div class="row m-3">
+              <div class="col-md-6">
+               <!-- <label for="" class="form-label">Employee Name:</label> -->
+               <input type="hidden" value={{employee.employeeName}} style="text-align: center;" readonly class="form-control mt-2 text-line">
+              </div>
+              <div class="col-md-6">
+               <!-- <label for="" class="form-label">Employee ID:</label> -->
+               <input type="hidden" value={{employee.employeeId}} style="text-align: center;" readonly class="form-control mt-2 text-line">
+              </div>
+            </div>
+            <u> <h1 style="font-weight: bold;">{{'Habitation' | translate}}</h1></u>
+            <br>
+            <div class="m-3 row">
+                <div class="col-md-6">
+                  <label for="" class="form-label">{{ 'ResidenceName:' | translate }}<span style="font-size: large;color: red;">*</span></label>
+                  <ng-select name="resTransData.habitation.habitationId" (change)="getRoomsByHabitant($event)"
+                  formControlName="habitationId"
+                   [ngClass]="{ 'is-invalid': submitted && f['habitationId'].errors }"
+                  #habitationId
+
+                  [(ngModel)]="resTransData.habitation.habitationId" class="form-control form-select">
+                    <ng-option *ngFor="let data of habitation" [value] ="data.habitationId">{{ data.habitationName }}</ng-option>
+                  </ng-select>
+                  <div *ngIf="submitted && f['habitationId'].errors" class="invalid-feedback">
+                    <div *ngIf="f['habitationId'].errors['required']">{{'isReqired'|translate}}.</div></div>
+                </div>
+                <div class="col-md-6">
+                    <label for="" class="form-label">{{ 'Room' | translate }}<span style="font-size: large;color: red;">*</span></label>
+                    <ng-select name="resTransData.room.roomId"
+                    formControlName="roomId"
+                 [ngClass]="{ 'is-invalid': submitted && f['roomId'].errors }"
+               #roomId
+                    [(ngModel)]="resTransData.room.roomId" class="form-control form-select">
+                      <ng-option *ngFor="let data of roomByHabitation" [value] ="data.roomId">{{ data.roomCode }}</ng-option>
+                    </ng-select>
+                    <div *ngIf="submitted && f['roomId'].errors" class="invalid-feedback">
+                        <div *ngIf="f['roomId'].errors['required']">{{'isReqired'|translate}}.</div></div>
+                  </div>
+              </div>
+
+
+            <hr style="color:black; border-color: black;">
+            <u> <h1 style="font-weight: bold;">{{'Transportation' | translate}}</h1></u>
+            <br>
+            <div class="m-3 row">
+                <div class="col-md-6">
+                  <label for="" class="form-label">{{ 'transportationMeanCode' | translate }}<span style="font-size: large;color: red;">*</span></label>
+                  <ng-select name="resTransData.transportation.transportationMeanId"
+                  formControlName="transportationMeanId"
+             [ngClass]="{ 'is-invalid': submitted && f['transportationMeanId'].errors }"
+                #transportationMeanId
+
+                  [(ngModel)]="resTransData.transportation.transportationMeanId" class="form-control form-select">
+                    <ng-option *ngFor="let data of transportation" [value] ="data.transportationMeanId">{{ data.transportationMeanCode }}</ng-option>
+                  </ng-select>
+                  <div *ngIf="submitted && f['transportationMeanId'].errors" class="invalid-feedback">
+                    <div *ngIf="f['transportationMeanId'].errors['required']">{{'isReqired'|translate}}.</div></div>
+                </div>
+                <div class="col-md-6">
+                    <label for="" class="form-label">{{ 'shift' | translate }}<span style="font-size: large;color: red;">*</span></label>
+                    <ng-select name="resTransData.shift"
+                    formControlName="shift"
+        [ngClass]="{ 'is-invalid': submitted && f['shift'].errors }"
+        #shift
+                    [(ngModel)]="resTransData.shift" class="form-control form-select">
+                        <ng-option  (ngModel)='resTransData.shift' value="A">A</ng-option>
+                        <ng-option  (ngModel)='resTransData.shift' value="B">B</ng-option>
+
+                    </ng-select>
+                    <div *ngIf="submitted && f['shift'].errors" class="invalid-feedback">
+                        <div *ngIf="f['shift'].errors['required']">{{'isReqired'|translate}}.</div></div>
+                  </div>
+              </div>
+
+          </form>
+          <card-footer>
+
+            <div class="card-footer">
+              <div class="card-title bg-dark p-3 text-white">
+                <!-- List Of Experience -->
+              </div>
+              <div class="table-responsive table-bordered table-hover table-striped">
+                <table class="table text-md-nowrap" id="myTable1">
+                  <thead>
+                    <tr>
+                      <th class="wd-15p border-bottom-0">{{'Habitation' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'Room' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'transportationMeanCode' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'shift' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'ACTIONS' | translate}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                    <tr *ngFor="let data of residenceTransport">
+                      <td>{{ data.habitation.habitationName }}</td>
+                      <td>{{ data.room.roomCode }}</td>
+                      <td>{{ data.transportation.transportationMeanCode }}</td>
+                      <td>{{ data.shift }}</td>
+                      <td class="align-middle">
+                        <div class="btn-group align-top">
+                            <button  class="btn btn-sm btn-light btn-svg" type="button" (click)="deleteEmployeeResidence(data)" ><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M8 9h8v10H8z" opacity=".3"/><path d="M15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"/>
+                            </svg>
+                            <input type="hidden"  [(ngModel)]="data.employeeResTransId" [ngModelOptions]="{standalone: true}" name="employeeResTransId" id="employeeResTransId">
+                            <input type="hidden"  [(ngModel)]="data.habitation.habitationName" [ngModelOptions]="{standalone: true}" name="habitationName" id="habitationName">
+                            <input type="hidden"  [(ngModel)]="data.room.roomCode" [ngModelOptions]="{standalone: true}" name="roomCode" id="roomCode">
+                            <input type="hidden"  [(ngModel)]="data.transportation.transportationMeanCode" [ngModelOptions]="{standalone: true}"name="transportationMeanCode" id="transportationMeanCode">
+
+                            <input type="hidden"  [(ngModel)]="data.shift" [ngModelOptions]="{standalone: true}" name="shift" id="shift">
+                            <input type="hidden"  [(ngModel)]="data.deleteFlag" [ngModelOptions]="{standalone: true}" name="deleteFlag" id="deleteFlag">
+
+                        </button>
+                        <button  class="btn btn-sm btn-light btn-svg" type="button" (click)="editEmployeeResTrans(employeeId)" title="{{'ContractDetails' | translate }}"><i class="fe fe-edit me-2"></i></button>
+                          <!-- <button  class="btn btn-sm btn-light btn-svg" type="button" (click)="deleteEmployeeContract(contract.contractId)" title="Delete Contrct" ><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M8 9h8v10H8z" opacity=".3"/><path d="M15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"/></svg></button> -->
+                        </div>
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </card-footer>
+
+        </div>
+
+      </div>
+
+    </div>
+    </div>

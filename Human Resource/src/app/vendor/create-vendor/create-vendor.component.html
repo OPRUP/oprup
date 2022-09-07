@@ -1,0 +1,157 @@
+<!--Page header-->
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{'Vendors' | translate}}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+
+      <li class="breadcrumb-item"><a [routerLink]="['/purchase/']" class="d-flex">
+        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M0 0h24v24H0V0z" fill="none"/>
+          <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+          <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+            {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/purchase/vendor/vendor/']">
+        {{"Vendors" | translate}} </a></li>
+      <li class="breadcrumb-item active" aria-current="page"> {{'ADD' | translate}}</li>
+
+		</ol>
+	</div>
+</div>
+<!--End Page header-->
+
+
+<div class="card">
+  <form (ngSubmit)="onAddVendor()"
+  [formGroup]="form"
+  class="form-horizontal">
+
+    <div class="card-header">
+      <button type="submit" id="add-bank-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+      <a [routerLink]="['/purchase/vendor/vendor']" class="btn btn-light">{{'DISCARD' | translate}}</a>
+    </div>
+
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'#V.Acc' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text" #vendorAccountantNumber
+        formControlName="vendorAccountantNumber"
+        [ngClass]="{ 'is-invalid': submitted && f['vendorAccountantNumber'].errors }"
+
+
+        [(ngModel)]="vendorData.vendorAccountantNumber" id="vendorAccountantNumber" name="vendorAccountantNumber" class="form-control mt-2 text-line" placeholder="" >
+
+        <div *ngIf="submitted && f['vendorAccountantNumber'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['vendorAccountantNumber'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+
+      </div>
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'NAME' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text" #vendorName
+
+
+        formControlName="vendorName"
+        [ngClass]="{ 'is-invalid': submitted && f['vendorName'].errors }"
+
+
+        [(ngModel)]="vendorData.vendorName" id="vendorName" name="vendorName" class="form-control mt-2 text-line" placeholder="" >
+        <div *ngIf="submitted && f['vendorName'].errors" class="invalid-feedback">
+          <div *ngIf="f['vendorName'].errors['required']">{{'isReqired'|translate}}.</div>
+
+        </div>
+
+
+
+
+      </div>
+      </div>
+
+
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'CODE' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text" #vendorCode
+
+        formControlName="vendorCode"
+          [ngClass]="{ 'is-invalid': submitted && f['vendorCode'].errors }"
+
+
+        [(ngModel)]="vendorData.vendorCode" id="vendorCode" name="vendorCode" class="form-control mt-2 text-line" placeholder="" >
+
+        <div *ngIf="submitted && f['vendorCode'].errors" class="invalid-feedback">
+          <div *ngIf="f['vendorCode'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+
+      </div>
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'contactPerson' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text" #contactPerson
+
+        formControlName="contactPerson"
+          [ngClass]="{ 'is-invalid': submitted && f['contactPerson'].errors }"
+
+
+        [(ngModel)]="vendorData.contactPerson" id="contactPerson" name="contactPerson" class="form-control mt-2 text-line" placeholder="" >
+
+        <div *ngIf="submitted && f['contactPerson'].errors" class="invalid-feedback">
+          <div *ngIf="f['contactPerson'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+
+
+      </div>
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'.MOB' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text"
+
+        formControlName="contactNumber"
+          [ngClass]="{ 'is-invalid': submitted && f['contactNumber'].errors }"
+
+        #contactNumber [(ngModel)]="vendorData.contactNumber" id="contactNumber" name="contactNumber" class="form-control mt-2 text-line" placeholder="" >
+        <div *ngIf="submitted && f['contactNumber'].errors" class="invalid-feedback">
+          <div *ngIf="f['contactNumber'].errors['required']">{{'isReqired'|translate}}.</div>
+          <div *ngIf="f['contactNumber'].errors['pattern']">{{'Start with 07 or 00962 or contains 7 or 8 or 9 digits'|translate}}.</div>
+        </div>
+
+
+
+
+      </div>
+
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'details' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text"
+
+        formControlName="details"
+          [ngClass]="{ 'is-invalid': submitted && f['details'].errors }"
+
+
+        #details [(ngModel)]="vendorData.details" id="details" name="details" class="form-control mt-2 text-line" placeholder="" >
+
+        <div *ngIf="submitted && f['details'].errors" class="invalid-feedback">
+          <div *ngIf="f['details'].errors['required']">{{'isReqired'|translate}}.</div></div>
+
+      </div>
+
+    </div>
+
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+

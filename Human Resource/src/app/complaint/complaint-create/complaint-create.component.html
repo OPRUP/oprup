@@ -1,0 +1,119 @@
+<!--Page header-->
+<div class="page-header">
+  <div class="page-leftheader">
+    <h2 class="page-title">{{'Complaint' | translate}}</h2>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/international/']" class="d-flex">
+          <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0V0z" fill="none"/>
+            <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+            <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+              {{'HOME' | translate}}</span></a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/international/complaint/complaint/']">
+          {{'Complaint' | translate}}</a></li>
+        <li class="breadcrumb-item active" aria-current="page"> {{'ADD' | translate}}</li>
+      </ol>
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+
+<!-- <div class="card"> -->
+<div class="card">
+  <form #addForm="ngForm"
+  [formGroup]="form"
+  (ngSubmit)="onAddComplaint()" class="form-horizontal">
+    <div class="card-header">
+      <button type="submit" id="add-taskeen-form" class="btn btn-dark m-3">{{'SAVE' | translate }}</button>
+      <a [routerLink]="['/international/complaint/complaint']" class="btn btn-light m-3">{{'DISCARD' | translate }}</a>
+    </div>
+
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'details' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text"
+
+        formControlName="details"
+        [ngClass]="{ 'is-invalid': submitted && f['details'].errors }"
+        #habitationCode
+        [(ngModel)]="complaintEmdadat.details" id="details" name="details"
+        class="form-control mt-2 text-line"  >
+
+        <div *ngIf="submitted && f['details'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['details'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+      </div>
+
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'complaintProviderName' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text"
+
+      formControlName="complaintProviderName"
+        [ngClass]="{ 'is-invalid': submitted && f['complaintProviderName'].errors }"
+        #complaintProviderName
+
+
+          [(ngModel)]="complaintEmdadat.complaintProviderName" id="complaintProviderName" name="complaintProviderName"
+        class="form-control mt-2 text-line"  >
+
+        <div *ngIf="submitted && f['complaintProviderName'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['complaintProviderName'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+      </div>
+
+      </div>
+
+      <div class="m-3 row">
+        <div class="col-md-6">
+          <label for="" class="form-label">{{'documents' | translate}}<span style="font-size: large;color: red;">*</span></label>
+          <input type="text"
+
+          formControlName="documents"
+          [ngClass]="{ 'is-invalid': submitted && f['documents'].errors }"
+          #habitationAddress
+          [(ngModel)]="complaintEmdadat.documents" id="documents" name="documents"
+          class="form-control mt-2 text-line"  >
+
+          <div *ngIf="submitted && f['documents'].errors" class="invalid-feedback">
+            <div
+            *ngIf="f['documents'].errors['required']">{{'isReqired'|translate}}.</div>
+          </div>
+
+        </div>
+
+    </div>
+    <div class="m-3 row">
+       <div class="col-md-6">
+        <label for="" class="form-label">{{'complaintDate' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+          <input type="date"
+          formControlName="complaintDate"
+          [ngClass]="{ 'is-invalid': submitted && f['complaintDate'].errors }"
+          #complaintDate
+          name="complaintDate"
+          [(ngModel)]="complaintEmdadat.complaintDate" matInput >
+          <!-- <mat-datepicker-toggle matSuffix [for]="picker1">
+
+          </mat-datepicker-toggle>
+
+          <mat-datepicker #picker1></mat-datepicker> -->
+        </mat-form-field>
+        <div *ngIf="submitted && f['complaintDate'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['complaintDate'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!-- {{projectEmdadat.projectName | json}} -->
+</div>
+

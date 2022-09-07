@@ -1,0 +1,134 @@
+<!--Page header-->
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{ 'Sections' | translate }}</h2>
+	</div>
+
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/dashboard-hr/']" class="d-flex"><svg class="svg-icon"
+        xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+        <path d="M0 0h24v24H0V0z" fill="none"/>
+        <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+        <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+          {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/sections/sections/']">{{'Sections' | translate}}</a></li>
+			<li class="breadcrumb-item active" aria-current="page">{{'ADD' | translate}}</li>
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+<div class="card">
+  <form (ngSubmit)="onAddSection()"
+  [formGroup]="form"
+  class="form-horizontal">
+    <div class="card-header">
+      <button type="submit" id="add-section-form" class="btn btn-dark m-3">{{ 'SAVE' | translate }}</button>
+      <a [routerLink]="['/sections/sections']" class="btn btn-light m-3">{{ 'DISCARD' | translate }}</a>
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-12">
+        <label for="" class="form-label">{{ 'SectionName' | translate }}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text"
+
+        formControlName="sectionName"
+        [ngClass]="{ 'is-invalid': submitted && f['sectionName'].errors }"
+
+        [(ngModel)]="sectionData.sectionName" id="sectionName" name="sectionName"
+        class="form-control mt-2 text-line" placeholder="" >
+
+        <div *ngIf="submitted && f['sectionName'].errors" class="invalid-feedback">
+          <div *ngIf="f['sectionName'].errors['required']"> {{'isReqired'|translate}}.</div>
+        </div>
+
+
+      </div>
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-12">
+        <label for="" class="form-label">{{ 'HeadOfDepartment' | translate }}<span style="font-size: large;color: red;">*</span></label>
+        <ng-select id="department" name="department"
+
+        formControlName="departmentId"
+        [ngClass]="{ 'is-invalid': submitted && f['departmentId'].errors }"
+
+        [(ngModel)]="sectionData.department.departmentId" class="form-control form-select"
+        placeholder="--{{ 'SelectDepartmentName' | translate }} --">
+            <ng-option *ngFor="let dept of departments" [value] ="dept.departmentId">{{dept.departmentName}}</ng-option>
+        </ng-select>
+
+        <div *ngIf="submitted && f['departmentId'].errors" class="invalid-feedback">
+          <div *ngIf="f['departmentId'].errors['required']"> {{'isReqired'|translate}}.</div>
+        </div>
+
+
+      </div>
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-12">
+        <label for="" class="form-label">{{ 'ManagerName' | translate }}<span style="font-size: large;color: red;">*</span></label>
+        <ng-select id="employee" name="employee"
+
+        formControlName="employeeId"
+        [ngClass]="{ 'is-invalid': submitted && f['employeeId'].errors }"
+
+        [(ngModel)]="sectionData.employee.employeeId" class="form-control form-select"
+        placeholder="-- {{ 'SelectDepartmentManager' | translate }} --">
+            <ng-option *ngFor="let emp of employees" [value] ="emp.employeeId">{{ emp.employeeName }}</ng-option>
+        </ng-select>
+        <div *ngIf="submitted && f['employeeId'].errors" class="invalid-feedback">
+          <div *ngIf="f['employeeId'].errors['required']"> {{'isReqired'|translate}}.</div>
+        </div>
+
+
+      </div>
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-12">
+        <label for="" class="form-label">{{ 'ManagerStartingdate' | translate }}<span style="font-size: large;color: red;">*</span></label>
+      <mat-form-field appearance="outline">
+
+
+        <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+        <input type="date" name="managerStartingDate"
+
+        formControlName="managerStartingDate"
+        [ngClass]="{ 'is-invalid': submitted && f['managerStartingDate'].errors }"
+
+        [(ngModel)]="sectionData.managerStartingDate" matInput >
+        <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker> -->
+      </mat-form-field>
+      <div *ngIf="submitted && f['managerStartingDate'].errors" class="invalid-feedback">
+        <div *ngIf="f['managerStartingDate'].errors['required']"> {{'isReqired'|translate}}.</div>
+      </div>
+      </div>
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-12">
+        <label for="" class="form-label">{{ 'ContactNumber' | translate }}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text"
+
+        formControlName="contactNumber"
+        [ngClass]="{ 'is-invalid': submitted && f['contactNumber'].errors }"
+
+        [(ngModel)]="sectionData.contactNumber" id="contactNumber" name="contactNumber"
+        class="form-control mt-2 text-line" placeholder="" >
+
+        <div *ngIf="submitted && f['contactNumber'].errors" class="invalid-feedback">
+          <div *ngIf="f['contactNumber'].errors['required']"> {{'isReqired'|translate}}.</div>
+          <div *ngIf="f['contactNumber'].errors['pattern']">{{'Start with 07 or 00966 or contains 7 or 8 or 9 digits'|translate}}.</div>
+        </div>
+
+      </div>
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-12">
+        <label for="" class="form-label">{{ 'Description' | translate }}</label>
+        <textarea
+        [(ngModel)]="sectionData.description" [ngModelOptions]="{standalone: true}" class="form-control mt-2 text-line"
+        id="description" name="description" id="" cols="50" rows="10"></textarea>
+      </div>
+    </div>
+  </form>
+</div>

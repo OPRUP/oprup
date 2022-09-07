@@ -1,0 +1,61 @@
+table {
+    width: 100%;
+  }
+
+  th {
+    padding-left: 8px;
+    font-weight: normal;
+    text-align: center !important;
+    font-size: 15px;
+  }
+  td{
+    text-align: center !important;
+    font-size: 15px;
+  }
+
+  ::ng-deep th.mat-header-cell {
+    // width: 140px;
+    // min-width: 140px;
+    // background-color: #fff;
+    // color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  th.mat-header-cell,
+  td.mat-cell,
+  td.mat-footer-cell {
+    padding: 5px;
+    text-align: center !important;
+    font-size: 15px;
+  }
+
+  // .col-md-5 {
+  //     display: inline;
+  //     margin: 20px;
+  //     border-bottom: 2px dotted #000
+  // }
+  // .form-label {
+  //     padding-left: 15px;
+  // }
+  .form-label {
+    display: inline-block;
+    margin-bottom: 0.375rem;
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 40px;
+    /* padding: 0 24px; */
+    border-bottom: 2px dotted;
+  }
+  .calculate{
+    width: 50%;
+    margin-bottom: 2%;
+
+  }
+  .calculate td{
+    border: 1px black solid;
+    min-width:100px;
+    font-size: 1.2em;
+    text-align: center;
+    padding: 5px;
+  }

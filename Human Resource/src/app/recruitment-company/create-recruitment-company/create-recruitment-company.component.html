@@ -1,0 +1,172 @@
+<!--Page header-->
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{'RecruitmentCompany' | translate}}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+
+      <li class="breadcrumb-item"><a [routerLink]="['/international/']" class="d-flex">
+        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M0 0h24v24H0V0z" fill="none"/>
+          <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+          <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+            {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/international/recruitmentcompany/recruitmentcompany/']">
+        {{"RecruitmentCompany" | translate}} </a></li>
+      <li class="breadcrumb-item active" aria-current="page"> {{'ADD' | translate}}</li>
+
+		</ol>
+	</div>
+</div>
+<!--End Page header-->
+
+
+<div class="card">
+  <form
+  [formGroup]="form"
+  (ngSubmit)="onAddRecruitmentCompany()" class="form-horizontal">
+
+    <div class="card-header">
+      <button type="submit" id="add-bank-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+      <a [routerLink]="['/operation/recruitmentcompany/recruitmentcompany']" class="btn btn-light">{{'DISCARD' | translate}}</a>
+    </div>
+
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'CompanyName' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text" #companyName
+        formControlName="companyName"
+          [ngClass]="{ 'is-invalid': submitted && f['companyName'].errors }"
+
+        [(ngModel)]="recruitmentCompanyData.companyName" id="companyName" name="companyName" class="form-control mt-2 text-line" placeholder="" >
+
+        <div *ngIf="submitted && f['companyName'].errors" class="invalid-feedback">
+          <div *ngIf="f['companyName'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+
+
+
+      </div>
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'NAME' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text" #numberOfProvidedVisas
+        formControlName="numberOfProvidedVisas"
+          [ngClass]="{ 'is-invalid': submitted && f['numberOfProvidedVisas'].errors }"
+        [(ngModel)]="recruitmentCompanyData.numberOfProvidedVisas" id="numberOfProvidedVisas" name="numberOfProvidedVisas" class="form-control mt-2 text-line" placeholder="" >
+        <div *ngIf="submitted && f['numberOfProvidedVisas'].errors" class="invalid-feedback">
+          <div *ngIf="f['numberOfProvidedVisas'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+
+      </div>
+      </div>
+
+
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'Country' | translate }}<span style="font-size: large;color: red;">*</span></label>
+        <ng-select #country
+         formControlName="country" [ngClass]="{ 'is-invalid': submitted && f['country'].errors }"
+          [(ngModel)]="recruitmentCompanyData.country"
+          name="country"
+           id="country"
+            class="form-control form-select">
+          <ng-option *ngFor="let item of countryList" value="{{item.name}}">
+            {{item.name}}
+          </ng-option>
+        </ng-select>
+        <div *ngIf="submitted && f['country'].errors" class="invalid-feedback">
+          <div *ngIf="f['country'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'commercialRegister' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text" #commercialRegister
+        formControlName="commercialRegister"
+          [ngClass]="{ 'is-invalid': submitted && f['commercialRegister'].errors }"
+        [(ngModel)]="recruitmentCompanyData.commercialRegister" id="commercialRegister" name="commercialRegister" class="form-control mt-2 text-line" placeholder="" >
+
+        <div *ngIf="submitted && f['commercialRegister'].errors" class="invalid-feedback">
+          <div *ngIf="f['commercialRegister'].errors['required']">{{'isReqired'|translate}}.</div>
+      </div>
+      </div>
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'.MOB' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text" formControlName="contactNumber"
+          [ngClass]="{ 'is-invalid': submitted && f['contactNumber'].errors }"
+          #contactNumber
+          [(ngModel)]="recruitmentCompanyData.contactNumber" id="contactNumber" name="contactNumber" class="form-control"
+          placeholder="">
+        <div *ngIf="submitted && f['contactNumber'].errors" class="invalid-feedback">
+          <div *ngIf="f['contactNumber'].errors['required']">{{'isReqired'|translate}}.</div>
+          <div *ngIf="f['contactNumber'].errors['pattern']">{{'Start with 07 or 00962 or contains 7 or 8 or 9 digits'|translate}}.</div>
+        </div>
+      </div>
+
+
+
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'ownerName' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text" #details
+
+        formControlName="ownerName"
+        [ngClass]="{ 'is-invalid': submitted && f['ownerName'].errors }"
+        class="form-control"
+        [(ngModel)]="recruitmentCompanyData.ownerName" id="ownerName"
+        name="ownerName" placeholder="" >
+        <div *ngIf="submitted && f['ownerName'].errors"  class="invalid-feedback">
+          <div *ngIf="f['ownerName'].errors['required']">{{'isReqired'|translate}}.</div>
+      </div>
+      </div>
+    </div>
+
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'focalPointName' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text"
+        #focalPointName
+        formControlName="focalPointName"
+        [ngClass]="{ 'is-invalid': submitted && f['focalPointName'].errors }"
+        class="form-control"
+        [(ngModel)]="recruitmentCompanyData.focalPointName" id="focalPointName" name="focalPointName" class="form-control mt-2 text-line" placeholder="" >
+
+        <div *ngIf="submitted && f['focalPointName'].errors"  class="invalid-feedback">
+          <div *ngIf="f['focalPointName'].errors['required']">{{'isReqired'|translate}}.</div>
+
+      </div></div>
+
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'Documents' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <input type="file" #details
+
+        formControlName="documents"
+
+        [ngClass]="{ 'is-invalid': submitted && f['documents'].errors }"
+        class="form-control"
+
+        [(ngModel)]="recruitmentCompanyData.documents" id="documents" name="documents" class="form-control mt-2 text-line" placeholder="" >
+
+        <div *ngIf="submitted && f['documents'].errors"  class="invalid-feedback">
+          <div *ngIf="f['documents'].errors['required']">{{'isReqired'|translate}}.</div>
+</div>
+      </div>
+    </div>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

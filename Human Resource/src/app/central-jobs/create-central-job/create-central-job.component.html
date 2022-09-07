@@ -1,0 +1,74 @@
+<!--Page header-->
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{'CentralJobs' | translate}}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/dashboard-hr/']" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/central-jobs/central-jobs/']">{{'CentralJobs' | translate}}</a></li>
+			<li class="breadcrumb-item active" aria-current="page">{{'ADD' | translate}}</li>
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+<div class="card">
+<form #g="ngForm"
+[formGroup]="form"
+
+(ngSubmit)="onAddCentralJob()" class="form-horizontal">
+  <div class="card-header">
+    <button type="submit" id="add-job-title-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+    <a [routerLink]="['/central-jobs/central-jobs']" class="btn btn-light m-3">{{'DISCARD' | translate}}</a>
+  </div>
+
+  <div class="m-3 row">
+    <div class="col-md-12">
+      <label for="" class="form-label">{{'CentralJobName' | translate}}<span style="font-size: large;color: red;">*</span></label>
+      <input type="text"
+
+      formControlName="centralJobName"
+      [ngClass]="{ 'is-invalid': submitted && f['centralJobName'].errors }"
+
+      [(ngModel)]="centralJobData.centralJobName" id="centralJobName" name="centralJobName"
+      class="form-control mt-2 text-line">
+
+      <div *ngIf="submitted && f['centralJobName'].errors" class="invalid-feedback">
+        <div *ngIf="f['centralJobName'].errors['required']">{{'reqired'|translate}}.</div>
+
+      </div>
+
+
+    </div>
+  </div>
+  <div class="m-3 row">
+    <div class="col-md-12">
+      <label for="" class="form-label">{{'jobCode' | translate }}<span style="font-size: large;color: red;">*</span></label>
+      <ng-select
+      formControlName="jobCode"
+      [ngClass]="{ 'is-invalid': submitted && f['jobCode'].errors }"
+
+      [(ngModel)]="centralJobData.jobCode" name="jobCode"  class="form-select">
+          <ng-option value="M">M-ادراي</ng-option>
+          <ng-option value="L">L-عامل</ng-option>
+          <ng-option value="S">S-عن بعد</ng-option>
+
+      </ng-select>
+      <div *ngIf="submitted && f['jobCode'].errors" class="invalid-feedback">
+        <div *ngIf="f['jobCode'].errors['required']">{{'reqired'|translate}}.</div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="m-3 row">
+    <div class="col-md-12">
+      <label for="" class="form-label">{{'Description' | translate}}</label>
+      <textarea  [(ngModel)]="centralJobData.description" class="form-control mt-2 text-line"
+      [ngModelOptions]="{standalone: true}"
+      id="description" name="description" id="" cols="50" rows="10"></textarea>
+    </div>
+  </div>
+  </form>
+</div>

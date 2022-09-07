@@ -1,0 +1,119 @@
+<div class="container" style="margin-top: 50px;">
+  <div class="row">
+
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+          <div class="card">
+              <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                      <div class="align-self-center">
+                          <img src="https://cdn-icons-png.flaticon.com/512/1839/1839274.png" width="100px" height="100px">
+                      </div>
+                      <div class="text-end">
+                          <h3>{{service.employeecount}}</h3>
+                          <p class="mb-0">{{'NumberofEmployees'|translate}}</p>
+                          <a [routerLink]="['/operation/employeeCount/']" class="d-flex pt-5">{{'Enquiry'|translate}}</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+          <div class="card">
+              <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                      <div class="align-self-center">
+                          <img src="https://cdn-icons-png.flaticon.com/512/1358/1358533.png" width="100px" height="100px">
+                      </div>
+                      <div class="text-end">
+                          <h3>{{service.projectcount}}</h3>
+                          <p class="mb-0">{{'customercontracts'|translate}}</p>
+                          <a [routerLink]="['/operation/projectCount/']" class="d-flex pt-5">{{'Enquiry'|translate}}</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+          <div class="card">
+              <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                      <div class="align-self-center">
+                          <img src="https://cdn-icons-png.flaticon.com/512/1839/1839274.png" width="100px">
+                      </div>
+                      <div class="text-end">
+                          <h3>{{service.qiwaEmployeecount}}</h3>
+                          <p class="mb-0">{{'qiwaemployee'|translate}}</p>
+                          <a [routerLink]="['/operation/qiwa-employee/']" class="d-flex pt-5">{{'Enquiry'|translate}}</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+      <div class="col-xl-3 col-sm-6 col-12 mb-4">
+          <div class="card">
+              <div class="card-body">
+                  <div class="d-flex justify-content-between px-md-1">
+                      <div class="align-self-center">
+                          <img src="https://cdn-icons-png.flaticon.com/512/3344/3344835.png" width="95px">
+                      </div>
+                      <div class="text-end">
+                          <h3>{{service.creditcount}}</h3>
+                          <p class="mb-0">{{'creditcard'|translate}}</p>
+                          <span style="font-size: 10px;">{{'notreleased'|translate}}  </span>
+                          <a [routerLink]="['/operation/creditCards/']" class="d-flex pt-5">{{'Enquiry'|translate}}</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="row">
+      <div class="col-xl-6 col-sm-6 col-12 mb-4">
+          <div width="400" height="400">
+              <canvas id="myChart"></canvas>
+          </div>
+          <a [routerLink]="['/operation/residence/']" class="d-flex pt-5">{{'Enquiry'|translate}}</a>
+
+      </div>
+
+      <div class="col-xl-6 col-sm-6 col-12 mb-4">
+          <div>
+              <canvas id="myPieChart"></canvas>
+          </div>
+          <a [routerLink]="['/operation/traveling-employee/']" class="d-flex pt-5">{{'Enquiry'|translate}}</a>
+      </div>
+      <!-- <div>
+          <div class="col-xl-6 col-sm-6 col-12 mb-4">
+              <div class="card">
+                  <div class="card-body">
+                      <div class="d-flex justify-content-between px-md-1">
+                          <div #animatedDigit class="animated-digit">
+                              <span>{{service.employeecount}}</span>
+                          </div>
+                          <div class="text-end">
+                              <p class="mb-0">بطاقات الصراف المنتهية خلال 3 أشهر</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div> -->
+
+  </div>
+  <div class="row">
+      <div class="col-xl-6 col-sm-6 col-12 mb-4">
+          <div width="400" height="400">
+              <canvas id="myPassPortChart"></canvas>
+          </div>
+          <a [routerLink]="['/operation/passports-expiry/']" class="d-flex pt-5">{{'Enquiry'|translate}}</a>
+      </div>
+      <div class="col-xl-6 col-sm-6 col-12 mb-4">
+          <div width="500px" height="800px">
+              <canvas id="PassPortPieChart"></canvas>
+          </div>
+          <a [routerLink]="['/operation/hokomi-details/']" class="d-flex pt-5">{{'Enquiry'|translate}}</a>
+      </div>
+  </div>
+</div>

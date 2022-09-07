@@ -1,0 +1,220 @@
+
+<!--Page header-->
+<div class="page-header">
+  <div class="page-leftheader">
+    <h2 class="page-title">{{'Kitchen' | translate}}</h2>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/operation/']" class="d-flex">
+          <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0V0z" fill="none"/>
+            <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+            <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+              {{'HOME' | translate}}</span></a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/operation/Taskeen/Taskeen/']">
+          {{'Kitchen' | translate}} </a></li>
+        <li class="breadcrumb-item active" aria-current="page"> {{'ADD' | translate}}</li>
+      </ol>
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+
+<!-- <div class="card"> -->
+<div class="card">
+  <form #editForm="ngForm"
+  [formGroup]="form"
+  (ngSubmit)="onUpdateKitchenTaskeen(editForm.value)" *ngIf="kitchenTaskeen" class="form-horizontal">
+    <div class="card-header">
+      <button (click)="onUpdateKitchenTaskeen(editForm.value)" class="btn btn-dark m-3">{{'SAVE' | translate }}</button>
+      <a [routerLink]="['/operation/KitchenTaskeen/KitchenTaskeen']" class="btn btn-light m-3">{{'DISCARD' | translate }}</a>
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'kitchenCode' | translate}}:</label>
+        <input type="text"
+
+        formControlName="kitchenCode"
+        [ngClass]="{ 'is-invalid': submitted && f['kitchenCode'].errors }"
+        #kitchenCode
+        [(ngModel)]="kitchenTaskeen.kitchenCode" id="kitchenCode" name="kitchenCode"
+        class="form-control mt-2 text-line"  >
+
+        <div *ngIf="submitted && f['kitchenCode'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['kitchenCode'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+      </div>
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'kitchenCode' | translate}}:</label>
+        <input type="text" #kitchenCode [(ngModel)]="kitchenTaskeen.kitchenCode" id="kitchenCode" name="kitchenCode"
+        class="form-control mt-2 text-line"  >
+      </div> -->
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'gascylinders' | translate}}:</label>
+        <input type="text"
+
+        formControlName="gascylinders"
+        [ngClass]="{ 'is-invalid': submitted && f['gascylinders'].errors }"
+        #gascylinders
+        [(ngModel)]="kitchenTaskeen.gascylinders" id="gascylinders" name="gascylinders"
+        class="form-control mt-2 text-line"  >
+
+        <div *ngIf="submitted && f['gascylinders'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['gascylinders'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+      </div>
+     <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'gascylinders' | translate}}:</label>
+        <input type="text" #gascylinders [(ngModel)]="kitchenTaskeen.gascylinders" id="gascylinders" name="gascylinders"
+        class="form-control mt-2 text-line"  >
+      </div> -->
+      </div>
+
+      <div class="m-3 row">
+        <div class="col-md-6">
+          <label for="" class="form-label">{{'gasStoves' | translate}}:</label>
+          <input type="text"
+
+          formControlName="gasStoves"
+          [ngClass]="{ 'is-invalid': submitted && f['gasStoves'].errors }"
+          #gasStoves
+          [(ngModel)]="kitchenTaskeen.gasStoves" id="gasStoves" name="gasStoves"
+          class="form-control mt-2 text-line"  >
+
+          <div *ngIf="submitted && f['gasStoves'].errors" class="invalid-feedback">
+            <div
+            *ngIf="f['gasStoves'].errors['required']">{{'isReqired'|translate}}.</div>
+          </div>
+
+        </div>
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'gasStoves' | translate}}:</label>
+        <input type="text" #gasStoves [(ngModel)]="kitchenTaskeen.gasStoves" id="gasStoves" name="gasStoves"
+        class="form-control mt-2 text-line"  >
+      </div> -->
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'lessorName' | translate}}:</label>
+        <input type="text" #lessorName [(ngModel)]="kitchenTaskeen.conditioners" id="lessorName" name="lessorName"
+        class="form-control mt-2 text-line" >
+      </div> -->
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'tools' | translate}}:</label>
+        <input type="text"
+
+        formControlName="tools"
+        [ngClass]="{ 'is-invalid': submitted && f['tools'].errors }"
+        #tools
+        [(ngModel)]="kitchenTaskeen.tools" id="tools" name="tools"
+        class="form-control mt-2 text-line"  >
+
+        <div *ngIf="submitted && f['tools'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['tools'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+      </div>
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'tools' | translate}}:</label>
+        <input type="text" #tools [(ngModel)]="kitchenTaskeen.tools"
+        id="tools" name="tools" class="form-control mt-2 text-line">
+      </div> -->
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'description' | translate}}:</label>
+        <input type="text"
+
+
+        #description
+        [(ngModel)]="kitchenTaskeen.description" [ngModelOptions]="{standalone: true}" id="description" name="description"
+        class="form-control mt-2 text-line"  >
+
+
+
+      </div>
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'Description' | translate}}:</label>
+        <input type="text" #description [(ngModel)]="kitchenTaskeen.description"
+        id="description" name="description" class="form-control mt-2 text-line" >
+      </div> -->
+    </div>
+    <div class="m-3 row">
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'habitationName' | translate}}:</label>
+        <input type="text" #habitationName [(ngModel)]="roomTaskeen.taskeens.habitationId" id="habitationName" name="habitationName"
+        class="form-control mt-2 text-line" > -->
+        <div class="col-md-6">
+          <label for="" class="form-label">{{'ManagingDirector' | translate}}:</label>
+          <ng-select name="habitationId"
+          formControlName="habitationId"
+          [ngClass]="{ 'is-invalid': submitted && f['habitationId'].errors }"
+           [(ngModel)]="kitchenTaskeen.taskeens.habitationId"
+          class="form-control form-select">
+              <ng-option *ngFor="let taskeen of taskeens" [value] ="taskeen.habitationId">{{taskeen.habitationCode}}</ng-option>
+          </ng-select>
+          <div *ngIf="submitted && f['habitationId'].errors" class="invalid-feedback">
+            <div
+            *ngIf="f['habitationId'].errors['required']">{{'isReqired'|translate}}.</div>
+          </div>
+
+        </div>
+        <!-- <div class="col-md-6">
+          <label for="" class="form-label">{{'habitationName' | translate}}:</label>
+          <ng-select name="taskeens.habitationId"  [(ngModel)]="kitchenTaskeen.taskeens.habitationId"
+          class="form-control form-select">
+              <ng-option *ngFor="let taskeen of taskeens" [value] ="taskeen.habitationId">{{taskeen.habitationName}}</ng-option>
+          </ng-select>
+        </div> -->
+      </div>
+      <!-- <div class="col-md-3">
+        <label for="" class="form-label">{{'rentContractStartingDate' | translate}}:</label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'rentContractStartingDate' | translate}}</mat-label>
+          <input name="rentContractStartingDate" [(ngModel)]="roomTaskeen.rentContractStartingDate" matInput [matDatepicker]="picker1">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <label for="" class="form-label">{{'rentContractEndingDate' | translate}}:</label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'rentContractEndingDate' | translate}}</mat-label>
+          <input name="rentContractEndingDate" [(ngModel)]="roomTaskeen.rentContractEndingDate" matInput [matDatepicker]="picker2">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div> -->
+    <!-- </div> -->
+
+
+
+    <!-- <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'habitationName' | translate}}:</label>
+        <input type="text" #habitationName [(ngModel)]="roomTaskeen.taskeens.habitationName" id="habitationName" name="habitationName"
+        class="form-control mt-2 text-line" >
+      </div>
+      </div> -->
+
+
+    <!-- <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'ManagingDirector' | translate}}:</label>
+        <ng-select name="employees.employeeId"  [(ngModel)]="taskeenEmdadat.employees.employeeId"
+        class="form-control form-select">
+            <ng-option *ngFor="let employee of employees" [value] ="employee.employeeId">{{employee.employeeName}}</ng-option>
+        </ng-select>
+      </div>
+    </div> -->
+
+  </form>
+  <!-- {{projectEmdadat.projectName | json}} -->
+</div>
+

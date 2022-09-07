@@ -1,0 +1,250 @@
+<!--Page header-->
+<div class="page-header">
+  <div class="page-leftheader">
+    <h2 class="page-title">{{'Transportation' | translate}}</h2>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/operation/']" class="d-flex">
+          <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0V0z" fill="none"/>
+            <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+            <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+              {{'HOME' | translate}}</span></a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/operation/Transportation/Transportation/']">
+          {{'Transportation' | translate}} </a></li>
+        <li class="breadcrumb-item active" aria-current="page"> {{'ADD' | translate}}</li>
+      </ol>
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+
+<!-- <div class="card"> -->
+<div class="card">
+  <form #editForm="ngForm"
+  [formGroup]="form"
+  *ngIf="transportation"
+  (ngSubmit)="onUpdateTransportation(editForm.value)" class="form-horizontal">
+    <div class="card-header">
+      <button (click)="onUpdateTransportation(editForm.value)" class="btn btn-dark m-3">{{'SAVE' | translate }}</button>
+      <a [routerLink]="['/operation/Transportation/Transportation']" class="btn btn-light m-3">{{'DISCARD' | translate }}</a>
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'transportationMeanCode' | translate}}</label>
+        <input type="text"
+
+        formControlName="transportationMeanCode"
+        [ngClass]="{ 'is-invalid': submitted && f['transportationMeanCode'].errors }"
+        #transportationMeanCode
+        [(ngModel)]="transportation.transportationMeanCode" id="transportationMeanCode" name="transportationMeanCode"
+        class="form-control mt-2 text-line"  >
+
+        <div *ngIf="submitted && f['transportationMeanCode'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['transportationMeanCode'].errors['required']">  {{'reqired' | translate}}.</div>
+        </div>
+
+      </div>
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'transportationMeanCode' | translate}}:</label>
+        <input type="text" #transportationMeanCode [(ngModel)]="transportationEmdadat.transportationMeanCode" id="transportationMeanCode" name="transportationMeanCode"
+        class="form-control mt-2 text-line"  >
+      </div> -->
+     <div class="col-md-6">
+        <label for="" class="form-label">{{'transportationMeanType' | translate}}</label>
+        <ng-select name="transportationMeanType"
+        formControlName="transportationMeanType"
+        [ngClass]="{ 'is-invalid': submitted && f['transportationMeanType'].errors }"
+         [(ngModel)]="transportation.transportationMeanType"
+        class="form-control form-select">
+        <!-- <ng-select formControlName="transportationMeanType"
+        [ngClass]="{ 'is-invalid': submitted && f['transportationMeanType'].errors }"
+         [(ngModel)]="transportationEmdadat.transportationMeanType" name="transportationMeanType"  class="form-select"> -->
+        <ng-option  value ="سيارة">{{'Car' | translate }}</ng-option>
+        <ng-option  value ="باص">{{'Bus' | translate }}</ng-option>
+        <ng-option  value ="شاحنة">{{'Van' | translate }}</ng-option>
+        <ng-option  value ="بكم">{{'Pickup' | translate }}</ng-option>
+        <div *ngIf="submitted && f['transportationMeanType'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['transportationMeanType'].errors['required']">  {{'reqired' | translate}}.</div>
+        </div>
+        </ng-select>
+      </div>
+      </div>
+
+      <div class="m-3 row">
+        <div class="col-md-6">
+          <label for="" class="form-label">{{'transportationMeanNumber' | translate}}</label>
+          <input type="text"
+
+          formControlName="transportationMeanNumber"
+          [ngClass]="{ 'is-invalid': submitted && f['transportationMeanNumber'].errors }"
+          #transportationMeanNumber
+          [(ngModel)]="transportation.transportationMeanNumber" id="transportationMeanNumber" name="transportationMeanNumber"
+          class="form-control mt-2 text-line"  >
+
+          <div *ngIf="submitted && f['transportationMeanNumber'].errors" class="invalid-feedback">
+            <div
+            *ngIf="f['transportationMeanNumber'].errors['required']">  {{'reqired' | translate}}.</div>
+          </div>
+
+        </div>
+        <div class="col-md-6">
+          <label for="" class="form-label">{{'Driver' | translate}}</label>
+          <ng-select name="employeeId"
+          formControlName="employeeId"
+          [ngClass]="{ 'is-invalid': submitted && f['employeeId'].errors }"
+           [(ngModel)]="transportation.employees.employeeId"
+          class="form-control form-select">
+              <ng-option *ngFor="let employee of employees" [value] ="employee.employeeId">{{employee.employeeName}}</ng-option>
+          </ng-select>
+          <div *ngIf="submitted && f['employeeId'].errors" class="invalid-feedback">
+            <div
+            *ngIf="f['employeeId'].errors['required']">  {{'reqired' | translate}}.</div>
+          </div>
+
+        </div>
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'transportationMeanNumber' | translate}}:</label>
+        <input type="text" #transportationMeanNumber [(ngModel)]="transportationEmdadat.transportationMeanNumber" id="transportationMeanNumber" name="transportationMeanNumber"
+        class="form-control mt-2 text-line"  >
+      </div> -->
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'lessorName' | translate}}:</label>
+        <input type="text" #lessorName [(ngModel)]="transportationEmdadat.lessorName" id="lessorName" name="lessorName"
+        class="form-control mt-2 text-line" >
+      </div> -->
+    </div>
+    <!-- <div class="m-3 row"> -->
+      <!-- <div class="col-md-6">
+         (ngModelChange)="onCompanySelected($event)"
+        <label for="" class="form-label">{{'rentCostPerMonth' | translate}}:</label>
+        <input type="text" #rentCostPerMonth [(ngModel)]="transportationEmdadat.rentCostPerMonth"
+        id="rentCostPerMonth" name="rentCostPerMonth" class="form-control mt-2 text-line">
+      </div> -->
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'capacity' | translate}}:</label>
+        <input type="text" #capacity [(ngModel)]="transportationEmdadat.capacity"
+        id="capacity" name="capacity" class="form-control mt-2 text-line" >
+      </div> -->
+    <!-- </div> -->
+    <div class="m-3 row">
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'numberOfKitchens' | translate}}:</label>
+        <input type="text" #numberOfKitchens [(ngModel)]="transportationEmdadat.numberOfKitchens" id="numberOfKitchens" name="numberOfKitchens"
+        class="form-control mt-2 text-line" >
+      </div> -->
+      <div class="col-md-3">
+        <label for="" class="form-label">{{'licenseExpiryDate' | translate}}</label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+          <input type="date" name="licenseExpiryDate"
+           formControlName="licenseExpiryDate"
+          [ngClass]="{ 'is-invalid': submitted && f['licenseExpiryDate'].errors }"
+          #licenseExpiryDate
+          [(ngModel)]="transportation.licenseExpiryDate" matInput >
+          <!-- <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+
+          <mat-datepicker #picker1></mat-datepicker> -->
+        </mat-form-field>
+
+      </div>
+      <!-- <div class="col-md-3">
+        <label for="" class="form-label">{{'licenseExpiryDate' | translate}}:</label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'licenseExpiryDate' | translate}}</mat-label>
+          <input name="licenseExpiryDate" [(ngModel)]="transportationEmdadat.licenseExpiryDate" matInput [matDatepicker]="picker1">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div> -->
+      <div class="col-md-3">
+        <label for="" class="form-label">{{'transportationMeanBuyingDate' | translate}}</label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+          <input  type="date" name="transportationMeanBuyingDate"
+           formControlName="transportationMeanBuyingDate"
+          [ngClass]="{ 'is-invalid': submitted && f['transportationMeanBuyingDate'].errors }"
+          #transportationMeanBuyingDate
+          [(ngModel)]="transportation.transportationMeanBuyingDate" matInput >
+          <!-- <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+
+          <mat-datepicker #picker2></mat-datepicker> -->
+        </mat-form-field>
+
+      </div>
+      <!-- <div class="col-md-3">
+        <label for="" class="form-label">{{'transportationMeanBuyingDate' | translate}}:</label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'transportationMeanBuyingDate' | translate}}</mat-label>
+          <input name="transportationMeanBuyingDate" [(ngModel)]="transportationEmdadat.transportationMeanBuyingDate" matInput [matDatepicker]="picker2">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div> -->
+      <div class="col-md-3">
+        <label for="" class="form-label">{{'licenseReleaseDate' | translate}}</label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+          <input type="date" name="licenseReleaseDate"
+           formControlName="licenseReleaseDate"
+          [ngClass]="{ 'is-invalid': submitted && f['licenseReleaseDate'].errors }"
+          #licenseReleaseDate
+          [(ngModel)]="transportation.licenseReleaseDate" matInput >
+          <!-- <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+
+          <mat-datepicker #picker3></mat-datepicker> -->
+        </mat-form-field>
+
+      </div>
+      <!-- <div class="col-md-3">
+        <label for="" class="form-label">{{'licenseReleaseDate' | translate}}:</label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'licenseReleaseDate' | translate}}</mat-label>
+          <input name="licenseReleaseDate" [(ngModel)]="transportationEmdadat.licenseReleaseDate" matInput [matDatepicker]="picker3">
+          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field>
+      </div> -->
+    </div>
+
+
+
+    <div class="m-3 row">
+
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'licensePhoto' | translate}}:</label>
+        <input type="text" #licensePhoto [(ngModel)]="transportationEmdadat.licensePhoto" id="licensePhoto" name="licensePhoto"
+        class="form-control mt-2 text-line" >
+      </div> -->
+      </div>
+
+
+
+
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'Driver' | translate}}:</label>
+        <ng-select name="employees.employeeId"  [(ngModel)]="transportationEmdadat.employees.employeeId"
+        class="form-control form-select">
+            <ng-option *ngFor="let employee of employees" [value] ="employee.employeeId">{{employee.employeeName}}</ng-option>
+        </ng-select>
+      </div> -->
+
+    <div class="m-3 row">
+      <div class="col-md-12">
+        <div class="col-md-6">
+          <label for="" class="form-label">{{'licensePhoto' | translate}}</label>
+          <input type="file" class="btn btn-dark m-3">
+          <!-- <img [src]="imgURL" height="200" *ngIf="imgURL"> -->
+      </div>
+      </div>
+</div>
+
+  </form>
+  <!-- {{projectEmdadat.projectName | json}} -->
+</div>
+

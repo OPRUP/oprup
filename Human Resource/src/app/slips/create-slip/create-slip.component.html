@@ -1,0 +1,193 @@
+
+						<!--Page header-->
+						<div class="page-header">
+							<div class="page-leftheader">
+                {{ employee.employeeNameAr }}
+							</div>
+
+							<div class="page-rightheader ms-auto d-lg-flex d-none">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="javascript:void(0)" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{ 'HOME' | translate }}</span></a></li>
+									<li class="breadcrumb-item"><a href="javascript:void(0)">{{ 'Slip' | translate }}</a></li>
+									<li class="breadcrumb-item active" aria-current="page">{{ 'SlipCalculation' | translate }}</li>
+								</ol>
+							</div>
+						</div>
+						<!--End Page header-->
+
+
+            <div class="row">
+              <div class="col-xl-12">
+                <div class="card">
+                  <h2 class="p-5">{{'PayRun' | translate}} </h2>
+
+                  <div class="card-body">
+
+                    <mat-card-content>
+                      <form  (ngSubmit)="onAddSlip()"   class="form-horizontal">
+
+                        <!-- <input type="hidden" name="employeeId" [(ngModel)]="employee.employeeId">
+                        <input type="hidden" name="contractId" [(ngModel)]="slipData.contract.contractId">
+                        <input type="hidden" name="netSalary" [(ngModel)]="slipData.netSalary"> -->
+                        <!-- <input type="hidden" name="allowance" [(ngModel)]="slipData.allowance">
+                        <input type="hidden" name="deduction" [(ngModel)]="slipData.deduction">
+                        <input type="hidden" name="extraWork" [(ngModel)]="slipData.extraWork">
+                        <input type="hidden" name="rewards" [(ngModel)]="slipData.rewards">
+                        <input type="hidden" name="delay" [(ngModel)]="slipData.delay">
+                        <input type="hidden" name="discount" [(ngModel)]="slipData.discount">
+                        <input type="hidden" name="loans" [(ngModel)]="slipData.loans">
+                        <input type="hidden" name="taxes" [(ngModel)]="slipData.taxes"> -->
+                        <div class="row m-5">
+                          <div class="col-md-12">
+
+
+                            <div class="row  mb-3">
+                              <label class="col-md-2 form-label">{{'Year'|translate}}</label>
+                              <div class="col-md-3">
+                                <mat-form-field appearance="fill" class="mt20 w-100">
+                                  <mat-label>-- {{'SelectYear'|translate}} --</mat-label>
+                                  <mat-select [(ngModel)]="slipData.year" name="year" class="form-select">
+                                    <mat-option value="2022">2022</mat-option>
+                                    <mat-option value="2023">2023</mat-option>
+                                    <mat-option value="2024">2024</mat-option>
+                                    <mat-option value="2025">2025</mat-option>
+                                    <mat-option value="2026">2026</mat-option>
+                                    <mat-option value="2027">2027</mat-option>
+                                    <mat-option value="2028">2028</mat-option>
+                                    <mat-option value="2028">2029</mat-option>
+                                    <mat-option value="2028">2030</mat-option>
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+
+                              <label class="col-md-2 form-label">{{'Month'|translate}}</label>
+                              <div class="col-md-3">
+                                <mat-form-field appearance="fill" class="mt20 w-100">
+                                  <mat-label>-- {{'SelectMonth'|translate}}  --</mat-label>
+                                  <mat-select [(ngModel)]="slipData.month" name="month" class="form-select" (selectionChange)="getAttendenceValue();getEmployeeadvance()">
+                                    <mat-option *ngFor="let i of [1,2,3,4,5,6,7,8,9,10,11,12]" [value]="i">{{i}}</mat-option>
+
+
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+
+
+
+
+                            </div>
+
+                            <div class="row  mb-3">
+                              <label class="col-md-2 form-label">{{'PaymentWay'|translate}}</label>
+                              <div class="col-md-3">
+                                <mat-form-field appearance="fill" class="mt20 w-100">
+                                  <mat-label>-- {{'SelectPaymentWay'|translate}} --</mat-label>
+                                  <mat-select [(ngModel)]="slipData.paymentWay" name="paymentWay" class="form-select">
+                                    <mat-option value="بنك">بنك</mat-option>
+                                    <mat-option value="كاش">كاش</mat-option>
+                                    <mat-option value="شيك">شيك</mat-option>
+
+
+                                  </mat-select>
+                                </mat-form-field>
+                              </div>
+
+                              <label class="col-md-2 form-label">{{'PaymentDate'|translate}}</label>
+                              <div class="col-md-3">
+                                <mat-form-field appearance="fill" class="mt20 w-100">
+                                  <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+                                  <input type="date" name="paymentDate" [(ngModel)]="slipData.paymentDate"  matInput >
+                                  <!-- <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                                  <mat-datepicker #picker4></mat-datepicker> -->
+                                </mat-form-field>
+                              </div>
+
+                            </div>
+
+
+                          </div>
+                        </div>
+                        <div class="page-rightheader ms-auto d-lg-flex d-none">
+                          <button type="submit" id="add-slip-form" class="btn btn-dark m-3">{{'Calculate'|translate}}</button>
+                        </div>
+
+                      </form>
+                    </mat-card-content>
+
+                  </div>
+
+
+
+                  <div class="card-footer">
+                    <div class="card-title bg-dark p-3 text-white">
+                      <!-- List Of Employee Salary Object -->
+                    </div>
+                    <div class="table-responsive table-bordered table-hover table-striped">
+                      <table class="table text-md-nowrap" id="myTable1">
+                        <thead>
+                          <tr>
+                            <!-- <th class="wd-15p border-bottom-0">{{'Name' | translate}}</th> -->
+                            <th class="wd-15p border-bottom-0">{{'SalaryObject' | translate}}</th>
+                            <th class="wd-15p border-bottom-0">{{'SalaryObjectType' | translate}}</th>
+                            <th class="wd-15p border-bottom-0">{{'Allowance' | translate}}</th>
+                            <th class="wd-15p border-bottom-0">{{'Deduction' | translate}}</th>
+
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                          <tr *ngFor="let contractDetail of contractDetails" ng-init="counter=counter+contractDetail.allowanceAmount">
+                            <!-- <td>{{ employeeSalaryObject.employee.employeeName }}</td> -->
+                            <td>{{ contractDetail.salaryObject.salaryObjectName }}</td>
+                            <td>{{ contractDetail.salaryObjectType }}</td>
+                            <td>{{ contractDetail.allowanceAmount }}</td>
+                            <td>{{ contractDetail.deductionAmount }}</td>
+
+
+
+                          </tr>
+                          <hr style="margin-top: -3px;">
+                          <tr>
+                            <td colspan="1">{{'AllowanceTotal' | translate}}</td>
+                            <td>{{ allowanceCounter }}</td>
+                            <td colspan="1">{{'DeductionTotal' | translate}}</td>
+                            <td>{{ deductionCounter }}</td>
+
+                          </tr>
+                          <tr>
+                            <!--  -->
+                            <td>{{'AdvanceValue' | translate}}</td>
+                            <td>{{monthlyPayment}}</td>
+                          </tr>
+
+                          <tr>
+                            <!--  -->
+                            <td>{{'attendenceValue' | translate}}</td>
+                            <td>{{currentAttValue}}</td>
+                          </tr>
+
+                          <tr>
+                            <td>
+                              {{'NetSalary' | translate}} &nbsp;&nbsp;
+                            </td>
+                            <td colspan="3">
+                              {{ netSalary }}
+                            </td>
+                          </tr>
+
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+              </div>
+            </div>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,113 @@
+
+
+						<!--Page header-->
+						<div class="page-header">
+							<div class="page-leftheader">
+								<h4 class="page-title"></h4>
+							</div>
+							<div class="page-rightheader ms-auto d-lg-flex d-none">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a [routerLink]="['/dashboard-hr/']"  class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'HOME' | translate}}</span></a></li>
+									<li class="breadcrumb-item"><a [routerLink]="['/employees/employees/']">{{"employee" | translate}}</a></li>
+									<li class="breadcrumb-item">{{'VIEW' | translate}}</li>
+								</ol>
+							</div>
+						</div>
+						<!--End Page header-->
+
+						<!-- Row -->
+						<div class="row flex-lg-nowrap">
+							<div class="col-12">
+								<div class="row flex-lg-nowrap">
+									<div class="col-12 mb-3">
+										<div class="e-panel card">
+											<div class="card-body pb-2">
+												<div class="row">
+													<div class="col mb-4">
+                            <a [routerLink]="['/employees/create-employee']" class="btn btn-gray-dark"><i class="fe fe-plus"></i> {{ 'ADD' | translate }} </a>
+                            <a [routerLink]="['/employees/list-of-employees']" class="btn btn-gray-dark m-2"><i class="fe fe-list"></i> {{ 'listOfEmployee' | translate }} </a>
+													</div>
+													<div class="col col-auto mb-4">
+														<div class="mb-3 w-100">
+															<div class="input-icon">
+																<span class="input-icon-addon">
+																	<!-- <i class="fe fe-search"></i> -->
+																</span>
+																<!-- <input type="text" class="form-control" placeholder="Search User"> -->
+                                <form>
+                                  <input type="search"  (ngModelChange)="searchEmployees(key.value)" #key="ngModel" ngModel name="key"  class="form-control" placeholder="{{ 'SEARCH' | translate }}" onfocus>
+                                </form>
+
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-xl-4 col-lg-6" *ngFor="let emp of employees">
+														<div class="card border p-0 shadow-none">
+															<div class="d-flex align-items-center p-4">
+																<img class="avatar avatar-lg brround d-block cover-image" src="../../../assets/images/employees/EmployeeImageProfile/EmployeeProfile.png" >
+																<div class="wrapper ms-3">
+																	<!-- <p class="mb-0 mt-1 text-dark font-weight-semibold" *ngIf="this.translate.currentLang =='ar'">{{ emp.employeeNameAr }}</p> -->
+                                  <!-- <p class="mb-0 mt-1 text-dark font-weight-semibold" *ngIf="this.translate.currentLang =='en'">{{ emp.employeeName }}</p> -->
+                                  <p class="mb-0 mt-1 text-dark font-weight-semibold">{{ emp.employeeNameAr }}</p>
+                                  <p class="mb-0 mt-1 text-dark font-weight-semibold">{{ emp.employeeName }}</p>
+																	<!-- <small class="text-muted">Project Manager</small> -->
+																</div>
+																<!-- <div class="float-end ms-auto">
+																	<div class="btn-group ms-3 mb-0 card-options" ngbDropdown >
+																		<a href="javascript:void(0)" class="option-dots"  ngbDropdownToggle  aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+																		<div ngbDropdownMenu >
+																			<a ngbDropdownItem [routerLink]="['/employees/view-employee/' +  emp.employeeId ]"><i class="fe fe-edit me-2"></i> {{ 'VIEW' | translate }}</a>
+																			<a ngbDropdownItem [routerLink]="['/employees/create-employee-details/' +  emp.employeeId]"><i class="fe fe-trash me-2"></i> {{ 'EDIT' | translate }}</a>
+																		</div>
+																	</div>
+																</div> -->
+															</div>
+															<div class="card-body border-top" >
+																<p class="text-muted">{{ emp.companies.companyName.substring(0,50)}}</p>
+                                <br>
+																<div class="d-flex mb-3">
+																	<!-- <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 8l-8 5-8-5v10h16zm0-2H4l8 4.99z" opacity=".3"/><path d="M4 20h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2zM20 6l-8 4.99L4 6h16zM4 8l8 5 8-5v10H4V8z"/></svg> -->
+                                </div>
+                                <div class="d-flex mb-3">
+																	<!-- <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M15.2 18.21c1.21.41 2.48.67 3.8.76v-1.5c-.88-.07-1.75-.22-2.6-.45l-1.2 1.19zM6.54 5h-1.5c.09 1.32.35 2.59.75 3.79l1.2-1.21c-.24-.83-.39-1.7-.45-2.58zM14 8h5V5h-5z" opacity=".3"/><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.1-.03-.21-.05-.31-.05-.26 0-.51.1-.71.29l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.58l2.2-2.21c.28-.27.36-.66.25-1.01C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1zM5.03 5h1.5c.07.88.22 1.75.46 2.59L5.79 8.8c-.41-1.21-.67-2.48-.76-3.8zM19 18.97c-1.32-.09-2.6-.35-3.8-.76l1.2-1.2c.85.24 1.72.39 2.6.45v1.51zM12 3v10l3-3h6V3h-9zm7 5h-5V5h5v3z"/></svg> -->
+                                <div class="h6 mb-0 ms-3 mt-1"> {{ 'BankBranch' | translate }} : {{ emp.bankBranch }}</div>
+																</div>
+                                <div class="d-flex mb-3">
+																	<!-- <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M15.2 18.21c1.21.41 2.48.67 3.8.76v-1.5c-.88-.07-1.75-.22-2.6-.45l-1.2 1.19zM6.54 5h-1.5c.09 1.32.35 2.59.75 3.79l1.2-1.21c-.24-.83-.39-1.7-.45-2.58zM14 8h5V5h-5z" opacity=".3"/><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.1-.03-.21-.05-.31-.05-.26 0-.51.1-.71.29l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.58l2.2-2.21c.28-.27.36-.66.25-1.01C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1zM5.03 5h1.5c.07.88.22 1.75.46 2.59L5.79 8.8c-.41-1.21-.67-2.48-.76-3.8zM19 18.97c-1.32-.09-2.6-.35-3.8-.76l1.2-1.2c.85.24 1.72.39 2.6.45v1.51zM12 3v10l3-3h6V3h-9zm7 5h-5V5h5v3z"/></svg> -->
+																	<div class="h6 mb-0 ms-3 mt-1"> {{ 'employeeCompanyId' | translate }} : {{ emp.employeePartCompanyId }}</div>
+																</div>
+																<div class="d-flex">
+																	<!-- <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M15.2 18.21c1.21.41 2.48.67 3.8.76v-1.5c-.88-.07-1.75-.22-2.6-.45l-1.2 1.19zM6.54 5h-1.5c.09 1.32.35 2.59.75 3.79l1.2-1.21c-.24-.83-.39-1.7-.45-2.58zM14 8h5V5h-5z" opacity=".3"/><path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57-.1-.03-.21-.05-.31-.05-.26 0-.51.1-.71.29l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.58l2.2-2.21c.28-.27.36-.66.25-1.01C8.7 6.45 8.5 5.25 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1zM5.03 5h1.5c.07.88.22 1.75.46 2.59L5.79 8.8c-.41-1.21-.67-2.48-.76-3.8zM19 18.97c-1.32-.09-2.6-.35-3.8-.76l1.2-1.2c.85.24 1.72.39 2.6.45v1.51zM12 3v10l3-3h6V3h-9zm7 5h-5V5h5v3z"/></svg> -->
+																	<div class="h6 mb-0 ms-3 mt-1"> {{ 'ResedinceNumber' | translate }} : {{ emp.residenceNumber }}</div>
+
+															</div>
+                              <br>
+															<div class="card-footer">
+																<a [routerLink]="['/employees/view-employee/' +  emp.employeeId ]" class="btn btn-gray btn-sm me-2">{{ 'VIEW' | translate }}</a>
+																<a [routerLink]="['/employees/create-employee-details/' +  emp.employeeId]" class="btn btn-dark btn-sm me-2">{{ 'EDIT' | translate }}</a>
+															</div>
+														</div>
+													</div>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- End Row -->
+
+
+
+           <!-- Notification for no employees -->
+<div *ngIf="employees?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+  <div class="alert alert-dark" role="alert">
+    <h4 class="alert-heading">{{ 'NOEMPLOYEES' | translate }}</h4>
+    <p>{{ 'NoEmployeeswerefound' | translate }}</p>
+  </div>
+</div>
+
+

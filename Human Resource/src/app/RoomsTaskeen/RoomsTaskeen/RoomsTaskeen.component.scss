@@ -1,0 +1,30 @@
+table {
+  width: 100%;
+}
+th{
+  padding-left: 8px;
+  font-weight: normal;
+  text-align: center !important;
+  font-size: 15px;
+}
+
+td{
+  text-align: center !important;
+  font-size: 15px;
+}
+
+::ng-deep th.mat-header-cell{
+
+  // background-color: #fff;
+  // color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+
+
+
+}
+
+th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+  text-align: center !important;
+  font-size: 15px;
+}

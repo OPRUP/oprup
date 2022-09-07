@@ -1,0 +1,171 @@
+<!--Page header-->
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title"> {{'subCompany' | translate}} </h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/dashboard-hr/']" class="d-flex"><svg class="svg-icon"
+        xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+        <path d="M0 0h24v24H0V0z" fill="none"/>
+        <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+        <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+          {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/companies/companies/']">{{'subCompany' | translate}}</a></li>
+			<li class="breadcrumb-item active" aria-current="page">{{'ADD' | translate}}</li>
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+<div class="card">
+<form #g="ngForm"
+[formGroup]="form"
+(ngSubmit)="onAddCompany()" class="form-horizontal">
+  <div class="card-header">
+    <button type="submit" id="add-company-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+    <a [routerLink]="['/companies/companies']" class="btn btn-light m-3">{{'DISCARD' | translate}}</a>
+  </div>
+
+  <div class="m-3 row">
+    <div class="col-md-6">
+      <label for="" class="form-label">{{'CompanyName:' | translate}}<span style="font-size: large;color: red;">*</span></label>
+      <input type="text"
+
+      formControlName="companyName"
+      [ngClass]="{ 'is-invalid': submitted && f['companyName'].errors }"
+
+
+      [(ngModel)]="companyData.companyName" id="companyName" name="companyName"
+      class="form-control mt-2 text-line">
+
+      <div *ngIf="submitted && f['companyName'].errors" class="invalid-feedback">
+        <div *ngIf="f['companyName'].errors['required']">{{'isReqired'|translate}}.</div>
+        <div *ngIf="f['companyName'].errors['minlength']">Minimum 3 Characters</div>
+      </div>
+
+    </div>
+    <div class="col-md-6">
+      <label for="" class="form-label">{{'CompanyPrefixName' | translate}}<span style="font-size: large;color: red;">*</span></label>
+      <input type="text"
+
+      formControlName="companyPrefix"
+      [ngClass]="{ 'is-invalid': submitted && f['companyPrefix'].errors }"
+
+
+      [(ngModel)]="companyData.companyPrefix" id="companyPrefix" name="companyPrefix"
+      class="form-control mt-2 text-line">
+
+      <div *ngIf="submitted && f['companyPrefix'].errors" class="invalid-feedback">
+        <div *ngIf="f['companyPrefix'].errors['required']">{{'isReqired'|translate}}.</div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="m-3 row">
+    <div class="col-md-6">
+      <label for="" class="form-label">{{'CommercialRegistration' | translate}}<span style="font-size: large;color: red;">*</span></label>
+      <input type="text"
+
+      formControlName="commercialId"
+      [ngClass]="{ 'is-invalid': submitted && f['commercialId'].errors }"
+
+
+      [(ngModel)]="companyData.commercialId" id="CommercialId" name="CommercialId"
+      class="form-control mt-2 text-line">
+
+      <div *ngIf="submitted && f['commercialId'].errors" class="invalid-feedback">
+        <div *ngIf="f['commercialId'].errors['required']">{{'isReqired'|translate}}.</div>
+      </div>
+
+    </div>
+    <div class="col-md-6">
+      <label for="" class="form-label">{{'licenseId' | translate}}<span style="font-size: large;color: red;">*</span></label>
+      <input type="text"
+
+      formControlName="licenseId"
+      [ngClass]="{ 'is-invalid': submitted && f['licenseId'].errors }"
+
+
+      [(ngModel)]="companyData.licenseId" id="licenseId" name="licenseId"
+      class="form-control mt-2 text-line">
+
+      <div *ngIf="submitted && f['licenseId'].errors" class="invalid-feedback">
+        <div *ngIf="f['licenseId'].errors['required']">{{'isReqired'|translate}}.</div>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="row m-3">
+     <div class="col-md-3">
+      <label for="" class="form-label"> {{'DateStart' | translate}} <span style="font-size: large;color: red;">*</span></label>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+      <input type="date" name="dateStart"
+      formControlName="dateStart"
+      [ngClass]="{ 'is-invalid': submitted && f['dateStart'].errors }"
+      [(ngModel)]="companyData.dateStart"
+      matInput >
+      <!-- <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker> -->
+    </mat-form-field>
+    </div>
+    <div *ngIf="submitted && f['dateStart'].errors" class="invalid-feedback">
+      <div *ngIf="f['dateStart'].errors['required']">{{'isReqired'|translate}}.</div>
+    </div>
+
+
+    <div class="col-md-3">
+      <label for="" class="form-label"> {{'DateOfExpirty' | translate}}<span style="font-size: large;color: red;">*</span> </label>
+      <mat-form-field appearance="outline">
+      <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+      <input type="date" name="dateEnding"
+      formControlName="dateEnding"
+      [ngClass]="{ 'is-invalid': submitted && f['dateEnding'].errors }"
+      [(ngModel)]="companyData.dateEnding"
+      matInput >
+
+    </mat-form-field>
+    <!-- <div fxFlex="calc(25% - 30px)">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Date of birth</mat-label>
+        <input matInput type="date" formControlName="dateEnding"
+        [ngClass]="{ 'is-invalid': submitted && f['dateEnding'].errors }"
+        [(ngModel)]="companyData.dateEnding"  placeholder="Select entry date" required> -->
+        <!-- <mat-error *ngIf="dateFormat">
+          <strong>Kindly enter a valid date</strong>
+        </mat-error> -->
+      <!-- </mat-form-field> -->
+    <!-- </div> -->
+    </div>
+
+    <div *ngIf="submitted && f['dateEnding'].errors" class="invalid-feedback">
+      <div *ngIf="f['dateEnding'].errors['required']">{{'isReqired'|translate}}.</div>
+
+
+  </div>
+</div>
+  <div class="m-3 row">
+    <div class="col-md-12">
+      <label for="" class="form-label">{{'Partners' | translate}}<span style="font-size: large;color: red;">*</span></label>
+      <textarea type="text"
+      placeholder="please put comma in the end of the Partner name ,"
+
+      formControlName="partners"
+      [ngClass]="{ 'is-invalid': submitted && f['partners'].errors }"
+
+      [(ngModel)]="companyData.partners" id="Partners" name="Partners"
+      class="form-control mt-2 text-line">
+    </textarea>
+
+      <div *ngIf="submitted && f['partners'].errors" class="invalid-feedback">
+        <div *ngIf="f['partners'].errors['required']">{{'isReqired'|translate}}.</div>
+      </div>
+
+    </div>
+
+  </div>
+  </form>
+</div>

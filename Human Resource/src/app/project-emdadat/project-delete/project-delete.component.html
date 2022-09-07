@@ -1,0 +1,54 @@
+<!--Page header-->
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{'Project' | translate}}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+
+      <li class="breadcrumb-item"><a [routerLink]="['/operation/']" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/operation/project-emdadat/project-view/']">{{'Project' | translate}}</a></li>
+			<li class="breadcrumb-item active" aria-current="page">{{'DELETE' | translate}}</li>
+								</ol>
+							</div>
+						</div>
+						<!--End Page header-->
+
+
+            <div class="card">
+              <form #delForm="ngForm" (ngSubmit)="onDeleteProject(delForm.value)" class="form-horizontal">
+                <div class="card-header">
+
+                  <button type="submit" id="delete-project-form" class="btn btn-dark m-3">{{ 'YES' | translate }}</button>
+                  <a [routerLink]="['/operation/project-emdadat/project-view']" class="btn btn-light">{{ 'NO' | translate }}</a>
+                </div> <h3 class="card-title alert alert-danger">{{ 'CONFIRMDELETE' | translate }} ({{project.projectName}})  </h3>
+                <input type="hidden" ngModel="{{project.projectId}}" name="projectId" id="projectId">
+                 <input type="hidden" ngModel="{{project.projectName}}" name="projectName" id="projectName">
+                <input type="hidden" ngModel="{{project.projectValue}}" name="projectValue" id="projectValue">
+                <input type="hidden" ngModel="{{project.projectAddress}}" name="projectAddress" id="projectAddress">
+                <input type="hidden" ngModel="{{project.clientName}}" name="clientName" id="clientName">
+                <input type="hidden" ngModel="{{project.projectDuration}}" name="projectDuration" id="projectDuration">
+                <input type="hidden" ngModel="{{project.startingDate}}" name="startingDate" id="startingDate">
+                <input type="hidden" ngModel="{{project.endingDate}}" name="endingDate" id="endingDate">
+                <input type="hidden" ngModel="{{project.workingTime}}" name="workingTime" id="workingTime">
+                <input type="hidden" ngModel="{{project.projectCode}}" name="projectCode" id="projectCode">
+                <input type="hidden" ngModel="{{project.employeeNumber}}" name="employeeNumber" id="employeeNumber">
+                <input type="hidden" ngModel="{{project.projectDescription}}" name="projectDescription" id="projectDescription">
+                <input type="hidden" ngModel="{{project.expectedExpense}}" name="expectedExpense" id="expectedExpense">
+                <input type="hidden" ngModel="{{ project.employees.employeeId }}" name="employeeId" id="employeeId">
+                </form>
+
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+

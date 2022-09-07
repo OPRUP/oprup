@@ -1,0 +1,140 @@
+
+.header {
+  text-align: center;
+  border: 0px;
+  margin: 0px;
+  padding: 0px;
+}
+#title, #description {
+  font-family: Tahoma;
+  line-height: 5px;
+
+}
+.descr {
+  font-weight: bolder;
+}
+#survey-form {
+  color: rgb(250, 251, 252);
+  margin: auto;
+  border: rgba(2, 1, 0, 0.432) solid 5px;
+  border-top: rgba(8, 4, 4, 0.671) 0px;
+  border-bottom: rgba(8, 4, 4, 0.671) 0px;
+  background-color: rgba(170, 98, 98, 0);
+  border-radius: 10%;
+  padding: 45px;
+  width: 490px;
+  height: 1060px;
+  font-size: 180%;
+}
+#name, #email {
+  background-color: rgba(240, 236, 236, 0.651);
+  width: 490px;
+  height: 35px;
+  border-radius: 5px;
+}
+#number {
+  background-color: rgba(240, 236, 236, 0.651);
+  width: fit-content;
+  height: 30px;
+}
+#dropdown {
+  background-color: rgba(240, 236, 236, 0.651);
+  width: fit-content;
+  height: 30px;
+}
+#comment-box {
+  width: 485px;
+  height: 98px;
+}
+.button {
+  color: seashell;
+  display: block;
+  background-color: rgba(46, 14, 4, 0.726);
+  border-radius: 5px;
+  cursor: pointer;
+  width: 490px;
+  padding: 15px;
+}
+@media only screen and (max-width: 900px)
+{
+  #survey-form {
+      padding: 45px;
+      width: 350px;
+      height: 750px;
+      font-size: 130%;
+  }
+  #name, #email {
+      width: 350px;
+      height: 30px;
+  }
+  #number {
+      width: 60px;
+      height: 28px;
+  }
+  #comment-box {
+      width: 350px;
+      height: 70px;
+  }
+  .button {
+      width: 350px;
+      padding: 10px;
+  }
+}
+@media only screen and (max-width: 800px)
+{
+  #survey-form {
+      padding: 40px;
+      width: 300px;
+      height: 660px;
+      font-size: 115%;
+  }
+  #name, #email {
+      width: 300px;
+      height: 25px;
+  }
+  #number {
+      width: 55px;
+      height: 23px;
+  }
+  #comment-box {
+      width: 300px;
+      height: 60px;
+  }
+  .button {
+      width: 300px;
+      padding: 5px;
+  }
+}
+@media only screen and (max-width: 500px)
+{
+  #survey-form {
+      padding: 35px;
+      width: 250px;
+      height: 700px;
+      font-size: 100%;
+  }
+  #name, #email {
+      width: 250px;
+      height: 20px;
+  }
+  #number {
+      width: 50px;
+      height: 20px;
+  }
+  #comment-box{
+      width: 250px;
+      height: 50px;
+  }
+  .button {
+      width: 250px;
+      padding: 2px;
+  }
+}
+#survey-form:hover {
+background-color: rgba(112, 30, 30, 0.459);
+}
+.button:hover {
+  background: #861304d8;
+  color: rgb(83, 215, 238);
+  border-radius: 5px;
+}

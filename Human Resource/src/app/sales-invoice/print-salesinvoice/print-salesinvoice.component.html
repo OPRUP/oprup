@@ -1,0 +1,252 @@
+<!--Page header-->
+<div class="page-header">
+  <div class="page-leftheader">
+      <h2 class="page-title">{{'salesInvoice' | translate}}</h2>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+      <ol class="breadcrumb">
+
+          <li class="breadcrumb-item">
+              <a [routerLink]="['/accounts/']" class="d-flex">
+                  <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+<path d="M0 0h24v24H0V0z" fill="none"/>
+<path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+<path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+{{'HOME' | translate}}</span></a>
+          </li>
+          <li class="breadcrumb-item"><a [routerLink]="['/accounts/sales-invoice/sales-invoice/']">
+{{"salesInvoice" | translate}} </a></li>
+          <li class="breadcrumb-item active" aria-current="page"> {{'PRINT' | translate}}</li>
+      </ol>
+  </div>
+</div>
+<!--End Page header-->
+<div class="card">
+
+  <div *ngIf="salesInoviceData">
+      <div class="card-header">
+          <div class="card-header pb-0">
+              &nbsp;&nbsp;&nbsp;
+              <a (click)="printPage()" class="btn btn-default"><i class="fe fe-plus"></i>{{'Print' | translate}}</a>
+              <button (click)="generatePDF()" class="btn btn-dark" style="margin-right:1vw ;"><i class="fe fe-plus"></i>{{'exportPDF' | translate}}</button>
+
+          </div>
+      </div>
+      <div id="invoice" #invoice>
+          <!-- invoice header  -->
+          <div class="logoImage">
+              <img class="logo" src="../../../assets/images/emdadat/emdadat-logo-01-1-e1630425324525.png" />
+          </div>
+          <div class="invoiceHeader">
+              <div class="headerContent">
+                  <p class="red">مؤسسة خالد مسفر فلاح الكبرى للتشغيل و الصيانة</p>
+                  <p>الرياض</p>
+                  <p>ص.ب : 1234</p>
+                  <p>هاتف : 1234567890</p>
+                  <p>فاكس :</p>
+                  <p>البريد الالكتروني : abcd@efg.com</p>
+                  <div class="infoBox red">
+                      <p class="infoNum">310039121400003</p>
+                      <div class="infoName">
+                          <p>.Vat&nbsp;No</p>
+                          <p>رقم الضريبة القيمة المضافة</p>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="headerContent enHeader">
+                  <p class="red">Khaled Misfer Falah Al-Kubra Foundation For Operation And Maintenance</p>
+                  <p>Riyadh</p>
+                  <p>P.O.Box : 1234</p>
+                  <p>Tel : 1234567890</p>
+                  <p>: Fax </p>
+                  <p>E-mail : abcd@efg.com</p>
+                  <div class="infoBox red">
+                      <p class="infoNum">{{data.salesInvoiceNumber}}</p>
+                      <div class="infoName">
+                          <p>Invoice Number</p>
+                          <p>رقم الفاتورة</p>
+                      </div>
+                  </div>
+
+              </div>
+
+          </div>
+          <div class="invoiceInfo">
+              <h2 class="blue">فاتورة ضريبية مبسطة / Simplified Tax Invoice</h2>
+              <div class="infoContainer">
+                  <div class="infoCol">
+                      <p>الرقم الضريبي للعميل : </p>
+                      <p>الصندوق : </p>
+                      <p> التاريخ : </p>
+                  </div>
+                  <div class="infoCol">
+                      <p>{{data.taxNumber}}</p>
+                      <p class="blue">{{data.cashAccount.accountName}}</p>
+                      <p class="blue">{{data.date}}</p>
+                  </div>
+                  <div class="infoCol enHeader">
+                      <p>: .Vat No</p>
+                      <p>: Box</p>
+                      <p>: Date</p>
+                  </div>
+                  <div class="infoCol">
+                      <p> اسم العميل : </p>
+                  </div>
+                  <div class="infoCol">
+                      <p class="blue">{{data.customer.nameAr}}</p>
+                  </div>
+                  <div class="infoCol enHeader">
+                      <p>: Customer Name</p>
+                  </div>
+
+              </div>
+
+          </div>
+          </div> <div class="m-3 row">
+
+              <div class="m-3 row text-center">
+
+
+
+
+                  <table mat-table matSort [dataSource]="salesInoviceData">
+                      <ng-container matColumnDef="itemCode">
+                          <th mat-header-cell *matHeaderCellDef>{{'itemCode' | translate}}</th>
+                          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.item.itemCode }}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="itemNameAr">
+                          <th mat-header-cell *matHeaderCellDef>{{'itemNameAr' | translate}}</th>
+                          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.item.itemNameAr }}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="nationality">
+                          <th mat-header-cell *matHeaderCellDef> {{'nationality' | translate}}</th>
+                          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.item.nationality }}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="gender">
+                          <th mat-header-cell *matHeaderCellDef> {{'gender' | translate}}</th>
+                          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.item.gender }}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="operationFee">
+                          <th mat-header-cell *matHeaderCellDef> {{'operationFee' | translate}}</th>
+                          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.operationFee }}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="foodAllowance">
+                          <th mat-header-cell *matHeaderCellDef> {{'foodAllowance' | translate}}</th>
+                          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.item.foodAllowance }}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="housingAllowance">
+                          <th mat-header-cell *matHeaderCellDef> {{'housingAllowance' | translate}}</th>
+                          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.item.housingAllowance }}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="OtherAllowance">
+                          <th mat-header-cell *matHeaderCellDef> {{'otherAllowance' | translate}}</th>
+                          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.item.otherAllowance }}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="profession">
+                          <th mat-header-cell *matHeaderCellDef> {{'profession' | translate}}</th>
+                          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.item.profession }}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="salary">
+                          <th mat-header-cell *matHeaderCellDef> {{'salary' | translate}}</th>
+                          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.item.salary }}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="numberOfEmployees">
+                          <th mat-header-cell *matHeaderCellDef> {{'employeeNumber' | translate}}</th>
+                          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.numberOfEmployees }}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="salesInvoiceItemValue">
+                          <th mat-header-cell *matHeaderCellDef> {{'value' | translate}}</th>
+                          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.salesInvoiceItemValue }}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="salesInvoiceItemTotal">
+                          <th mat-header-cell *matHeaderCellDef> {{'total' | translate}}</th>
+                          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.salesInvoiceItemTotal }}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="monthlyOperationFee">
+                          <th mat-header-cell *matHeaderCellDef> {{'monthlyOperationFee' | translate}}</th>
+                          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.monthlyOperationFee }}</td>
+                      </ng-container>
+                      <ng-container matColumnDef="taxRate">
+                          <th mat-header-cell *matHeaderCellDef> {{'taxRate' | translate}}</th>
+                          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.item.taxRate*100 }}%</td>
+                      </ng-container>
+
+
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+              </div>
+
+              <div class="infoContainer">
+                  <div class="infoCol">
+                      <p>الاجمالي قبل الضريبة :</p>
+                      <p>اجمالي الضريبة :</p>
+                      <p>الاجمالي بعد الضريبة :</p>
+                      <p class="blue">{{tafgeet}}</p>
+                  </div>
+                  <div class="infoCol">
+                      <p>{{data.amount}}</p>
+                      <p>{{data.tax}}</p>
+                      <p>{{data.total}}</p>
+                  </div>
+                  <div class="infoCol enHeader">
+                      <p>: Total Amount Before VAT</p>
+                      <p>: Total VAT</p>
+                      <p>: Total Amount After VAT</p>
+                      <p class="blue">{{tafgeetEn}}</p>
+                  </div>
+
+
+              </div>
+              <hr>
+              <table class="bank">
+                  <tr>
+                      <td>يرجى تحويل المبلغ المستحق على الحساب البنكي التالي :</td>
+                  </tr>
+                  <tr>
+                      <td>: Please remit the amount due to our bank account as per the below details</td>
+                  </tr>
+                  <tr>
+                      <table class="info">
+                          <tr>
+                              <td class="ar lightBlue">اسم البنك :</td>
+                              <td>بنك الإنماء</td>
+                              <td class="lightBlue">: Bank Name</td>
+                          </tr>
+                          <tr>
+                              <td class="ar lightBlue">رقم الحساب :</td>
+                              <td>68203854908000</td>
+                              <td class="lightBlue">: Account Number</td>
+                          </tr>
+                          <tr>
+                              <td class="ar lightBlue">رقم الايبان :</td>
+                              <td>SA1905000068203854908000</td>
+                              <td class="lightBlue">: IBAN</td>
+                          </tr>
+                          <tr>
+                              <td class="ar lightBlue">اسم المستفيد :</td>
+                              <td></td>
+                              <td class="lightBlue">: Beneficiary Name</td>
+                          </tr>
+                      </table>
+                  </tr>
+
+              </table>
+              <div class="finalize">
+                  <div class="finalDetails">
+                      <p class="finMan"> المحاسب&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _ _ _ _ _ _ _ _ _ _ _ _ _ _ </p>
+                      <p class="finMan">المدير المالي&nbsp;&nbsp; _ _ _ _ _ _ _ _ _ _ _ _ _ _ </p>
+                  </div>
+                  <div class="finalDetails finMan">
+                      <p>مدير الحسابات&nbsp; _ _ _ _ _ _ _ _ _ _ _ _ _ _</p>
+                  </div>
+                  <div class="finalDetails">
+                      <span class="text-secondary-d1 text-105"><img src="{{apiBaseUrl}}/qrcode/generateQRCode/خالد الكبرى/310039121400003/{{data.date}}/{{data.total}}/{{data.tax}}" width="200" height="200" alt=""> </span>
+                  </div>
+              </div>
+         
+      </div>
+  </div>
+</div>
+<!-- <img src="{{apiBaseUrl}}/qrcode/generateQRCode/شركة امدادات العطاء للتجارة و المقاولات/{{data.taxNumber}}/{{data.date}}/{{data.total}}/{{data.tax}}" width="100" height="100" alt=""> -->

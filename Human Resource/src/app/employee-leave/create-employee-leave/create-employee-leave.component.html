@@ -1,0 +1,147 @@
+						<!--Page header-->
+						<div class="page-header">
+							<div class="page-leftheader">
+								<h2 class="page-title">{{'CreateLeave' | translate}}</h2>
+							</div>
+							<div class="page-rightheader ms-auto d-lg-flex d-none">
+								<ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a [routerLink]="['/dashboard-hr/']" class="d-flex"><svg class="svg-icon1" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'HOME' | translate}}</span></a></li>
+                  <li class="breadcrumb-item"><a [routerLink]="['/departments/departments/']">{{'BoardOfDirectors' | translate}}</a></li>
+
+                                <li class="breadcrumb-item active" aria-current="page">{{'Create' | translate}}</li>
+									<li class="breadcrumb-item"><a [routerLink]="['/departments/departments/']">{{'Vacations' | translate}}</a></li>
+									<li class="breadcrumb-item active" aria-current="page">{{'CreateLeave' | translate}}</li>
+								</ol>
+							</div>
+						</div>
+						<!--End Page header-->
+
+            <div class="card">
+              <!-- *ngIf="employees" -->
+              <form  #addForm="ngForm"
+              [formGroup]="form"
+              (ngSubmit)="onAddEmployeeLeave()" class="form-horizontal">
+                <div class="card-header">
+                   <h2>{{'AddNewLeave' | translate}}</h2>
+                </div>
+                <div class="m-3 row mb-6">
+                  <div class="col-md-5">
+                    <label for="" class="form-label">{{'EmployeeName' | translate}}<span style="font-size: large;color: red;">*</span></label>
+                    <ng-select name="employee.employeeId"
+
+
+                    formControlName="employeeId"
+                    [ngClass]="{ 'is-invalid': submitted && f['employeeId'].errors }"
+
+                    [(ngModel)]="employeeLeaveData.employee.employeeId" class="form-control form-select" placeholder="-- {{'SelectEmployee' | translate}} --">
+                        <ng-option *ngFor="let emp of employees" [value] ="emp.employeeId">{{emp.employeeName}}</ng-option>
+
+                        <div *ngIf="submitted && f['employeeId'].errors" class="invalid-feedback">
+                          <div *ngIf="f['employeeId'].errors['required']">{{'isReqired'|translate}}.</div>
+                        </div>
+                    </ng-select>
+
+                  </div>
+                </div>
+                <div class="m-3 row">
+                  <div class="col-md-6">
+                    <label for="" class="form-label">{{'LeaveDate' | translate}}<span style="font-size: large;color: red;">*</span> </label>
+                      <mat-form-field appearance="fill">
+                        <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+                      <!-- #docregion toggle -->
+                        <input type="date" #leaveDate
+                        formControlName="leaveDate"
+                    [ngClass]="{ 'is-invalid': submitted && f['leaveDate'].errors }"
+
+                        [(ngModel)]="employeeLeaveData.leaveDate" name="leaveDate" id="leaveDate" matInput >
+                        <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker> -->
+                        <div *ngIf="submitted && f['leaveDate'].errors" class="invalid-feedback">
+                          <div *ngIf="f['leaveDate'].errors['required']">{{'isReqired'|translate}}.</div>
+                        </div>
+                      <!-- #enddocregion toggle -->
+                      </mat-form-field>
+                  </div>
+                </div>
+
+                <!-- <div class="m-3 row">
+                  <div class="col-md-6">
+                    <label for="" class="form-label">Leave From : </label>
+                        <mat-label>Choose The Leaving Hour</mat-label>
+
+                      <ngx-timepicker-field #leaveFrom [(ngModel)]="employeeLeaveData.leaveFrom" name="leaveFrom" id="leaveFrom" [defaultTime]="'11:11 am'" ></ngx-timepicker-field>
+
+                  </div>
+                  <div class="col-md-6">
+                    <label for="" class="form-label">Leave To : </label>
+                      <mat-label>Choose The Back Hour</mat-label>
+
+                    <ngx-timepicker-field #leaveTo [(ngModel)]="employeeLeaveData.leaveTo" name="leaveTo" id="leaveTo" [defaultTime]="'11:11 am'" ></ngx-timepicker-field>
+
+                  </div>
+                </div> -->
+
+                <div class="m-3 row">
+                  <div class="col-md-6">
+                    <label for="" class="form-label">{{'TypeofLeave' | translate}}<span style="font-size: large;color: red;">*</span> </label>
+                        <ng-select #leaveType
+
+                        formControlName="leaveType"
+                        [ngClass]="{ 'is-invalid': submitted && f['leaveType'].errors }"
+
+                        [(ngModel)]="employeeLeaveData.leaveType" name="leaveType" id="leaveType"
+                          class="form-control form-select">
+                          <ng-option value="النوع">{{'Types' | translate}}</ng-option>
+                          <ng-option value="سنوي">{{'Annual' | translate}}</ng-option>
+                          <ng-option value="مرض">{{'Sick' | translate}}</ng-option>
+                          <ng-option value="الرضاعة">{{'Breastfeeding' | translate}}</ng-option>
+                          <ng-option value="كوفيد-19">{{'COVID-19' | translate}}</ng-option>
+                          <ng-option value="دراسة">{{'Study' | translate}}</ng-option>
+                          <ng-option value="اخرى">{{'Other-PleaseExplinaitintheDescriptionField' | translate}}</ng-option>
+                        </ng-select>
+                        <div *ngIf="submitted && f['leaveType'].errors" class="invalid-feedback">
+                          <div *ngIf="f['leaveType'].errors['required']">{{'isReqired'|translate}}.</div>
+                        </div>
+                  </div>
+                </div>
+
+                <div class="m-3 row">
+                  <div class="col-md-6">
+                    <label for="" class="form-label">{{'ApprovedBy' | translate}}<span style="font-size: large;color: red;">*</span> </label>
+                    <input type="text" #approvedBy
+                    formControlName="approvedBy"
+                    [ngClass]="{ 'is-invalid': submitted && f['approvedBy'].errors }"
+
+                    [(ngModel)]="employeeLeaveData.approvedBy" id="approvedBy" name="approvedBy" class="form-control mt-2 text-line" placeholder="{{'ApprovedBy' | translate}}" >
+                    <div *ngIf="submitted && f['approvedBy'].errors" class="invalid-feedback">
+                      <div *ngIf="f['approvedBy'].errors['required']">{{'isReqired'|translate}}.</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="m-3 row">
+                  <div class="col-md-6">
+                    <label for="" class="form-label">{{'Description' | translate}} </label>
+                    <input type="text" #description
+                    [(ngModel)]="employeeLeaveData.description" id="description" name="description" class="form-control mt-2 text-line" placeholder="{{'Description' | translate}}" >
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="" class="form-label">{{'Attachment' | translate}} <span style="font-size: large;color: red;">*</span></label>
+                  <input type="file" #attachment
+                  formControlName="attachment"
+                  [ngClass]="{ 'is-invalid': submitted && f['attachment'].errors }"
+                  [(ngModel)]="employeeLeaveData.attachment" id="attachment" name="attachment" class="btn btn-default">
+
+                  <div *ngIf="submitted && f['attachment'].errors" class="invalid-feedback">
+                    <div *ngIf="f['attachment'].errors['required']">{{'isReqired'|translate}}.</div>
+                  </div>
+                </div>
+
+                <div class="card-footer">
+                  <button type="submit" id="add-employeeLeave-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+                </div>
+                <!-- {{addForm.value | json}} -->
+              </form>
+
+            </div>
+

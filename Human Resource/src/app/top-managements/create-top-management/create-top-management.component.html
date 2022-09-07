@@ -1,0 +1,120 @@
+
+<!--Page header-->
+<div class="page-header">
+  <div class="page-leftheader">
+    <h2 class="page-title">{{'CompanyInfo'|translate}} </h2>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/dashboard-hr/']" class="d-flex">
+        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/>
+          <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+          <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+            {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/top-managements/top-managements/']">{{"CompanyInfo" | translate}} </a></li>
+      <li class="breadcrumb-item active" aria-current="page"> {{'ADD' | translate}}</li>
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+
+
+<div class="card">
+    <form (ngSubmit)="onAddTopManagement()"
+    [formGroup]="form"
+     class="form-horizontal">
+      <div class="card-header">
+        <button type="submit" id="add-top-management-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+        <a [routerLink]="['/top-managements/top-managements']" class="btn btn-light">{{'DISCARD' | translate}}</a>
+      </div>
+      <div class="m-3 row">
+        <div class="col-md-6">
+          <label for="" class="form-label"
+
+       >{{'CompanyName' | translate}}<span style="font-size: large;color: red;">*</span></label>
+          <input type="text"  formControlName="companyName" [ngClass]="{ 'is-invalid': submitted && f['companyName'].errors }"  #companyName [(ngModel)]="topManagementData.companyName" id="companyName" name="companyName"
+          class="form-control mt-2 text-line">
+          <div *ngIf="submitted && f['companyName'].errors" class="invalid-feedback">
+            <div
+            *ngIf="f['companyName'].errors['required']">  {{'reqired' | translate}}.
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="m-3 row">
+        <div class="col-md-6">
+          <label for="" class="form-label">{{'CommercialRegistration' | translate}}<span style="font-size: large;color: red;">*</span></label>
+          <input type="text" formControlName="commercialId" [ngClass]="{ 'is-invalid': submitted && f['commercialId'].errors }"  #commercialId [(ngModel)]="topManagementData.commercialId" id="CommercialId" name="CommercialId"
+          class="form-control mt-2 text-line">
+          <div *ngIf="submitted && f['commercialId'].errors" class="invalid-feedback">
+            <div
+            *ngIf="f['commercialId'].errors['required']">  {{'reqired' | translate}}.
+          </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="row m-3">
+        <div class="col-md-3 m-3">
+          <label for="" class="form-label"> {{'DateSart' | translate}}<span style="font-size: large;color: red;">*</span> </label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+          <input type="date"
+          formControlName="dateStart" [ngClass]="{ 'is-invalid': submitted && f['dateStart'].errors }"  #dateStart
+           name="dateStart"
+          [(ngModel)]="topManagementData.dateStart"
+          matInput>
+          <!-- <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker> -->
+        </mat-form-field>
+        <div *ngIf="submitted && f['dateStart'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['dateStart'].errors['required']">  {{'reqired' | translate}}.</div>
+        </div>
+        </div>
+        <div class="col-md-3 m-3">
+          <label for="" class="form-label"> {{'DateEnd' | translate}} <span style="font-size: large;color: red;">*</span></label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+          <input type="date"
+          formControlName="dateEnding" [ngClass]="{ 'is-invalid': submitted && f['dateEnding'].errors }"  #dateStart
+          name="dateEnding"
+          [(ngModel)]="topManagementData.dateEnding"
+          matInput >
+          <!-- <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker> -->
+        </mat-form-field>
+        <div *ngIf="submitted && f['dateEnding'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['dateEnding'].errors['required']">  {{'reqired' | translate}}.</div>
+        </div>
+
+        </div>
+      </div>
+      <div class="m-3 row">
+        <div class="col-md-6">
+          <label for="" class="form-label">{{'licenseId' | translate}}<span style="font-size: large;color: red;">*</span></label>
+          <input type="text"
+          formControlName="licenseId" [ngClass]="{ 'is-invalid': submitted && f['licenseId'].errors }"  #dateStart
+          [(ngModel)]="topManagementData.licenseId" id="licenseId" name="licenseId"
+          class="form-control mt-2 text-line">
+          <div *ngIf="submitted && f['licenseId'].errors" class="invalid-feedback">
+            <div
+            *ngIf="f['licenseId'].errors['required']">  {{'reqired' | translate}}.</div>
+          </div>
+        </div>
+</div>
+
+
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+

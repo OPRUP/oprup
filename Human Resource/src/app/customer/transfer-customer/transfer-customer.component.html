@@ -1,0 +1,262 @@
+<!--Page header-->
+<div class="page-header">
+    <div class="page-leftheader">
+        <h2 class="page-title">{{'transferCustomer' | translate}}</h2>
+    </div>
+    <div class="page-rightheader ms-auto d-lg-flex d-none">
+        <ol class="breadcrumb">
+
+            <li class="breadcrumb-item">
+                <a [routerLink]="['/sales/']" class="d-flex">
+                    <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+              <path d="M0 0h24v24H0V0z" fill="none" />
+              <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z" />
+              <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3" /></svg><span class="breadcrumb-icon">
+              {{'HOME' | translate}}</span></a>
+            </li>
+            <li class="breadcrumb-item"><a [routerLink]="['/sales/customer/customer/']">
+            {{"transferCustomer" | translate}} </a></li>
+            <li class="breadcrumb-item active" aria-current="page"> {{'EDIT' | translate}}</li>
+        </ol>
+    </div>
+</div>
+<!--End Page header-->
+
+<!-- <div class="card"> -->
+<div class="card">
+    <form #editForm="ngForm" *ngIf="customer" [formGroup]="form" (ngSubmit)="onUpdateCustomer()" class="form-horizontal">
+        <div class="card-header">
+            <button type="submit" id="UpdateCustomer-form" class="btn btn-dark m-3">{{ 'SAVE' | translate }}</button>
+            <a [routerLink]="['/sales/customer/customer/']" class="btn btn-light">{{ 'DISCARD' | translate }}</a>
+        </div>
+        <input type="text" [(ngModel)]="customer.customerId" [ngModelOptions]="{standalone: true}" name="customerId" id="customerId" hidden>
+        <div class="m-3 row">
+            <div class="col-md-6">
+                <label for="" class="form-label">{{ 'Date' | translate }}  <span class="star">*</span></label>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+                    <input type="date" id="date" name="date" #date formControlName="date" [ngClass]="{ 'is-invalid': submitted && f['date'].errors }" [(ngModel)]="customer.date" matInput>
+
+                </mat-form-field>
+                <div *ngIf="submitted && f['date'].errors" class="invalid-feedback">
+                    <div *ngIf="f['date'].errors['required']">{{'isReqired'|translate}}.</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-3 row">
+            <div class="col-md-6">
+                <label for="" class="form-label">{{'customerNo.' | translate}}</label>
+                <input readonly type="text" #customerAccountNumber [(ngModel)]="customer.customerAccountNumber" [ngModelOptions]="{standalone: true}" id="customerAccountNumber" name="customerAccountNumber" class="form-control" placeholder="">
+
+            </div>
+            <div class="col-md-6">
+                <label for="" class="form-label">{{ 'customerStatus' | translate }} </label>
+                <input readonly #customerStatus value="محول" name="customerStatus" class="form-control form-select">
+            </div>
+        </div>
+        <div class="m-3 row">
+            <div class="col-md-6">
+                <label for="" class="form-label">{{ 'nameAr' | translate }} <span class="star">*</span> </label>
+                <input type="text" #nameAr formControlName="nameAr" [ngClass]="{ 'is-invalid': submitted && f['nameAr'].errors }" [(ngModel)]="customer.nameAr" id="nameAr" name="nameAr" class="form-control mt-2 text-line">
+                <div *ngIf="submitted && f['nameAr'].errors" class="invalid-feedback">
+                    <div *ngIf="f['nameAr'].errors['required']">{{'isReqired'|translate}}.</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="" class="form-label">{{ 'nameEn' | translate }} <span class="star">*</span> </label>
+                <input type="text" #nameEn formControlName="nameEn" [ngClass]="{ 'is-invalid': submitted && f['nameEn'].errors }" [(ngModel)]="customer.nameEn" id="nameEn" name="nameEn" class="form-control mt-2 text-line">
+                <div *ngIf="submitted && f['nameEn'].errors" class="invalid-feedback">
+                    <div *ngIf="f['nameEn'].errors['required']">{{'isReqired'|translate}}.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="m-3 row">
+            <div class="col-md-6">
+                <label for="" class="form-label">{{'CountryAr' | translate }} <span class="star">*</span></label>
+                <ng-select #countryAr formControlName="countryAr" [ngClass]="{ 'is-invalid': submitted && f['countryAr'].errors }" [(ngModel)]="customer.countryAr" name="countryAr" id="countryAr" class="form-control form-select">
+                    <ng-option *ngFor="let item of cityList" value="{{item.name_ar}}">
+                        {{item.name_ar}}
+                    </ng-option>
+                </ng-select>
+                <div *ngIf="submitted && f['countryAr'].errors" class="invalid-feedback">
+                    <div *ngIf="f['countryAr'].errors['required']">{{'isReqired'|translate}}.</div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="" class="form-label">{{'CountryEn' | translate }}  <span class="star">*</span></label>
+                <ng-select #countryEn formControlName="countryEn" [ngClass]="{ 'is-invalid': submitted && f['countryEn'].errors }" [(ngModel)]="customer.countryEn" name="countryEn" id="countryEn" class="form-control form-select">
+                    <ng-option *ngFor="let item of cityList" value="{{item.name_en}}">
+                        {{item.name_en}}
+                    </ng-option>
+                </ng-select>
+                <div *ngIf="submitted && f['countryEn'].errors" class="invalid-feedback">
+                    <div *ngIf="f['countryEn'].errors['required']">{{'isReqired'|translate}}.</div>
+                </div>
+            </div>
+
+        </div>
+        <div class="m-3 row">
+            <div class="col-md-6">
+                <label for="" class="form-label">{{ 'contractSignerNameAr' | translate }} <span class="star">*</span></label>
+                <input type="text" formControlName="contractSignerNameAr" [ngClass]="{ 'is-invalid': submitted && f['contractSignerNameAr'].errors }" #contractSignerNameAr [(ngModel)]="customer.contractSignerNameAr" id="contractSignerNameAr" name="contractSignerNameAr"
+                    class="form-control mt-2 text-line">
+                <div *ngIf="submitted && f['contractSignerNameAr'].errors" class="invalid-feedback">
+                    <div *ngIf="f['contractSignerNameAr'].errors['required']">{{'isReqired'|translate}}.</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="" class="form-label">{{ 'contractSignerNameEn' | translate }} <span class="star">*</span></label>
+                <input type="text" #contractSignerNameEn formControlName="contractSignerNameEn" [ngClass]="{ 'is-invalid': submitted && f['contractSignerNameEn'].errors }" [(ngModel)]="customer.contractSignerNameEn" id="contractSignerNameEn" name="contractSignerNameEn"
+                    class="form-control mt-2 text-line">
+                <div *ngIf="submitted && f['contractSignerNameEn'].errors" class="invalid-feedback">
+                    <div *ngIf="f['contractSignerNameEn'].errors['required']">{{'isReqired'|translate}}.</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-3 row">
+            <div class="col-md-6">
+                <label for="" class="form-label">{{ 'contractSignerIdNumber' | translate }} <span class="star">*</span></label>
+                <input type="text" #contractSignerIdNumber formControlName="contractSignerIdNumber" [ngClass]="{ 'is-invalid': submitted && f['contractSignerIdNumber'].errors }" [(ngModel)]="customer.contractSignerIdNumber" id="contractSignerIdNumber" name="contractSignerIdNumber"
+                    class="form-control mt-2 text-line">
+                <div *ngIf="submitted && f['contractSignerIdNumber'].errors" class="invalid-feedback">
+                    <div *ngIf="f['contractSignerIdNumber'].errors['required']">{{'isReqired'|translate}}.</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="" class="form-label">{{ 'contractSignerPhoneNumber' | translate }} <span class="star">*</span> </label>
+                <input type="text" #contractSignerPhoneNumber formControlName="contractSignerPhoneNumber" [ngClass]="{ 'is-invalid': submitted && f['contractSignerPhoneNumber'].errors }" id="contractSignerPhoneNumber" [(ngModel)]="customer.contractSignerPhoneNumber"
+                    name="contractSignerPhoneNumber" class="form-control mt-2 text-line">
+                <div *ngIf="submitted && f['contractSignerPhoneNumber'].errors" class="invalid-feedback">
+                    <div *ngIf="f['contractSignerPhoneNumber'].errors['required']">{{'isReqired'|translate}}.</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-3 row">
+            <div class="col-md-6">
+                <label for="" class="form-label">{{ 'designation' | translate }} <span class="star">*</span></label>
+                <input type="text" #designation formControlName="designation" [ngClass]="{ 'is-invalid': submitted && f['designation'].errors }" [(ngModel)]="customer.designation" id="designation" name="designation" class="form-control mt-2 text-line">
+                <div *ngIf="submitted && f['designation'].errors" class="invalid-feedback">
+                    <div *ngIf="f['designation'].errors['required']">{{'isReqired'|translate}}.</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="" class="form-label">{{'Nationality' | translate }}  <span class="star">*</span></label>
+                <ng-select #nationality formControlName="nationality" [ngClass]="{ 'is-invalid': submitted && f['nationality'].errors }" [(ngModel)]="customer.nationality" name="nationality" id="nationality" class="form-control form-select">
+                    <ng-option *ngFor="let item of countryList" value="{{item.name}}">
+                        {{item.name}}
+                    </ng-option>
+                </ng-select>
+                <div *ngIf="submitted && f['nationality'].errors" class="invalid-feedback">
+                    <div *ngIf="f['nationality'].errors['required']">{{'isReqired'|translate}}.</div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="m-3 row">
+            <div class="col-md-6">
+                <label for="" class="form-label">{{'.MOB' | translate}} <span class="star">*</span></label>
+                <input type="text" formControlName="contactNumber" [ngClass]="{ 'is-invalid': submitted && f['contactNumber'].errors }" #contactNumber [(ngModel)]="customer.contactNumber" id="contactNumber" name="contactNumber" class="form-control" placeholder="">
+                <div *ngIf="submitted && f['contactNumber'].errors" class="invalid-feedback">
+                    <div *ngIf="f['contactNumber'].errors['required']">{{'isReqired'|translate}}.</div>
+                    <div *ngIf="f['contactNumber'].errors['pattern']">{{'Start with 07 or 00966 or contains 7 or 8 or 9 digits'|translate}}.</div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label for="" class="form-label">{{'email' | translate}} <span class="star">*</span></label>
+                <input type="email" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" #email [(ngModel)]="customer.email" id="email" name="email" class="form-control" placeholder="">
+                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                    <div *ngIf="f['email'].errors['required']">{{'isReqired'|translate}}.</div>
+                    <div *ngIf="f['email'].errors['pattern']">{{'Email is invalid'|translate}}.</div>
+                </div>
+            </div>
+        </div> -->
+        <div class="m-3 row">
+
+            <div class="col-md-6">
+                <label for="" class="form-label">{{'contractDuration' | translate}} <span class="star">*</span></label>
+                <input type="text" formControlName="contractDuration" [ngClass]="{ 'is-invalid': submitted && f['contractDuration'].errors }" #details [(ngModel)]="customer.contractDuration" id="details" name="details" class="form-control" placeholder="">
+                <div *ngIf="submitted && f['contractDuration'].errors" class="form-control">
+                    <div *ngIf="f['contractDuration'].errors['required']">{{'isReqired'|translate}}.</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="" class="form-label">{{'customerAccNo.' | translate}} <span class="star">*</span></label>
+                <ng-select #accountId name="accountId" formControlName="accountId" [ngClass]="{ 'is-invalid': submitted && f['accountId'].errors }" [(ngModel)]="customer.chartAccounts.accountId" class="form-control form-select">
+                    <ng-option *ngFor="let chartAccount of chartAccounts" [value]="chartAccount.accountId">{{chartAccount.accountName}}: {{chartAccount.accountId}}</ng-option>
+                </ng-select>
+                <div *ngIf="submitted && f['accountId'].errors" class="invalid-feedback">
+                    <div *ngIf="f['accountId'].errors['required']">{{'isReqired'|translate}}.</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-3 row">
+            <div class="col-md-6">
+                <label for="" class="form-label">{{ 'numberCR' | translate }} <span class="star">*</span></label>
+                <input type="text" #numberCR formControlName="numberCR" [ngClass]="{ 'is-invalid': submitted && f['numberCR'].errors }" [(ngModel)]="customer.numberCR" id="numberCR" name="numberCR" class="form-control mt-2 text-line">
+                <div *ngIf="submitted && f['numberCR'].errors" class="invalid-feedback">
+                    <div *ngIf="f['numberCR'].errors['required']">{{'isReqired'|translate}}.</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="" class="form-label">{{ 'contractSignerEmail' | translate }} <span class="star">*</span></label>
+                <input type="text" #contractSignerEmail formControlName="contractSignerEmail" [ngClass]="{ 'is-invalid': submitted && f['contractSignerEmail'].errors }" [(ngModel)]="customer.contractSignerEmail" id="contractSignerEmail" name="contractSignerEmail" class="form-control mt-2 text-line">
+                <div *ngIf="submitted && f['contractSignerEmail'].errors" class="invalid-feedback">
+                    <div *ngIf="f['contractSignerEmail'].errors['required']">{{'isReqired'|translate}}.</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-3 row">
+            <div class="col-md-6">
+                <label for="" class="form-label">{{ 'followerNameAr' | translate }} <span class="star">*</span></label>
+                <input type="text" #followerNameAr formControlName="followerNameAr" [ngClass]="{ 'is-invalid': submitted && f['followerNameAr'].errors }" [(ngModel)]="customer.followerNameAr" id="followerNameAr" name="followerNameAr" class="form-control mt-2 text-line">
+                <div *ngIf="submitted && f['followerNameAr'].errors" class="form-control">
+                    <div *ngIf="f['followerNameAr'].errors['required']">{{'isReqired'|translate}}.</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="" class="form-label">{{ 'followerNameEn' | translate }} <span class="star">*</span></label>
+                <input type="text" #followerNameEn formControlName="followerNameEn" [ngClass]="{ 'is-invalid': submitted && f['followerNameEn'].errors }" [(ngModel)]="customer.followerNameEn" id="followerNameEn" name="followerNameEn" class="form-control mt-2 text-line">
+                <div *ngIf="submitted && f['followerNameEn'].errors" class="form-control">
+                    <div *ngIf="f['followerNameEn'].errors['required']">{{'isReqired'|translate}}.</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-3 row">
+            <div class="col-md-6">
+                <label for="" class="form-label">{{'followerContactNumber' | translate}} <span class="star">*</span></label>
+                <input type="text" formControlName="followerContactNumber" [ngClass]="{ 'is-invalid': submitted && f['followerContactNumber'].errors }" #followerContactNumber [(ngModel)]="customer.followerContactNumber" id="followerContactNumber" name="followerContactNumber"
+                    class="form-control">
+                <div *ngIf="submitted && f['followerContactNumber'].errors" class="invalid-feedback">
+                    <div *ngIf="f['followerContactNumber'].errors['required']">{{'isReqired'|translate}}.</div>
+                    <div *ngIf="f['followerContactNumber'].errors['pattern']">{{'Start with 07 or 00966 or contains 7 or 8 or 9 digits'|translate}}.</div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="" class="form-label">{{'followerEmailAdrress' | translate}} <span class="star">*</span></label>
+                <input type="followerEmail" formControlName="followerEmail" [ngClass]="{ 'is-invalid': submitted && f['followerEmail'].errors }" #followerEmail [(ngModel)]="customer.followerEmail" id="followerEmail" name="followerEmail" class="form-control" placeholder="">
+                <div *ngIf="submitted && f['followerEmail'].errors" class="invalid-feedback">
+                    <div *ngIf="f['followerEmail'].errors['required']">{{'isReqired'|translate}}.</div>
+                    <div *ngIf="f['followerEmail'].errors['pattern']">{{'Email is invalid'|translate}}.</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-3 row">
+
+
+        </div>
+        <div class="m-3 row">
+
+        </div>
+        <div class="m-3 row">
+            <div class="col-md-12">
+                <label for="" class="form-label">{{ 'notesAndUpdates' | translate }} </label>
+                <textarea type="text" #notesAndUpdates [(ngModel)]="customer.notesAndUpdates" [ngModelOptions]="{standalone: true}" id="notesAndUpdates" name="notesAndUpdates" class="form-control mt-2 text-line">
+     </textarea>
+            </div>
+        </div>
+
+    </form>
+</div>

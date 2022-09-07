@@ -1,0 +1,377 @@
+<!--Page header-->
+<div class="page-header">
+  <div class="page-leftheader">
+    <h2 class="page-title">{{'purchasingInvoices' | translate}} </h2>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/purchase/']" class="d-flex"><svg class="svg-icon"
+            xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0V0z" fill="none" />
+            <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z" />
+            <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3" />
+          </svg><span class="breadcrumb-icon"> {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/purchase/purchasing/purchasing/']">{{'purchasingInvoices' | translate}}</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">{{'VIEW' | translate}}</li>
+    </ol>
+  </div>
+</div>
+
+<div class="card-header pb-0">
+  &nbsp;&nbsp;&nbsp;
+  <!-- <a class="btn btn-default"><i class="fe fe-plus"></i>{{'Print' | translate}}</a> -->
+</div>
+
+
+<!-- row opened -->
+<div class="row row-sm">
+  <div class="col-xl-12">
+    <div class="card">
+      <form [formGroup]="form" class="form-horizontal">
+        <div class="card-header">
+          <button type="button" (click)="onAddpurchasing()" id="add-visit-form" class="btn btn-dark m-3">{{'SAVE' |
+            translate}}</button>
+          <a [routerLink]="['/purchase/purchasing/purchasing/']" class="btn btn-light">{{'DISCARD' | translate}}</a>
+        </div>
+        <div class="m-3 row mb-6">
+          <div class="col-md-5 m-2">
+            <label for="" class="form-label">{{'vendorName' | translate}}<span style="font-size: large;color: red;">*</span></label>
+            <ng-select name="vendorId" formControlName="vendorId"
+              [ngClass]="{ 'is-invalid': submitted && f['vendorId'].errors }"
+              [(ngModel)]="purchasingData.vendorAccount.accountId" class="form-control form-select">
+              <ng-option *ngFor="let account of accounts" [value] ="account.accountId">{{account.accountCode}}|{{account.accountName}}</ng-option>
+            </ng-select>
+            <div *ngIf="submitted && f['vendorId'].errors" class="invalid-feedback">
+              <div *ngIf="f['vendorId'].errors['required']">  {{'isReqired'|translate}}.</div>
+            </div>
+
+          </div>
+          <!-- <div class="col-md-4">
+                      <label for="" class="form-label">{{ 'Vendor:' | translate }}</label>
+                      <ng-select #vendorId formControlName="vendorId" name="vendorId" [(ngModel)]="purchasingData.vendors.vendorId" class="">
+                          <ng-option *ngFor="let s of vendors" [value]="s.vendorId">{{s.vendorName}} </ng-option>
+                      </ng-select>
+                  </div> -->
+          <!-- <div class="col-md-6">
+                    <label for="" class="form-label">{{'InvoiceType' | translate}}:</label>
+                    <div class="form-check form-check-inline">
+                    <input type="text"  formControlName="purchasingInvoiceType"
+                    [ngClass]="{ 'is-invalid': submitted && f['purchasingInvoiceType'].errors }"
+                    #purchasingInvoiceType
+                    [(ngModel)]="purchasingData.purchasingInvoiceType" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="cash"  formControlName="purchasingInvoiceType"  >
+                    <label class="form-check-label" for="inlineRadio1">cash</label>
+                      </div>
+                  <div class="form-check form-check-inline">
+                    <input #purchasingInvoiceType formControlName="purchasingInvoiceType" [(ngModel)]="purchasingData.purchasingInvoiceType"  [ngClass]="{ 'is-invalid': submitted && f['purchasingInvoiceType'].errors }" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="receivables">
+                    <label class="form-check-label" for="inlineRadio2">receivables</label>
+                </div>
+                <div *ngIf="submitted && f['purchasingInvoiceType'].errors" class="invalid-feedback">
+                  <div
+                  *ngIf="f['purchasingInvoiceType'].errors['required']">  {{'isReqired'|translate}}.</div>
+                </div>
+                </div> -->
+          <div class="col-md-5 m-2">
+            <label class="form-label">{{ 'invoiceType' | translate }}<span style="font-size: large;color: red;">*</span></label>
+            <div class="form-check form-check-inline">
+              <input [(ngModel)]="purchasingData.purchasingInvoiceType" class="form-check-input" type="radio"
+                name="inlineRadioOptions" id="inlineRadio1" value="cash" #purchasingInvoiceType
+                formControlName="purchasingInvoiceType">
+              <label class="form-check-label" for="inlineRadio1">{{'cash'|translate}}</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input #purchasingInvoiceType formControlName="purchasingInvoiceType"
+                [(ngModel)]="purchasingData.purchasingInvoiceType" class="form-check-input" type="radio"
+                name="inlineRadioOptions" id="inlineRadio2" value="debit">
+              <label class="form-check-label" for="inlineRadio2">{{'receivables'|translate}}</label>
+            </div>
+          </div>
+          <!-- <div class="col-md-6">
+          <label for="" class="form-label">{{'purchasingInvoiceType:' | translate}}</label>
+          <ng-select name="purchasingInvoiceType" #purchasingInvoiceType formControlName="purchasingInvoiceType"
+            [(ngModel)]="purchasingData.purchasingInvoiceType" class="form-control form-select">
+            <ng-option value="نقد">{{'نقد' | translate }}</ng-option>
+            <ng-option value="ذمم">{{'ذمم' | translate }}</ng-option>
+          </ng-select>
+        </div> -->
+          <!-- <div class="m-3 row mb-6">
+              <label for="" class="form-label">{{ 'purchasingInvoiceType:' | translate }}</label>
+
+              <input type="text"  [(ngModel)]="purchasingData.purchasingInvoiceType"
+              value="" id="purchasingInvoiceType" name="purchasingInvoiceType" class="form-control"  />
+
+            </div>
+           -->
+        </div>
+        <div class="row m-3">
+          <div class="col-md-6">
+            <label for="" class="form-label">{{'date' | translate}}<span style="font-size: large;color: red;">*</span></label>
+            <mat-form-field appearance="outline">
+              <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+              <input type="date" name="date" formControlName="date" [ngClass]="{ 'is-invalid': submitted && f['date'].errors }"
+                #date [(ngModel)]="purchasingData.date" matInput>
+              <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker> -->
+            </mat-form-field>
+          </div>
+
+          <div *ngIf="submitted && f['date'].errors" class="invalid-feedback">
+            <div *ngIf="f['date'].errors['required']">  {{'isReqired'|translate}}.</div>
+          </div>
+
+
+          <!-- <div class="col-md-6">
+                      <label for="" class="form-label">{{'date' | translate}}</label>
+                      <mat-form-field appearance="outline">
+                          <mat-label>{{'Chooseadate' | translate}}</mat-label>
+                          <input name="date" formControlName="date" #date [(ngModel)]="purchasingData.date" matInput [matDatepicker]="picker">
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+
+                          <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+
+                  </div> -->
+          <div class="col-md-6">
+            <label for="" class="form-label">{{'invoiceNumber' | translate}}<span style="font-size: large;color: red;">*</span></label>
+            <input type="text" formControlName="purchasingInvoiceNumber"
+            readonly
+            [ngClass]="{ 'is-invalid': submitted && f['purchasingInvoiceNumber'].errors }" #purchasingInvoiceNumber
+              [(ngModel)]="purchasingData.purchasingInvoiceNumber" id="purchasingInvoiceNumber"
+              name="purchasingInvoiceNumber" class="form-control mt-2 text-line">
+
+            <div *ngIf="submitted && f['purchasingInvoiceNumber'].errors" class="invalid-feedback">
+              <div *ngIf="f['purchasingInvoiceNumber'].errors['required']">  {{'isReqired'|translate}}.</div>
+            </div>
+
+          </div>
+          <!-- <div class="col-md-6">
+                      <label for="" class="form-label">{{'purchasingInvoiceNumber:' | translate}}</label>
+                      <input type="text" formControlName="purchasingInvoiceNumber" #purchasingInvoiceNumber [(ngModel)]="purchasingData.purchasingInvoiceNumber" id="purchasingInvoiceNumber" name="purchasingInvoiceNumber" class="form-control mt-2 text-line">
+                  </div> -->
+        </div>
+
+
+
+        <div class="dynamicTable">
+          <table mat-table [dataSource]="dataSource" formArrayName="marks">
+            <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+            <tr mat-row *matRowDef="let row; let i = index; columns: displayColumns"></tr>
+
+            <ng-container matColumnDef="itemCode">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "itemCode" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                <mat-form-field appearance="outline" class="dynamic">
+                  <input matInput type="text" value="" formControlName="itemCode" size="15"
+                    (change)="getItemDetailsByItemCode($event)" />
+                </mat-form-field>
+              </td>
+            </ng-container>
+            <!-- <ng-container matColumnDef="itemId">
+              <th mat-header-cell *matHeaderCellDef style="display: none">
+              </th>
+              <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index" style="display: none">
+                <mat-form-field appearance="fill" class="dynamic">
+                  <input matInput type="text" [(ngModel)]="items[index].itemId" formControlName="itemId" size="15" />
+                </mat-form-field>
+              </td>
+            </ng-container> -->
+            <!-- <ng-container matColumnDef="itemNameEn" >
+                      <th mat-header-cell *matHeaderCellDef style="display:none;"> {{'itemNameEn'|translate}} </th>
+                      <td mat-cell *matCellDef="let row; let index = index"  [formGroupName]="index" style="display:none;">
+                        <mat-form-field appearance="fill" class="dynamic">
+                          <input  matInput type="text" [(ngModel)]="items[index].itemNameEn" formControlName="itemNameEn" size="15" >
+                        </mat-form-field>
+                      </td>
+                    </ng-container>    -->
+            <ng-container matColumnDef="itemNameAr">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "itemName" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                <mat-form-field appearance="outline" class="dynamic">
+                  <input matInput type="text" [(ngModel)]="items[index].itemNameAr" formControlName="itemNameAr"
+                    size="15" readonly />
+                </mat-form-field>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="nationality">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "Nationality" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                <mat-form-field appearance="outline" class="dynamic">
+                  <input matInput type="text" [(ngModel)]="items[index].nationality" formControlName="nationality"
+                    size="15" readonly />
+                </mat-form-field>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="profession">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "profession" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                <mat-form-field appearance="outline" class="dynamic">
+                  <input matInput type="text" [(ngModel)]="items[index].profession" formControlName="profession"
+                    size="15" readonly />
+                </mat-form-field>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="purchasingItemQuantity">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "quantity" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                <mat-form-field appearance="outline" class="dynamic">
+                  <input matInput type="text" value="" formControlName="purchasingItemQuantity" size="15"
+                    (change)="getValue($event, items[index])" />
+                </mat-form-field>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="itemId" style="display:none ;">
+              <th mat-header-cell *matHeaderCellDef style="display:none ;" >
+                {{ "itemId" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index" style="display:none ;">
+                <mat-form-field appearance="outline" class="dynamic">
+                  <input matInput type="text" value="" formControlName="itemId" size="15"
+                  [(ngModel)]="items[index].itemId" style="display:none ;"/>
+                </mat-form-field>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="salary">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "hourlyRate" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                <mat-form-field appearance="outline" class="dynamic">
+                  <input matInput type="text" value="" [(ngModel)]="items[index].salary"
+                    formControlName="salary" size="15" readonly />
+                </mat-form-field>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="numberOfEmployee">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "numberOfEmployee" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                <mat-form-field appearance="outline" class="dynamic">
+                  <input matInput type="text" value="" formControlName="numberOfEmployee" size="15"
+                    (change)="getValueEmployeenumber($event, items[index])" />
+                </mat-form-field>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="purchasingItemValue">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "value" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                <mat-form-field appearance="outline" class="dynamic">
+                  <input matInput type="text" [(ngModel)]="items[index].value" formControlName="purchasingItemValue"
+                    size="15" readonly />
+                </mat-form-field>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="purchasingItemTotal">
+              <th mat-header-cell *matHeaderCellDef>
+                {{ "total" | translate }}
+              </th>
+              <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                <mat-form-field appearance="outline" class="dynamic">
+                  <input matInput type="text" [(ngModel)]="items[index].total" formControlName="purchasingItemTotal"
+                    size="15" readonly />
+                </mat-form-field>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="taxRate">
+              <th mat-header-cell *matHeaderCellDef>{{'taxRate'|translate}}</th>
+              <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                <mat-form-field appearance="outline" class="dynamic">
+                  <input matInput type="text" [(ngModel)]="items[index].taxRate" formControlName="taxRate" size="15"
+                    readonly />
+                </mat-form-field>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="delete">
+              <th mat-header-cell *matHeaderCellDef>{{'DELETE'|translate}}</th>
+              <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                <button type="button" class="btn btn-dark m-3" (click)="deleteRow(index)" formControlName="delete"
+                  placeholder="Delete">
+                  {{'deleteRow'|translate}}
+                </button>
+              </td>
+            </ng-container>
+          </table>
+        </div>
+        <!-- <div class="action-container"> -->
+        <button type="button" class="btn btn-dark m-3" (click)="addRow()"> {{'addRow'|translate}}</button>
+        <!-- <button mat-raised-button type="submit" (click)="submitForm()">Submit</button> -->
+        <!-- </div> -->
+      </form>
+      <!-- <div class="output">
+      <p>Form Data: {{userTable.value | json}}</p>
+      <p>Is Valid: {{userTable.valid}}</p>
+    </div> -->
+    <button type="button"  class="btn btn-dark m-3" (click)="calculateInvoice()"  placeholder="calculateInvoice">{{ 'calculateInvoice' | translate }}</button>
+      <div class="m-3 row mb-6" *ngIf="purchasingData.amount">
+        <table  class="col-md-5 calculate" >
+          <tr>
+            <td>{{ 'costCenter' | translate }}</td>
+            <td><ng-select
+              #cashAccount
+              [(ngModel)]="purchasingData.costCenter.costCenterId"
+              name="cashAccount"  class="form-control form-select">
+                  <ng-option *ngFor="let centers of costCenters" [value] ="centers.costCenterId">{{centers.costCenterName}}</ng-option>
+              </ng-select></td>
+        </tr>
+          <tr>
+            <td>{{ 'cashAccount' | translate }}</td>
+            <td><ng-select
+              #cashAccount
+              [(ngModel)]="purchasingData.cashAccount.accountId"
+              name="cashAccount"  class="form-control form-select">
+                  <ng-option *ngFor="let account of accounts" [value] ="account.accountId">{{account.accountCode}}|{{account.accountName}}</ng-option>
+              </ng-select></td>
+        </tr>
+        <tr>
+          <td>{{ 'taxAccount' | translate }}</td>
+          <td><ng-select
+            #taxAccount
+            [(ngModel)]="purchasingData.taxAccount.accountId"
+            name="taxAccount"   class="form-control form-select">
+                <ng-option *ngFor="let account of accounts" [value] ="account.accountId">{{account.accountCode}}|{{account.accountName}}</ng-option>
+            </ng-select></td>
+      </tr>
+      <tr>
+        <td>{{ 'purchasingAccount' | translate }}</td>
+        <td><ng-select
+          #purchasingAccount
+          [(ngModel)]="purchasingData.purchasingAccount.accountId"
+          name="purchasingAccount"   class="form-control form-select">
+              <ng-option *ngFor="let account of accounts" [value] ="account.accountId">{{account.accountCode}}|{{account.accountName}}</ng-option>
+          </ng-select></td>
+    </tr>
+        </table>
+      <table class="col-md-5 calculate"   >
+        <tr>
+          <td>{{ 'amount' | translate }}</td>
+          <td>{{purchasingData.amount}}</td>
+      </tr>
+      <tr>
+        <td>{{ 'taxRate' | translate }}</td>
+        <td>{{purchasingData.tax}}</td>
+    </tr>
+    <tr>
+      <td>{{ 'total' | translate }}</td>
+      <td>{{purchasingData.total}}</td>
+  </tr>
+      </table>
+
+        </div>
+
+    </div>

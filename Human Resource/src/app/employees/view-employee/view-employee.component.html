@@ -1,0 +1,534 @@
+
+<!--Page header-->
+<div class="page-header">
+  <div class="page-leftheader">
+    <h2 class="page-title">{{ 'ViewemployeeInformation' | translate }}</h2>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/dashboard-hr/']" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{ 'HOME' | translate }}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/employees/employees/']">{{ 'Employees' | translate }}</a></li>
+      <li class="breadcrumb-item" aria-current="page">{{ 'Viewemployee' | translate }}</li>
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+
+
+<!--Row-->
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">{{ 'ViewemployeeInformation' | translate }}</h3>
+      </div>
+      <div class="card-body">
+        <ngb-accordion [closeOthers]="true">
+          <ngb-panel>
+            <ng-template ngbPanelTitle >
+              <i class="fa fa-minus-circle"></i>
+              {{'BasicInformation'|translate}}
+              </ng-template>
+              <ng-template ngbPanelContent>
+                <table class="table table-bordered table-responsive">
+                  <tr>
+                    <th> {{'employeeName'|translate}} </th>
+                    <td> {{employee.employeeNameAr}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'EmployeeName'|translate}} </th>
+                    <td> {{employee.employeeName}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'CompanyName'|translate}} </th>
+                    <td> {{employee.companies.companyName}} </td>
+                  </tr>
+                  <!-- <tr>
+                    <th> {{'EmployeeCompanyId'|translate}} </th>
+                    <td> {{employee.employeeCompanyId}} </td>
+                  </tr> -->
+                  <tr>
+                    <th> {{'EmployeeInernalCompanyNo:'|translate}} </th>
+                    <td> {{employee.employeePartCompanyId}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'PlaceOfBirth'|translate}} </th>
+                    <td> {{employee.placeOfBirth}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'DateOfBirth'|translate}} </th>
+                    <td> {{employee.dateOfBirth}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'dateOfJoin'|translate}} </th>
+                    <td> {{employee.dateOfJoin}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'gender'|translate}} </th>
+                    <td> {{employee.gender | translate}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'maritalStatus'|translate}} </th>
+                    <td> {{employee.maritalStatus | translate}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'nationality'|translate}} </th>
+                    <td> {{employee.nationality}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'religion'|translate}} </th>
+                    <td> {{employee.religion | translate}} </td>
+                  </tr>
+                  <!-- <tr>
+                    <th> {{'residenceName'|translate}} </th>
+                    <td> {{employee.residenceName}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'residenceNumber'|translate}} </th>
+                    <td> {{employee.residenceNumber}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'residenceIssue'|translate}} </th>
+                    <td> {{employee.residenceIssue}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'residenceExpiry'|translate}} </th>
+                    <td> {{employee.residenceExpiry}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'Country'|translate}} </th>
+                    <td> {{employee.country}} </td>
+                  </tr> -->
+                  <tr>
+                    <td colspan="6" class="text-end">
+                      <div colspan="6" class="text-end">
+                        <button type="button" class="btn btn-gray-dark" onClick="javascript:window.print();">{{'PRINT'|translate}}</button>
+
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+
+              </ng-template>
+          </ngb-panel>
+          <ngb-panel id="static-9" cardClass="mt-2">
+            <ng-template ngbPanelTitle >
+              <i class="fa fa-minus-circle"></i>
+              {{'EmployeedInformation'|translate}}
+              </ng-template>
+              <ng-template ngbPanelContent>
+
+                <table class="table table-bordered table-responsive">
+                  <tr>
+                    <th>{{'Name'|translate}}</th>
+                    <td colspan="4">{{ employee.employeeNameAr }}</td>
+                  </tr>
+                  <tr>
+                    <th class="wd-15p border-bottom-0">{{'SectionName' | translate}}</th>
+                  <th class="wd-15p border-bottom-0">{{'CentralJobName' | translate}}</th>
+                  <th class="wd-15p border-bottom-0">{{'JobTitleName' | translate}}</th>
+
+                  </tr>
+
+                  <tr *ngFor="let empEmployed of employedInfo">
+                    <td>{{ empEmployed.section.sectionName}}</td>
+                    <td>{{ empEmployed.centralJob.centralJobName }}</td>
+                    <td>{{ empEmployed.jobTitle.jobTitleName}}</td>
+                  </tr>
+
+
+
+                  <tr>
+                    <td colspan="6" class="text-end">
+                      <div colspan="6" class="text-end">
+                        <button type="button" class="btn btn-gray-dark" onClick="javascript:window.print();">{{'PRINT'|translate}}</button>
+
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+
+
+              </ng-template>
+          </ngb-panel>
+          <ngb-panel id="static-3" cardClass="mt-2">
+            <ng-template ngbPanelTitle >
+              <i class="fa fa-minus-circle"></i>
+              {{'Address'|translate}}
+              </ng-template>
+              <ng-template ngbPanelContent>
+                <table class="table table-bordered table-responsive">
+                  <tr>
+                    <th>{{'Name'|translate}}</th>
+                    <td colspan="4">{{ employee.employeeNameAr }}</td>
+                  </tr>
+                  <tr>
+                    <th>{{'Email'|translate}}</th>
+                    <th>{{'CountryAddress'|translate}}</th>
+                    <th>{{'CountryContactNumber'|translate}}</th>
+                    <th>{{'ResidenceAddress'|translate}}</th>
+                    <th>{{'ResidenceContactNumber'|translate}}</th>
+                  </tr>
+
+                  <tr *ngFor="let address of addresses">
+                    <td>{{ address.email }}</td>
+                    <td>{{ address.countryAddress }}</td>
+                    <td>{{ address.countryContactNumber }}</td>
+                    <td>{{ address.residenceAddress }}</td>
+                    <td>{{ address.residenceContactNumber }}</td>
+
+                  </tr>
+                  <tr>
+                    <td colspan="6" class="text-end">
+                      <div colspan="6" class="text-end">
+                        <button type="button" class="btn btn-gray-dark" onClick="javascript:window.print();">{{'PRINT'|translate}}</button>
+
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </ng-template>
+          </ngb-panel>
+          <ngb-panel id="static-4" cardClass="mt-2">
+            <ng-template ngbPanelTitle >
+              <i class="fa fa-minus-circle"></i>
+              {{'Qualifications'|translate}}
+              </ng-template>
+              <ng-template ngbPanelContent>
+                <table class="table table-bordered table-responsive">
+                  <tr>
+                    <th>{{'Name'|translate}}</th>
+                    <td colspan="4">{{ employee.employeeNameAr }}</td>
+                  </tr>
+                  <tr>
+                    <th>{{'University:' | translate}}</th>
+                    <th>{{'Major:' | translate}}</th>
+                    <th>{{'Qualification' | translate}}</th>
+                    <th>{{'Dagree' | translate}}</th>
+                    <!-- <th>{{'Action' | translate}}</th> -->
+                  </tr>
+
+                  <tr *ngFor="let empQualification of empQualifications">
+                    <td>{{ empQualification.university.universityName }}</td>
+                    <td>{{ empQualification.major.majorName }}</td>
+                    <td>{{ empQualification.qualification.qualificationName }}</td>
+                    <td>{{ empQualification.degree }}</td>
+
+                  </tr>
+                  <tr>
+                    <td colspan="6" class="text-end">
+                      <div colspan="6" class="text-end">
+                        <button type="button" class="btn btn-gray-dark" onClick="javascript:window.print();">{{'PRINT'|translate}}</button>
+
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </ng-template>
+          </ngb-panel>
+          <ngb-panel id="static-5" cardClass="mt-2">
+            <ng-template ngbPanelTitle >
+              <i class="fa fa-minus-circle"></i>
+              {{'WorkExperiences'|translate}}
+              </ng-template>
+              <ng-template ngbPanelContent>
+
+                <table class="table table-bordered table-responsive">
+                  <tr>
+                    <th>{{'Name'|translate}}</th>
+                    <td colspan="4">{{ employee.employeeNameAr }}</td>
+                  </tr>
+                  <tr>
+                    <th>{{'CompanyName'|translate}}</th>
+                    <th>{{'JobTitle'|translate}}</th>
+                    <th>{{'StartWorkDate'|translate}}</th>
+                    <th>{{'EndWorkDate'|translate}}</th>
+
+                  </tr>
+
+                  <tr *ngFor="let experience of experiences">
+                    <td>{{ experience.companyName }}</td>
+                    <td>{{ experience.jobTitle }}</td>
+                    <td>{{ experience.dateFrom }}</td>
+                    <td>{{ experience.dateTo }}</td>
+
+
+                  </tr>
+                  <tr>
+                    <td colspan="6" class="text-end">
+                      <div colspan="6" class="text-end">
+                        <div colspan="6" class="text-end">
+                          <button type="button" class="btn btn-gray-dark" onClick="javascript:window.print();">{{'PRINT'|translate}}</button>
+
+                        </div>
+
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+
+              </ng-template>
+          </ngb-panel>
+          <ngb-panel id="static-6" cardClass="mt-2">
+            <ng-template ngbPanelTitle >
+              <i class="fa fa-minus-circle"></i>
+              {{'BankAccounts'|translate}}
+              </ng-template>
+              <ng-template ngbPanelContent>
+                <table class="table table-bordered table-responsive">
+                  <tr>
+                    <th>{{'Name'|translate}}</th>
+                    <td colspan="4">{{ employee.employeeNameAr }}</td>
+                  </tr>
+                  <tr>
+                    <th>{{'BankName' | translate}}</th>
+                    <th>{{'Branch' | translate}}</th>
+                    <th>{{'AccountType' | translate}}</th>
+                    <th>{{'AccountNumber' | translate}}</th>
+                    <th>{{'IBAN' | translate}}</th>
+                    <th>{{'swiftCode' | translate}}</th>
+
+                  </tr>
+
+                  <tr *ngFor="let empBank of empBanks">
+                    <td>{{ empBank.bank.bankName }}</td>
+                    <td>{{ empBank.bankBranch }}</td>
+                    <td>{{ empBank.accountType }}</td>
+                    <td>{{ empBank.accountNumber }}</td>
+                    <td>{{ empBank.iban }}</td>
+                    <td>{{ empBank.swiftCode }}</td>
+
+
+                  </tr>
+                  <tr>
+                    <td colspan="6" class="text-end">
+                      <div colspan="6" class="text-end">
+                        <button type="button" class="btn btn-gray-dark" onClick="javascript:window.print();">{{'PRINT'|translate}}</button>
+
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </ng-template>
+          </ngb-panel>
+          <ngb-panel id="static-7" cardClass="mt-2">
+            <ng-template ngbPanelTitle >
+              <i class="fa fa-minus-circle"></i>
+              {{'Contracts'|translate}}
+              </ng-template>
+              <ng-template ngbPanelContent>
+
+                <table class="table table-bordered table-responsive">
+
+                    <tr>
+                      <th class="wd-15p border-bottom-0">{{'ContractType' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'StartDate' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'EndDate' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'vacationDayNumber' | translate}}</th>
+
+                    </tr>
+
+                    <tr *ngFor="let contract of contracts">
+                      <td>{{ contract.contractType }}</td>
+                      <td>{{ contract.dateFrom }}</td>
+                      <td>{{ contract.dateTo }}</td>
+                      <td>{{ contract.vacationDayNumber }}</td>
+                    </tr>
+                    <tr>
+                      <td colspan="6" class="text-end">
+                        <div colspan="6" class="text-end">
+                          <button type="button" class="btn btn-gray-dark" onClick="javascript:window.print();">{{'PRINT'|translate}}</button>
+
+                        </div>
+                      </td>
+                    </tr>
+                </table>
+
+
+              </ng-template>
+          </ngb-panel>
+          <!-- <ngb-panel id="static-8" cardClass="mt-2">
+            <ng-template ngbPanelTitle >
+              <i class="fa fa-minus-circle"></i>
+              {{'HealthInsurances'|translate}}
+              </ng-template>
+              <ng-template ngbPanelContent>
+                <table class="table table-bordered table-responsive">
+
+                  <tr>
+                    <th class="wd-15p border-bottom-0">{{'HealthInsuranceName:' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'DependentName:' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'RelativeRelation:' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'Gender:' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'InsuranceDegree:' | translate}}</th>
+                  </tr>
+
+                  <tr *ngFor="let empHealthInsurances of empHealthInsurancess">
+                    <td>{{ empHealthInsurances.insuranceCompany.insuranceCompanyName }}</td>
+                    <td>{{ empHealthInsurances.dependentName }}</td>
+                    <td>{{ empHealthInsurances.relativeRelation }}</td>
+                    <td>{{ empHealthInsurances.gender }}</td>
+                    <td>{{ empHealthInsurances.insDegree }}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="6" class="text-end">
+                      <button type="button" class="btn btn-gray-dark" onClick="javascript:window.print();">طباعة</button>
+                    </td>
+                  </tr>
+              </table>
+              </ng-template>
+          </ngb-panel> -->
+          <ngb-panel id="static-8" cardClass="mt-2">
+            <ng-template ngbPanelTitle >
+              <i class="fa fa-minus-circle"></i>
+              {{'hokomedetails'|translate}}
+
+              </ng-template>
+
+              <ng-template ngbPanelContent>
+
+                <table class="table table-bordered table-responsive" *ngFor="let empHealthInsurance of empHealthInsurances">
+
+                  <tr>
+                    <th> {{'employeeName'|translate}} </th>
+                    <td > {{employee.employeeNameAr}} </td>
+                  </tr>
+                   <tr>
+                    <th> {{'visa'|translate}} </th>
+                    <td> {{empHealthInsurance.visa}} </td>
+                  </tr>
+                  <!-- <tr>
+                    <th> {{'startVisaDate'|translate}} </th>
+                    <td> {{empHealthInsurances.startVisaDate}} </td>
+                  </tr> -->
+                  <tr>
+                    <th> {{'startVisaDate'|translate}} </th>
+                    <td> {{empHealthInsurance.startVisaDate}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'endVisaDate'|translate}} </th>
+                    <td> {{empHealthInsurance.endVisaDate}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'jobByVisa'|translate}} </th>
+                    <td> {{empHealthInsurance.jobByVisa}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'typeVisa'|translate}} </th>
+                    <td> {{empHealthInsurance.typeVisa}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'enterVisaDate'|translate}} </th>
+                    <td> {{empHealthInsurance.enterVisaDate}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'medicalExaminationCode'|translate}} </th>
+                    <td> {{empHealthInsurance.medicalExaminationCode}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'procedureDate'|translate}} </th>
+                    <td> {{empHealthInsurance.procedureDate}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'medicalResultDate'|translate}} </th>
+                    <td> {{empHealthInsurance.medicalResultDate}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'medicalTestResult'|translate}} </th>
+                    <td> {{empHealthInsurance.medicalTestResult}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'insurancesCode'|translate}} </th>
+                    <td> {{empHealthInsurance.insurancesCode}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'insurancesType'|translate}} </th>
+                    <td> {{empHealthInsurance.insurancesType}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'insurancesStartDate'|translate}} </th>
+                    <td> {{empHealthInsurance.insurancesStartDate}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'insurancesEndDate'|translate}} </th>
+                    <td> {{empHealthInsurance.insurancesEndDate}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'jobByResidence'|translate}} </th>
+                    <td> {{empHealthInsurance.jobByResidence}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'warrantyDate'|translate}} </th>
+                    <td> {{empHealthInsurance.warrantyDate}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'hijriWarrantyDate'|translate}} </th>
+                    <td> {{empHealthInsurance.hijriWarrantyDate}} </td>
+                  </tr>
+
+                  <tr>
+                    <th> {{'residenceIssue'|translate}} </th>
+                    <td> {{empHealthInsurance.residenceIssue}} </td>
+                  <tr>
+
+                  <tr>
+                    <th> {{'residenceNumber'|translate}} </th>
+                    <td> {{empHealthInsurance.residenceNumber}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'residenceExpiry'|translate}} </th>
+                    <td> {{empHealthInsurance.residenceExpiry}} </td>
+                  </tr>
+
+                </table>
+                <div colspan="6" class="text-end">
+                  <button type="button" class="btn btn-gray-dark" onClick="javascript:window.print();">{{'PRINT'|translate}}</button>
+
+                </div>
+              </ng-template>
+          </ngb-panel>
+
+          <ngb-panel id="static-10" cardClass="mt-2">
+            <ng-template ngbPanelTitle >
+              <i class="fa fa-minus-circle"></i>
+              {{'residenceTransport'|translate}}
+              </ng-template>
+              <ng-template ngbPanelContent>
+
+                <table class="table table-bordered table-responsive">
+
+                    <tr>
+                      <th class="wd-15p border-bottom-0">{{'ResidenceName' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'Room' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'transportationMeanCode' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'shift' | translate}}</th>
+
+                    </tr>
+
+                    <tr *ngFor="let TransportationHabitation of TransportationHabitations">
+                      <td>{{ TransportationHabitation.habitation.habitationName }}</td>
+                      <td>{{ TransportationHabitation.room.roomCode }}</td>
+                      <td>{{ TransportationHabitation.transportation.transportationMeanCode }}</td>
+                      <td>{{ TransportationHabitation.shift }}</td>
+                    </tr>
+                    <tr>
+                      <td colspan="6" class="text-end">
+                        <div colspan="6" class="text-end">
+                          <button type="button" class="btn btn-gray-dark" onClick="javascript:window.print();">{{'PRINT'|translate}}</button>
+
+                        </div>
+                      </td>
+                    </tr>
+                </table>
+
+
+              </ng-template>
+          </ngb-panel>
+          </ngb-accordion>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End Row-->
+
+

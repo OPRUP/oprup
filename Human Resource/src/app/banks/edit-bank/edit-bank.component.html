@@ -1,0 +1,69 @@
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{'Banks' | translate}}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+
+      <li class="breadcrumb-item"><a [routerLink]="['/dashboard-hr/']" class="d-flex">
+        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M0 0h24v24H0V0z" fill="none"/>
+          <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+          <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+            {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/banks/banks/']">
+        {{"Banks" | translate}} </a></li>
+      <li class="breadcrumb-item active" aria-current="page"> {{'EDIT' | translate}}</li>
+								</ol>
+							</div>
+						</div>
+						<!--End Page header-->
+
+
+            <div class="card">
+              <form #editForm="ngForm" *ngIf="bank"
+              [formGroup]="form"
+              (ngSubmit)="onUpdateBank(editForm.value)" class="form-horizontal">
+                  <div class="card-header">
+                    <button  (click)="onUpdateBank(editForm.value)" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+                    <a [routerLink]="['/banks/banks']" class="btn btn-light">{{'DISCARD' | translate}}</a>
+                  </div>
+                  <input type="hidden" ngModel="{{bank.bankId}}" [ngModelOptions]="{standalone: true}" name="bankId" id="bankId">
+
+
+                  <div class="m-3 row">
+                    <div class="col-md-12">
+                      <label for="" class="form-label">{{'BankName' | translate}}:</label>
+                      <input
+
+                      formControlName="bankName"
+                      [ngClass]="{ 'is-invalid': submitted && f['bankName'].errors }"
+
+                      ngModel="{{bank.bankName}}" #bankName (ngModel)="bankName" type="text" name="bankName" id="bankName" class="form-control mt-2 text-line" placeholder="" >
+                      <div *ngIf="submitted && f['bankName'].errors" class="invalid-feedback">
+                        <div *ngIf="f['bankName'].errors['required']">{{'reqired'|translate}}.</div>
+
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div class="m-3 row">
+                    <div class="col-md-12">
+                      <label for="" class="form-label">{{ 'Description' | translate }}:</label>
+                      <textarea
+                      [(ngModel)]="bank.description"
+                      #description
+                      [ngModelOptions]="{standalone: true}"
+                      class="form-control mt-2 text-line" id="description" name="description" cols="50" rows="10"
+                      placeholder="{{ 'Description' | translate }}"></textarea>
+                    </div>
+                  </div>
+
+
+              </form>
+
+
+
+
+            </div>

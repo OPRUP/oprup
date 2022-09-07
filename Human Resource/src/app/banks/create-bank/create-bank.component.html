@@ -1,0 +1,55 @@
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{'Banks' | translate}}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+
+      <li class="breadcrumb-item"><a [routerLink]="['/dashboard-hr/']" class="d-flex">
+        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M0 0h24v24H0V0z" fill="none"/>
+          <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+          <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+            {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/banks/banks/']">
+        {{"Banks" | translate}} </a></li>
+      <li class="breadcrumb-item active" aria-current="page"> {{'ADD' | translate}}</li>
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+
+
+<div class="card">
+  <form (ngSubmit)="onAddBank()"
+  [formGroup]="form"
+  class="form-horizontal">
+
+    <div class="card-header">
+      <button type="submit" id="add-bank-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+      <a [routerLink]="['/banks/banks']" class="btn btn-light">{{'DISCARD' | translate}}</a>
+    </div>
+
+    <div class="m-3 row">
+      <div class="col-md-12">
+        <label for="" class="form-label">{{'BankName' | translate}}<span style="font-size: large;color: red;">*</span></label>
+        <input type="text" #bankName
+        formControlName="bankName"
+        [ngClass]="{ 'is-invalid': submitted && f['bankName'].errors }"
+
+        [(ngModel)]="bankData.bankName" id="bankName" name="bankName" class="form-control mt-2 text-line" placeholder="" >
+        <div *ngIf="submitted && f['bankName'].errors" class="invalid-feedback">
+          <div *ngIf="f['bankName'].errors['required']">{{'reqired'|translate}}.</div>
+          <!-- <div *ngIf="f['bankName'].errors['minlength']">Minimum 3 Characters</div> -->
+        </div>
+
+      </div>
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-12">
+        <label for="" class="form-label">{{'Description' | translate}}</label>
+        <textarea #description [(ngModel)]="bankData.description" [ngModelOptions]="{standalone: true}" class="form-control mt-2 text-line" id="description" name="description" id="" cols="50" rows="8" placeholder=""></textarea>
+      </div>
+    </div>
+    </form>
+</div>

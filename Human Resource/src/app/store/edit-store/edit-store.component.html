@@ -1,0 +1,66 @@
+
+<div class="page-header">
+    <div class="page-leftheader">
+      <h2 class="page-title">{{'Store' | translate}}</h2>
+    </div>
+    <div class="page-rightheader ms-auto d-lg-flex d-none">
+      <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a [routerLink]="['/dashboard-hr/']"
+            class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'HOME' | translate}}</span></a></li>
+          <li class="breadcrumb-item"><a [routerLink]="['/stores/stores/']">{{'Store' | translate}}</a></li>
+          <li class="breadcrumb-item"><a [routerLink]="['/stores/stores/']">{{'Edit' | translate}}</a></li>
+
+      </ol>
+    </div>
+  </div>
+
+  <mat-card>
+    <form *ngIf="store" #editForm="ngForm" (ngSubmit)="onUpdateStore(editForm.value)">
+      <mat-card-header>
+        <button type="submit" id="add-store-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+        <a [routerLink]="['/stores/stores']" class="btn btn-light m-3">{{'DISCARD' | translate}}</a>
+      </mat-card-header>
+
+      <div class="h-divider mb-5"></div>
+      <div class="m-3 row">
+        <div class="col-md-6">
+          <label for="" class="form-label">{{'stroeCode' | translate}}</label>
+          <input type="text"  [(ngModel)]="store.stroeCode" id="stroeCode"
+          name="stroeCode" class="form-control mt-2 text-line"
+           >
+        </div>
+        <div class="col-md-6">
+            <label for="" class="form-label">{{'storePlace' | translate}}</label>
+            <input type="text"  [(ngModel)]="store.storePlace" id="storePlace"
+            name="storePlace" class="form-control mt-2 text-line"
+             >
+          </div>
+          <div class="col-md-6">
+            <label for="" class="form-label">{{'storeKeeper' | translate}}</label>
+            <input type="text"  [(ngModel)]="store.storeKeeper" id="storeKeeper"
+            name="storeKeeper" class="form-control mt-2 text-line"
+             >
+          </div>
+          <div class="col-md-6">
+            <label for="" class="form-label">{{'storeContact' | translate}}</label>
+            <input type="text"  [(ngModel)]="store.storeContact" id="storeContact"
+            name="storeContact" class="form-control mt-2 text-line"
+             >
+          </div>
+
+      </div>
+      <div class="m-3 row">
+      </div>
+       </form>
+  </mat-card>
+
+
+
+
+
+
+
+
+
+
+

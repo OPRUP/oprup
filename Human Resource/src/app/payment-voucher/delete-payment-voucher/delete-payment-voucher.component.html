@@ -1,0 +1,30 @@
+<form #delForm="ngForm" (ngSubmit)="onDeletePaymentVoucher()" class="form-horizontal">
+  <div class="card-header">
+      <button type="submit" id="delete-quotation-form" class="btn btn-dark m-3">{{'YES' | translate}}</button>
+      <a [routerLink]="['/accounts/paymentVouchers/paymentVouchers']" class="btn btn-light">{{'NO' | translate}}</a>
+  </div>
+  <h3 class="card-title alert alert-danger">
+      {{'CONFIRMDELETE' | translate}} (<strong>{{paymentVoucher.paymentVoucherId}}</strong>) {{'paymentVoucher' | translate}} </h3>
+
+  <input type="hidden" ngModel="{{paymentVoucher.paymentVoucherId}}" name="paymentVoucherId" id="paymentVoucherId">
+  <input type="hidden" ngModel="{{paymentVoucher.paymentWay}}" name="paymentWay" id="paymentWay">
+  <input type="hidden" ngModel="{{paymentVoucher.cashAmount}}" name="cashAmount" id="cashAmount">
+  <input type="hidden" ngModel="{{paymentVoucher.checkNumber}}" name="checkNumber" id="checkNumber">
+
+
+  <input type="hidden" ngModel="{{paymentVoucher.dateCheck}}" name="dateCheck" id="dateCheck">
+  <input type="hidden" ngModel="{{paymentVoucher.checkValue}}" name="checkValue" id="checkValue">
+  <input type="hidden" ngModel="{{paymentVoucher.fundAccount}}" name="fundAccount" id="fundAccount">
+  <input type="hidden" ngModel="{{paymentVoucher.checkAccount}}" name="checkAccount" id="checkAccount">
+
+
+  <input type="hidden" ngModel="{{paymentVoucher.accountNumber}}" name="accountNumber" id="accountNumber">
+  <input type="hidden" ngModel="{{paymentVoucher.dateVoucher}}" name="dateVoucher" id="dateVoucher">
+  <input type="hidden" ngModel="{{paymentVoucher.deleteFlag}}" name="deleteFlag" id="deleteFlag">
+
+  <input type="hidden" ngModel="{{paymentVoucher.bank.bankId}}" name="bankId" id="bankId">
+
+
+
+
+</form>

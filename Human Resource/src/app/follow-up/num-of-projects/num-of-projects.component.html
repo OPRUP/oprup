@@ -1,0 +1,74 @@
+<div class="page-header">
+    <div class="page-leftheader">
+        <h2 class="page-title">{{'customercontracts' | translate}}</h2>
+    </div>
+    <div class="page-rightheader ms-auto d-lg-flex d-none">
+        <ol class="breadcrumb">
+
+            <li class="breadcrumb-item"><a [routerLink]="['/dashboard-follow/']" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'HOME' | translate}}</span></a></li>
+            <li class="breadcrumb-item"><a [routerLink]="['/dashboard-follow/projectCount/']">{{'Project' | translate}}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{'VIEW' | translate}}</li>
+        </ol>
+    </div>
+</div>
+<div class="row row-sm">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-header pb-0">
+
+            </div>
+            <div class="card-body">
+                <div class="search-container">
+                    <!-- <mat-form-field appearance="fill" style="width:50%;">
+                        <input matInput placeholder="{{'SEARCH' | translate}}" autocomplete="off" (keyup)="filterData($event)">
+                    </mat-form-field> -->
+                    <div class="table-responsive table-bordered table-hover table-striped">
+                        <table mat-table matSort [dataSource]="ProjectEmdadats">
+                            <ng-container matColumnDef="projectName">
+                                <th mat-header-cell mat-sort-header *matHeaderCellDef>{{ 'projectName' | translate }}</th>
+                                <th mat-cell *matCellDef="let project">{{ project.projectName }}</th>
+                            </ng-container>
+                            <ng-container matColumnDef="projectValue">
+                                <th mat-header-cell *matHeaderCellDef>{{ 'projectValue' | translate }}</th>
+                                <th mat-cell *matCellDef="let project">{{ project.projectValue }}</th>
+                            </ng-container>
+                            <ng-container matColumnDef="clientName">
+                                <th mat-header-cell *matHeaderCellDef>{{ 'clientName' | translate }}</th>
+                                <th mat-cell *matCellDef="let project">{{ project.clientName }}</th>
+                            </ng-container>
+                            <ng-container matColumnDef="projectDuration">
+                                <th mat-header-cell *matHeaderCellDef>{{ 'projectDuration' | translate }}</th>
+                                <th mat-cell *matCellDef="let project">{{ project.projectDuration }}</th>
+                            </ng-container>
+                            <!-- <ng-container matColumnDef="managerName">
+                <th mat-header-cell *matHeaderCellDef>{{ 'managerName' | translate }}</th>
+                <th mat-cell *matCellDef="let project">{{ project.employee.employeeId }}</th>
+              </ng-container> -->
+                            <ng-container matColumnDef="employeeNumber">
+                                <th mat-header-cell *matHeaderCellDef>{{ 'employeeNumber' | translate }}</th>
+                                <th mat-cell *matCellDef="let project">{{ project.employeeNumber }}</th>
+                            </ng-container>
+                            <ng-container matColumnDef="employees">
+                                <th mat-header-cell *matHeaderCellDef>{{ 'ManagerName' | translate }}</th>
+                                <th mat-cell *matCellDef="let project">{{ project.employees.employeeName }}</th>
+                            </ng-container>
+
+
+                            <!-- <ng-container matColumnDef="actions">
+                                <th mat-header-cell *matHeaderCellDef> {{ 'ACTIONS' | translate }} </th>
+                                <th class="btn-group" mat-cell *matCellDef="let project">
+                                    <button class="btn btn-gray" (click)="onEditProjectEmdadatById(project.projectId)"><i class="fe fe-edit me-2"></i> {{ 'EDIT' | translate }}</button>
+                                    <button class="btn btn-dark" (click)="onEditToDeleteprojectIdById(project.projectId)"><i class="fe fe-trash me-2"></i> {{ 'Delete' | translate }}</button>
+                                </th>
+                            </ng-container> -->
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                        <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25,50, 100]">
+                        </mat-paginator>
+
+                    </div>
+                </div>
+            </div>
+        </div>

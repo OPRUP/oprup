@@ -1,0 +1,100 @@
+<!--Page header-->
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{'RenewingResidence' | translate}}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+
+      <li class="breadcrumb-item"><a [routerLink]="['/operation/']" class="d-flex">
+        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M0 0h24v24H0V0z" fill="none"/>
+          <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+          <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+            {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/operation/renewingresidence/renewingresidence/']">
+        {{"RenewingResidence" | translate}} </a></li>
+      <li class="breadcrumb-item active" aria-current="page"> {{'ADD' | translate}}</li>
+
+		</ol>
+	</div>
+</div>
+<!--End Page header-->
+
+
+<div class="card">
+  <form
+  [formGroup]="form"
+
+  (ngSubmit)="onAddRenewingresidence()" class="form-horizontal">
+
+    <div class="card-header">
+      <button type="submit" id="add-bank-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+      <a [routerLink]="['/operation/renewingresidence/renewingresidence']" class="btn btn-light">{{'DISCARD' | translate}}</a>
+    </div>
+
+    <div class="m-3 row">
+        <div class="col-md-6">
+          <label for="" class="form-label">{{ 'employeeName' | translate }}<span style="font-size: large;color: red;">*</span></label>
+          <ng-select
+
+          formControlName="employeeId"
+          [ngClass]="{ 'is-invalid': submitted && f['employeeId'].errors }" #employeeId
+          name="employeeId" [(ngModel)]="renewingresidenceData.employee.employeeId" lass="form-control form-select">
+              <ng-option *ngFor="let emp of employees" [value] ="emp.employeeId">{{emp.employeeName}}</ng-option>
+          </ng-select>
+
+          <div *ngIf="submitted && f['employeeId'].errors" class="invalid-feedback">
+            <div *ngIf="f['employeeId'].errors['required']">{{'isReqired'|translate}}.</div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="row m-3">
+        <div class="col-md-6">
+          <label for="" class="form-label">{{ 'ExpiryDate' | translate }}<span style="font-size: large;color: red;">*</span></label>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+            <input type="date" id="expiryDate" name="expiryDate"
+            formControlName="expiryDate"
+          [ngClass]="{ 'is-invalid': submitted && f['expiryDate'].errors }" #expiryDate
+            [(ngModel)]="renewingresidenceData.expiryDate" matInput display="dateInput">
+            <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker> -->
+
+          </mat-form-field>
+
+        </div>
+      <br/>
+
+        <div *ngIf="submitted && f['expiryDate'].errors" class="invalid-feedback">
+          <div *ngIf="f['expiryDate'].errors['required']">{{'isReqired'|translate}}.</div></div>
+        <div class="col-md-6">
+           <label for="" class="form-label">{{ 'submittingDate' | translate }}<span style="font-size: large;color: red;">*</span></label>
+           <mat-form-field appearance="outline">
+            <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+            <input type="date" id="submittingDate" name="submittingDate"
+
+            formControlName="submittingDate"
+          [ngClass]="{ 'is-invalid': submitted && f['submittingDate'].errors }" #submittingDate
+
+            [(ngModel)]="renewingresidenceData.submittingDate" matInput >
+            <!-- <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker> -->
+          </mat-form-field>
+        </div>
+          <div *ngIf="submitted && f['submittingDate'].errors" class="invalid-feedback">
+            <div *ngIf="f['submittingDate'].errors['required']">{{'isReqired'|translate}}.</div>
+          </div>
+
+
+
+
+          </div>
+
+    </form>
+</div>
+
+

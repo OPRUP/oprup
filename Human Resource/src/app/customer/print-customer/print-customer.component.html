@@ -1,0 +1,141 @@
+<!--Page header-->
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{'Customers' | translate}}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+
+      <li class="breadcrumb-item"><a [routerLink]="['/sales/']" class="d-flex">
+        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M0 0h24v24H0V0z" fill="none"/>
+          <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+          <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+            {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/sales/customer/customer/']">
+        {{"Customers" | translate}} </a></li>
+      <li class="breadcrumb-item active" aria-current="page"> {{'VIEW' | translate}}</li>
+
+		</ol>
+	</div>
+</div>
+<!--End Page header-->
+
+
+<!-- row opened -->
+<div class="row row-sm">
+  <div class="col-xl-12">
+    <div class="card">
+      <div class="card-header pb-0">
+        &nbsp;&nbsp;&nbsp;
+        <a (click)="printPage()" class="btn btn-default"><i class="fe fe-plus"></i>{{'Print' | translate}}</a>
+
+      </div>
+      <div class="card-body">
+
+        <div class="table-responsive table-bordered table-hover table-striped">
+
+                <table class="table table-bordered table-responsive">
+                  <tr>
+                    <th> {{'date'|translate}} </th>
+                    <td> {{customers.date}} </td>
+</tr>
+<tr>
+
+                    <th> {{'numberCR'|translate}} </th>
+                    <td> {{customers.numberCR}} </td>
+</tr>
+<tr>
+                    <th> {{'customerAccountNumber'|translate}} </th>
+                    <td> {{customers.customerAccountNumber}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'accountName'|translate}} </th>
+                    <td> {{customers.chartAccounts.accountName}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'nameAr'|translate}} </th>
+                    <td> {{customers.nameAr}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'nameEn'|translate}} </th>
+                    <td> {{customers.nameEn}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'CountryAr'|translate}} </th>
+                    <td> {{customers.countryAr}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'CountryEn'|translate}} </th>
+                    <td> {{customers.countryEn}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'contractSignerNameAr'|translate}} </th>
+                    <td> {{customers.contractSignerNameAr}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'contractSignerNameEn'|translate}} </th>
+                    <td> {{customers.contractSignerNameEn}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'followerNameAr'|translate}} </th>
+                    <td> {{customers.followerNameAr}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'followerNameEn'|translate}} </th>
+                    <td> {{customers.followerNameEn}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'followerContactNumber'|translate}} </th>
+                    <td> {{customers.followerContactNumber}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'followerEmailAdrress'|translate}} </th>
+                    <td> {{customers.followerEmail}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'customerStatus'|translate}} </th>
+                    <td> {{customers.customerStatus}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'notesAndUpdates'|translate}} </th>
+                    <td> {{customers.notesAndUpdates}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'designation'|translate}} </th>
+                    <td> {{customers.designation}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'nationality'|translate}} </th>
+                    <td> {{customers.nationality}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'contactPerson'|translate}} </th>
+                    <td> {{customers.contactPerson}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'ContactNumber'|translate}} </th>
+                    <td> {{customers.contactNumber}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'email'|translate}} </th>
+                    <td> {{customers.email}} </td>
+                  </tr>
+                  <tr>
+                    <th> {{'details'|translate}} </th>
+                    <td> {{customers.details}} </td>
+                  </tr>
+
+                </table>
+
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+
+
+
+
+
+

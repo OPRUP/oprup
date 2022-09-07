@@ -1,0 +1,104 @@
+<!--Page header-->
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{ 'AccountReport' | translate }}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/finance/']" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/acc-rep/acc-rep/']">{{'AccountReport' | translate}}</a></li>
+			<li class="breadcrumb-item active" aria-current="page">{{'VIEW' | translate}}</li>
+		</ol>
+	</div>
+</div>
+
+<div class="row row-sm">
+	<div class="col-xl-12">
+	  <div class="card">
+
+		<div class="card-body">
+
+<div *ngIf="viewFlag" class="m-3 row">
+	<div class="col-md-4">
+		<label for="" class="form-label">{{'Account' | translate}}<span style="font-size: large;color: red;">*</span></label>
+		<ng-select name="checkAccount" #checkAccount  class="form-control form-select" [(ngModel)]="codeValue.accountId">
+			<ng-option *ngFor="let code of codeValue" [value]="code.accountId">{{code.accountCode}} : {{code.accountName}} </ng-option>
+		</ng-select>
+		</div>
+	<div class="col-md-4">
+
+        <label for="" class="form-label">{{'From' | translate }}<span style="font-size: large;color: red;">*</span></label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+          <input type="date" name="startDate"  [(ngModel)]="startDate" matInput display="dateInput">
+
+
+
+	</mat-form-field>
+  </div>
+  <div class="col-md-4">
+	<label for="" class="form-label">{{'To' | translate }}<span style="font-size: large;color: red;">*</span></label>
+	<mat-form-field appearance="outline">
+	  <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+	  <input type="date" name="endDate"  [(ngModel)]="endDate" matInput display="dateInput">
+
+
+	</mat-form-field>
+  </div>
+
+</div>
+<div class="card-header p-0">
+	<a (click)="getVouchers(codeValue.accountId)" class="btn btn-default">
+	  <i class="fe fe-plus">
+	</i> {{'VIEW' | translate}}</a>
+	&nbsp;&nbsp;&nbsp;
+	<a (click)="toggleDivs()" class="btn btn-default"> <i class="fe fe-plus"></i> {{'PREVIEW' | translate}}</a>
+
+  &nbsp;&nbsp;&nbsp;
+	<a (click)="printPage()" class="btn btn-default"> <i class="fe fe-plus"></i> {{'PRINT' | translate}}</a>
+  </div></div>
+<div class="card-body">
+
+	<div class="table-responsive table-bordered table-hover table-striped">
+
+	  <table class="table">
+
+<thead>
+<tr>
+<th> {{ 'Date' | translate }} </th>
+<th>{{ 'voucherNumber' | translate }} </th>
+<th>{{ 'voucherType' | translate }} </th>
+<th>{{ 'Description' | translate }} </th>
+<th> {{ 'Debit' | translate }}</th>
+<th>{{ 'credit' | translate }} </th>
+
+
+<th> {{ 'Balance' | translate }}</th>
+
+</tr>
+</thead>
+
+<tbody>
+
+
+
+	<tr *ngFor="let item of displayArray">
+		<td>{{item.voucherDate}}</td>
+		<td>{{item.voucherId}}</td>
+		<td>{{item.voucherType}}</td>
+		<td>{{item.description}}</td>
+		<td>{{item.debit}}</td>
+		<td>{{item.credit}}</td>
+
+		<td>{{item.balance}}</td>
+	</tr>
+
+
+
+</tbody>
+
+	  </table>
+
+	</div>
+	</div>
+	</div></div></div>

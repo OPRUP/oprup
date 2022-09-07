@@ -1,0 +1,322 @@
+<!--Page header-->
+<div class="page-header">
+  <div class="page-leftheader">
+      <h2 class="page-title">{{'salesInvoice' | translate}}</h2>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+      <ol class="breadcrumb">
+
+          <li class="breadcrumb-item">
+              <a [routerLink]="['/accounts/']" class="d-flex">
+                  <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+<path d="M0 0h24v24H0V0z" fill="none"/>
+<path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+<path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+{{'HOME' | translate}}</span></a>
+          </li>
+          <li class="breadcrumb-item"><a [routerLink]="['/accounts/sales-invoice/sales-invoice/']">
+{{"salesInvoice" | translate}} </a></li>
+          <li class="breadcrumb-item active" aria-current="page"> {{'EDIT' | translate}}</li>
+
+      </ol>
+  </div>
+</div>
+<!--End Page header-->
+<div class="card">
+  <form *ngIf="salesInoviceData" #editForm="ngForm" [formGroup]="form" class="form-horizontal">
+      <div class="card-header">
+          <button type="button" id="add-visit-form" class="btn btn-dark m-3" (click)="onUpdateSaleInvoice()">{{'SAVE' | translate}}</button>
+          <a [routerLink]="['/accounts/sales-invoice/sales-invoice']" class="btn btn-light">{{'DISCARD' | translate}}</a>
+      </div>
+      <!-- invoice header  -->
+
+      <div class="m-3 row">
+          <div class="col-md-6">
+              <label class="form-label">{{'invoiceNumber' | translate}}:</label>
+              <input type="text" readonly #invoiceNumber formControlName="invoiceNumber" [(ngModel)]="salesInoviceData.salesInvoiceNumber" id="invoiceNumber" name="invoiceNumber" class="form-control mt-2 text-line" placeholder="">
+
+
+
+
+
+
+          </div>
+          <div class="col-md-6">
+              <label class="form-label">{{ 'type' | translate }}</label>
+              <div class="form-check form-check-inline">
+                  <input [(ngModel)]="salesInoviceData.salesInvoiceType" class="form-check-input" type="radio" name="salesInvoiceType" id="inlineRadio1" value="cash" #salesInvoiceType formControlName="salesInvoiceType">
+                  <label class="form-check-label" for="inlineRadio1">{{ 'cash' | translate }}</label>
+              </div>
+              <div class="form-check form-check-inline">
+                  <input #salesInvoiceType formControlName="salesInvoiceType" [(ngModel)]="salesInoviceData.salesInvoiceType" class="form-check-input" type="radio" name="salesInvoiceType" id="inlineRadio2" value="debit">
+                  <label class="form-check-label" for="inlineRadio2">{{ 'Debit' | translate }}</label>
+              </div>
+              <!-- Default checked -->
+
+          </div>
+      </div>
+
+      <div class="m-3 row mb-6">
+          <div class="col-md-6">
+              <label for="" class="form-label">{{ 'projectName' | translate }}:</label>
+              <ng-select name="projectId" #projectId formControlName="projectId" [(ngModel)]="salesInoviceData.project.projectId" class="form-control form-select">
+                  <ng-option *ngFor="let project of projects" [value]="project.projectId">{{project.projectName}}</ng-option>
+              </ng-select>
+
+          </div>
+          <div class="col-md-6">
+              <label for="" class="form-label">{{ 'customerAccountNumber' | translate }}:</label>
+              <ng-select #customerId [(ngModel)]="salesInoviceData.clientAccount.accountId" formControlName="accountId" name="accountId" class="form-control form-select">
+                  <ng-option *ngFor="let account of accounts" [value]="account.accountId">{{account.accountCode}}|{{account.accountName}}</ng-option>
+              </ng-select>
+
+          </div>
+      </div>
+      <div class="m-3 row mb-6">
+          <div class="col-md-6">
+              <label class="form-label">{{'taxNumber' | translate}}:</label>
+              <input type="text" #taxNumber formControlName="taxNumber" [(ngModel)]="salesInoviceData.taxNumber" id="taxNumber" name="taxNumber" class="form-control mt-2 text-line" placeholder="">
+
+
+
+
+
+
+          </div>
+          <div class="col-md-6">
+              <label for="" class="form-label">{{ 'employeeName' | translate }}:</label>
+              <ng-select name="employeeId" #employeeId formControlName="employeeId" [(ngModel)]="salesInoviceData.employee.employeeId" class="form-control form-select">
+                  <ng-option *ngFor="let employee of employees" [value]="employee.employeeId">{{employee.employeeName}}</ng-option>
+              </ng-select>
+
+          </div>
+
+
+      </div>
+      <div class="m-3 row mb-6">
+          <div class="col-md-6">
+              <label for="" class="form-label">{{ 'customerName' | translate }}:</label>
+              <ng-select name="projectId" #projectId formControlName="customerId" [(ngModel)]="salesInoviceData.customer.customerId" class="form-control form-select">
+                  <ng-option *ngFor="let customer of customers" [value]="customer.customerId">{{customer.nameAr}}</ng-option>
+              </ng-select>
+
+          </div>
+
+      </div>
+      <div style="overflow-x:auto;" class="text-center;">
+          <div class="dynamicTable">
+              <table mat-table [dataSource]="dataSource" formArrayName="marks">
+                  <!-- Row definitions -->
+                  <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+                  <tr mat-row *matRowDef="let row; let i = index; columns: displayColumns;"></tr>
+
+                  <!-- Column definitions -->
+                  <ng-container matColumnDef="itemCode">
+                      <th mat-header-cell *matHeaderCellDef> {{'itemCode' | translate }} </th>
+                      <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                          <mat-form-field appearance="outline" class="dynamic">
+                              <input matInput type="text" value="" formControlName="itemCode" size="15" [(ngModel)]="items[index].itemCode" (change)="getItemDetailsByItemCode($event,index)">
+                          </mat-form-field>
+                      </td>
+                  </ng-container>
+                  <ng-container matColumnDef="itemId">
+                      <th mat-header-cell *matHeaderCellDef style="display:none;"> itemId </th>
+                      <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index" style="display:none;">
+                          <mat-form-field appearance="outline" class="dynamic">
+                              <input readonly matInput type="text" [(ngModel)]="items[index].itemId" formControlName="itemId" size="15">
+                          </mat-form-field>
+                      </td>
+                  </ng-container>
+
+                  <!-- <ng-container matColumnDef="itemNameEn">
+                      <th mat-header-cell *matHeaderCellDef style="display:none;"> {{ 'itemName' | translate }} </th>
+                      <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index" style="display:none;">
+                          <mat-form-field appearance="outline" class="dynamic">
+                              <input readonly matInput type="text" [(ngModel)]="items[index].itemNameEn" formControlName="itemNameEn" size="15z">
+                          </mat-form-field>
+                      </td>
+                  </ng-container> -->
+                  <ng-container matColumnDef="itemNameAr">
+                      <th mat-header-cell *matHeaderCellDef> {{ 'itemName' | translate }} </th>
+                      <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                          <mat-form-field appearance="outline" class="dynamic">
+                              <input readonly matInput type="text" [(ngModel)]="items[index].itemNameAr" formControlName="itemNameAr" size="15">
+                          </mat-form-field>
+                      </td>
+                  </ng-container>
+                  <ng-container matColumnDef="nationality">
+                      <th mat-header-cell *matHeaderCellDef> {{ 'nationality' | translate }} </th>
+                      <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                          <mat-form-field appearance="outline" class="dynamic">
+                              <input readonly matInput type="text" [(ngModel)]="items[index].nationality" formControlName="nationality" size="15">
+                          </mat-form-field>
+                      </td>
+                  </ng-container>
+                  <ng-container matColumnDef="gender">
+                      <th mat-header-cell *matHeaderCellDef> {{ 'gender' | translate }} </th>
+                      <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                          <mat-form-field appearance="outline" class="dynamic">
+                              <input readonly matInput type="text" [(ngModel)]="items[index].gender" formControlName="gender" size="15">
+                          </mat-form-field>
+                      </td>
+                  </ng-container>
+                  <ng-container matColumnDef="foodAllowance">
+                      <th mat-header-cell *matHeaderCellDef> {{ 'foodAllowance' | translate }} </th>
+                      <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                          <mat-form-field appearance="outline" class="dynamic">
+                              <input readonly matInput type="text" [(ngModel)]="items[index].foodAllowance" formControlName="foodAllowance" size="15">
+                          </mat-form-field>
+                      </td>
+                  </ng-container>
+                  <ng-container matColumnDef="housingAllowance">
+                      <th mat-header-cell *matHeaderCellDef> {{ 'housingAllowance' | translate }} </th>
+                      <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                          <mat-form-field appearance="outline" class="dynamic">
+                              <input readonly matInput type="text" [(ngModel)]="items[index].housingAllowance" formControlName="housingAllowance" size="15">
+                          </mat-form-field>
+                      </td>
+                  </ng-container>
+                  <ng-container matColumnDef="otherAllowance">
+                      <th mat-header-cell *matHeaderCellDef> {{ 'otherAllowance' | translate }} </th>
+                      <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                          <mat-form-field appearance="outline" class="dynamic">
+                              <input readonly matInput type="text" [(ngModel)]="items[index].otherAllowance" formControlName="otherAllowance" size="15">
+                          </mat-form-field>
+                      </td>
+                  </ng-container>
+                  <ng-container matColumnDef="salary">
+                      <th mat-header-cell *matHeaderCellDef> {{ 'salary' | translate }} </th>
+                      <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                          <mat-form-field appearance="outline" class="dynamic">
+                              <input readonly matInput type="text" [(ngModel)]="items[index].salary" formControlName="salary" size="15">
+                          </mat-form-field>
+                      </td>
+                  </ng-container>
+                  <ng-container matColumnDef="salesInvoiceItemQuantity">
+                      <th mat-header-cell *matHeaderCellDef> {{ 'quantity' | translate }} </th>
+                      <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                          <mat-form-field appearance="outline" class="dynamic">
+                              <input matInput type="text" value='' formControlName="salesInvoiceItemQuantity" size="15" (change)="getValue($event,items[index])" [(ngModel)]="items[index].salesInvoiceItemQuantity">
+                          </mat-form-field>
+                      </td>
+                  </ng-container>
+                  <ng-container matColumnDef="numberOfEmployees">
+                      <th mat-header-cell *matHeaderCellDef> {{ 'employeeNumber' | translate }} </th>
+                      <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                          <mat-form-field appearance="outline" class="dynamic">
+                              <input matInput type="text" value='' [(ngModel)]="items[index].numberOfEmployees" formControlName="numberOfEmployees" size="15" (change)="getValueQuantity($event,items[index])">
+                          </mat-form-field>
+                      </td>
+                  </ng-container>
+                  <ng-container matColumnDef="operationFee" style="white-space: nowrap;">
+                      <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> {{'operationFee'|translate}} </th>
+                      <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                          <mat-form-field appearance="outline" class="dynamic">
+                              <input matInput type="text" [(ngModel)]="items[index].operationFee" (change)="getMonthlyCost($event,items[index])" formControlName="operationFee" size="15">
+                          </mat-form-field>
+                      </td>
+                  </ng-container>
+                  <ng-container matColumnDef="salesInvoiceItemValue">
+                      <th mat-header-cell *matHeaderCellDef> {{ 'value' | translate }} </th>
+                      <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                          <mat-form-field appearance="outline" class="dynamic">
+                              <input readonly matInput type="text" [(ngModel)]="items[index].value" formControlName="salesInvoiceItemValue" size="15">
+                          </mat-form-field>
+                      </td>
+                  </ng-container>
+                  <ng-container matColumnDef="salesInvoiceItemTotal">
+                      <th mat-header-cell *matHeaderCellDef> {{ 'total' | translate }} </th>
+                      <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                          <mat-form-field appearance="outline" class="dynamic">
+                              <input matInput type="text" [(ngModel)]="items[index].total" formControlName="salesInvoiceItemTotal" size="15">
+                          </mat-form-field>
+                      </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="profession">
+                      <th mat-header-cell *matHeaderCellDef> {{ 'profession' | translate }} </th>
+                      <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                          <mat-form-field appearance="outline" class="dynamic">
+                              <input readonly matInput type="text" [(ngModel)]="items[index].profession" formControlName="profession" size="15">
+                          </mat-form-field>
+                      </td>
+                  </ng-container>
+                  <ng-container matColumnDef="taxRate">
+                      <th mat-header-cell *matHeaderCellDef> {{ 'tax' | translate }} </th>
+                      <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                          <mat-form-field appearance="outline" class="dynamic">
+                              <input readonly matInput type="text" [(ngModel)]="items[index].taxRate" formControlName="taxRate" size="15">
+                          </mat-form-field>
+                      </td>
+                  </ng-container>
+                  <ng-container matColumnDef="monthlyOperationFee" style="white-space: nowrap; display: none;">
+                      <th mat-header-cell *matHeaderCellDef style="white-space: nowrap;"> {{'monthlyOperationFee'|translate}} </th>
+                      <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                          <mat-form-field appearance="outline" class="dynamic">
+                              <input matInput type="text" [(ngModel)]="items[index].monthytotal" formControlName="monthlyOperationFee" size="15" readonly>
+                          </mat-form-field>
+                      </td>
+                  </ng-container>
+                  <ng-container matColumnDef="delete">
+                      <th mat-header-cell *matHeaderCellDef> {{ 'ACTIONS' | translate }} </th>
+                      <td mat-cell *matCellDef="let row; let index = index" [formGroupName]="index">
+                          <button type="button" class="btn btn-dark m-3" (click)="deleteRow(index)" formControlName="delete" placeholder="Delete"> {{ 'DELETE' | translate }}</button>
+                          <!--<mat-form-field>
+        <input  type="number" value="" formControlName="score" placeholder="Score">
+      </mat-form-field>-->
+                      </td>
+                  </ng-container>
+              </table>
+          </div>
+      </div>
+      <button type="button" class="btn btn-dark m-3" (click)="addRow()">Add row</button>
+
+
+
+
+
+  </form>
+  <button type="button" class="btn btn-dark m-3" (click)="calculateInvoice()" placeholder="calculateInvoice">{{ 'calculateInvoice' | translate }}</button>
+  <div class="m-3 row mb-6" *ngIf="salesInoviceData.amount">
+      <table class="col-md-5 calculate">
+          <tr>
+              <td>{{ 'cashAccount' | translate }}</td>
+              <td>
+                  <ng-select #cashAccount [(ngModel)]="salesInoviceData.cashAccount.accountId" name="cashAccount" class="form-control form-select">
+                      <ng-option *ngFor="let account of accounts" [value]="account.accountId">{{account.accountCode}}|{{account.accountName}}</ng-option>
+                  </ng-select>
+              </td>
+          </tr>
+          <tr>
+              <td>{{ 'taxAccount' | translate }}</td>
+              <td>
+                  <ng-select #taxAccount [(ngModel)]="salesInoviceData.taxAccount.accountId" name="taxAccount" class="form-control form-select">
+                      <ng-option *ngFor="let account of accounts" [value]="account.accountId">{{account.accountCode}}|{{account.accountName}}</ng-option>
+                  </ng-select>
+              </td>
+          </tr>
+          <tr>
+              <td>{{ 'salesAccount' | translate }}</td>
+              <td>
+                  <ng-select #salesAccount [(ngModel)]="salesInoviceData.salesAccount.accountId" name="salesAccount" class="form-control form-select">
+                      <ng-option *ngFor="let account of accounts" [value]="account.accountId">{{account.accountCode}}|{{account.accountName}}</ng-option>
+                  </ng-select>
+              </td>
+          </tr>
+      </table>
+      <table class="col-md-5 calculate">
+          <tr>
+              <td>{{ 'amount' | translate }}</td>
+              <td>{{salesInoviceData.amount}}</td>
+          </tr>
+          <tr>
+              <td>{{ 'taxRate' | translate }}</td>
+              <td>{{salesInoviceData.tax}}</td>
+          </tr>
+          <tr>
+              <td>{{ 'total' | translate }}</td>
+              <td>{{salesInoviceData.total}}</td>
+          </tr>
+      </table>
+
+  </div>

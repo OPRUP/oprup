@@ -1,0 +1,73 @@
+<!--Page header-->
+<div class="page-header">
+	<div class="page-leftheader">
+		<!-- <h2 class="page-title">{{'ListOfDepartments' | translate}}</h2> -->
+    <h2 class="page-title">{{'Room' | translate}}</h2>
+
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/dashboard-hr/']" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'Home' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/RoomsTaskeen/RoomsTaskeen/']">{{'Room' | translate}}</a></li>
+
+      <li class="breadcrumb-item active" aria-current="page">{{'Print' | translate}}</li>
+		</ol>
+	</div>
+</div>
+<!--End Page header-->
+<!-- row opened -->
+<div class="row row-sm">
+  <div class="col-xl-12">
+    <div class="card">
+      <div class="card-header pb-0">
+        &nbsp;&nbsp;&nbsp;
+        <a (click)="printPage()" class="btn btn-default"><i class="fe fe-plus"></i>{{'Print' | translate}}</a>
+      </div>
+      <div class="card-body">
+
+        <div class="table-responsive table-bordered table-hover table-striped sss">
+          <table mat-table matSort [dataSource]="roomsTaskeen">
+            <ng-container matColumnDef="roomCode">
+              <th mat-header-cell  *matHeaderCellDef>{{'roomCode' | translate}}</th>
+              <td mat-cell *matCellDef="let roomTaskeen">{{ roomTaskeen.roomCode }}</td>
+            </ng-container>
+               <ng-container matColumnDef="habitationName">
+              <th mat-header-cell  *matHeaderCellDef>{{'habitationName' | translate}}</th>
+              <td mat-cell *matCellDef="let roomTaskeen">{{ roomTaskeen.taskeens.habitationName }}</td>
+            </ng-container>
+          <ng-container matColumnDef="bids">
+              <th mat-header-cell  *matHeaderCellDef> {{'bids' | translate}}</th>
+              <td mat-cell *matCellDef="let roomTaskeen">{{ roomTaskeen.bids }}</td>
+            </ng-container>
+            <ng-container matColumnDef="lockers">
+              <th mat-header-cell  *matHeaderCellDef>{{'lockers' | translate}}</th>
+              <td mat-cell *matCellDef="let roomTaskeen">{{ roomTaskeen.lockers }}</td>
+            </ng-container>
+            <ng-container matColumnDef="conditioners">
+              <th mat-header-cell  *matHeaderCellDef>{{'conditioners' | translate}}</th>
+              <td mat-cell *matCellDef="let roomTaskeen">{{ roomTaskeen.conditioners }}</td>
+            </ng-container>
+            <ng-container matColumnDef="tools">
+              <th mat-header-cell  *matHeaderCellDef>{{'tools' | translate}}</th>
+              <td mat-cell *matCellDef="let roomTaskeen">{{ roomTaskeen.tools }}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+         </table>
+         <mat-paginator #paginator
+         [pageSize]="5"
+         [pageSizeOptions]="[5, 10, 25,50, 100]"
+   >
+   </mat-paginator>
+          </div>
+          </div>
+          </div>
+      </div>
+    </div>
+
+
+
+
+
+
+

@@ -1,0 +1,127 @@
+<!--Page header-->
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{'DebtorNotices' | translate}}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+
+      <li class="breadcrumb-item"><a [routerLink]="['/accounts/']" class="d-flex">
+        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M0 0h24v24H0V0z" fill="none"/>
+          <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+          <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+            {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/accounts/debtorNotice/debtorNotice']">
+        {{"DebtorNotices" | translate}} </a></li>
+      <li class="breadcrumb-item active" aria-current="page"> {{'EDIT' | translate}}</li>
+
+		</ol>
+	</div>
+</div>
+<!--End Page header-->
+
+
+<div class="card">
+  <form (ngSubmit)="onEditDebtorNotices()"
+  [formGroup]="form"
+  *ngIf="DebtorNoticess"
+  class="form-horizontal">
+
+    <div class="card-header">
+      <button type="submit" id="add-bank-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+      <a [routerLink]="['/accounts/debtorNotice/debtorNotice']" class="btn btn-light">{{'DISCARD' | translate}}</a>
+    </div>
+    <div class="m-3 row">
+
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'creditoraccount' | translate}}</label>
+        <ng-select name="parentAccount"
+      #parentAccount
+      formControlName="accountId"
+      [ngClass]="{ 'is-invalid': submitted && f['accountId'].errors }"
+
+        [(ngModel)]="DebtorNoticess.creditAccount.accountId"
+      class="form-control form-select">
+
+          <ng-option *ngFor="let acc of accounts" [value] ="acc.accountId">{{acc.accountCode}}| {{acc.accountName}}</ng-option>
+      </ng-select>
+      <div *ngIf="submitted && f['accountId'].errors" class="invalid-feedback">
+        <div *ngIf="f['accountId'].errors['required']"></div>
+      </div>
+
+      </div>
+
+      <div class="col-md-6">
+        <label for="" class="form-label">{{ 'customerAccountNumber' | translate }}</label>
+        <ng-select name="customerId"
+
+
+
+      formControlName="customerId"
+      [ngClass]="{ 'is-invalid': submitted && f['customerId'].errors }"
+
+        [(ngModel)]="DebtorNoticess.customerAccount.accountId" lass="form-control form-select">
+        <ng-option *ngFor="let acc of accounts" [value] ="acc.accountId">{{acc.accountCode}}| {{acc.accountName}}</ng-option>
+        </ng-select>
+
+        <div *ngIf="submitted && f['customerId'].errors" class="invalid-feedback">
+          <div *ngIf="f['customerId'].errors['required']"></div>
+        </div>
+
+      </div>
+
+
+
+
+    </div>
+
+
+
+
+
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'value' | translate}}</label>
+        <input type="text" #creditNoticevalue
+        formControlName="creditNoticevalue"
+        [ngClass]="{ 'is-invalid': submitted && f['creditNoticevalue'].errors }"
+        [(ngModel)]="DebtorNoticess.creditNoticevalue" id="creditNoticevalue" name="creditNoticevalue" class="form-control mt-2 text-line" placeholder="" >
+        <div *ngIf="submitted && f['creditNoticevalue'].errors" class="invalid-feedback">
+          <div *ngIf="f['creditNoticevalue'].errors['required']"></div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label for="" class="form-label">{{ 'Date' | translate }}</label>
+        <mat-form-field appearance="outline">
+         <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+         <input type="date" id="creditNoticeDate" name="creditNoticeDate"
+            #creditNoticeDate
+           formControlName="creditNoticeDate"
+           [ngClass]="{ 'is-invalid': submitted && f['creditNoticeDate'].errors }"
+
+           [(ngModel)]="DebtorNoticess.creditNoticeDate" matInput>
+          <!-- <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+           <mat-datepicker #picker2>
+
+           </mat-datepicker> -->
+          </mat-form-field>
+       <div *ngIf="submitted && f['creditNoticeDate'].errors" class="invalid-feedback">
+         <div *ngIf="f['creditNoticeDate'].errors['required']"></div>
+       </div>
+     </div>
+
+
+      </div>
+
+
+    <div class="m-3 row">
+      <div class="col-md-12">
+        <label for="" class="form-label">{{'Description' | translate}}</label>
+        <textarea  [(ngModel)]="DebtorNoticess.details"  [ngModelOptions]="{standalone: true}" #description class="form-control mt-2 text-line" id="details" name="details" cols="50" rows="8" placeholder=""></textarea>
+      </div>
+    </div>
+
+    </form>
+</div>

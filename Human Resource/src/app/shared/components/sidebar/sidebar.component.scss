@@ -1,0 +1,115 @@
+.side-menu .side-menu__icon{
+    vertical-align: inherit;
+    margin-left : 0 ;
+}
+::ng-deep{
+    .default-sidebar.sidenav-toggled.sidenav-toggled1 .app-sidebar2 .mobile-logo{
+        display: none !important;
+    }
+    @media (max-width:768px) {
+        .app.sidebar-mini.sidenav-toggled .side-menu .side-menu__icon{
+            padding-top: 6px !important;
+        }
+        .app.sidebar-mini.sidenav-toggled.sidenav-toggled1 .app-sidebar .side-menu__icon{
+            padding-top: 6px !important;
+        }
+    }
+
+    .ps{
+        touch-action: none !important;
+    }
+}
+.dropup .dropdown-toggle::after{
+    display: none;
+}
+.app-sidebar-help{
+    transition: left .3s ease,width .3s ease;
+}
+.sub-angle {
+    line-height: 40px !important;
+}
+.side-menu__icon {
+    fill: #d2d6f1 ;
+}
+::ng-deep{
+    .color-sidebar .side-menu__icon, .dark-sidebar .side-menu__icon{
+        fill: rgba(255,255,255,.08) !important;
+    }
+
+    .sidenav-toggled .help .dropdown-menu-end.show{
+        display: none;
+    }
+    .sidenav-toggled.sidenav-toggled1 .help .dropdown-menu-end.show{
+        display: initial;
+    }
+}
+.dropdown-menu-end{
+    transform: translate(0,-248px) !important;
+}
+
+.app-sidebar__user {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  width: 100%;
+  padding: 25px 20px;
+  display: inline-block;
+  border-bottom: none;
+}
+.app-sidebar__logo {
+  border-bottom: 1px solid #000;
+}
+.app-sidebar-help {
+  position: fixed;
+  bottom: 0;
+  border-top: 1px solid #000;
+  background: #000;
+}
+.slide a {
+  color: #fff!important;
+}
+.slide a:hover {
+  color: #fff!important;
+}
+.slide-menu a {
+
+  background: #000;
+}
+
+
+.slide-menu a.active {
+
+  color: #DEE1E6;
+}
+
+.light-mode .app-sidebar .dropdown-menu {
+
+  background: #ccc;
+  color: #fff;
+
+}
+
+
+span.side-menu__label{
+  font-family: cairo;
+  color: #fff;
+  font-size: .92rem;
+}
+span.side-menu__label:hover{
+  font-family: cairo;
+  color: #fff;
+  font-size: .92rem;
+}
+span.side-menu__label:hover{
+  color: #fff;
+  font-size: .88rem;
+}
+
+
+
+
+
+
+
+
+

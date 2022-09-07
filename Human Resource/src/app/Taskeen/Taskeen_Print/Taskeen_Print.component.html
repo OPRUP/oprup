@@ -1,0 +1,73 @@
+<!--Page header-->
+<div class="page-header">
+	<div class="page-leftheader">
+		<!-- <h2 class="page-title">{{'ListOfDepartments' | translate}}</h2> -->
+    <h2 class="page-title">{{'Habitation' | translate}}</h2>
+
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/operation/']" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'Home' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/operation/Taskeen/Taskeen/']">{{'Habitation' | translate}}</a></li>
+
+      <li class="breadcrumb-item active" aria-current="page">{{'Print' | translate}}</li>
+		</ol>
+	</div>
+</div>
+<!--End Page header-->
+<!-- row opened -->
+<div class="row row-sm">
+  <div class="col-xl-12">
+    <div class="card">
+      <div class="card-header pb-0">
+        &nbsp;&nbsp;&nbsp;
+        <a (click)="printPage()" class="btn btn-default"><i class="fe fe-plus"></i>{{'Print' | translate}}</a>
+      </div>
+      <div class="card-body">
+
+        <div class="table-responsive table-bordered table-hover table-striped sss">
+          <table mat-table matSort [dataSource]="taskeens">
+            <ng-container matColumnDef="habitationCode">
+              <th mat-header-cell  *matHeaderCellDef>{{'habitationCode' | translate}}</th>
+              <td mat-cell *matCellDef="let taskeen">{{ taskeen.habitationCode }}</td>
+            </ng-container>
+               <ng-container matColumnDef="habitationName">
+              <th mat-header-cell  *matHeaderCellDef>{{'habitationName' | translate}}</th>
+              <td mat-cell *matCellDef="let taskeen">{{ taskeen.habitationName }}</td>
+            </ng-container>
+          <ng-container matColumnDef="rentContractStartingDate">
+              <th mat-header-cell  *matHeaderCellDef> {{'rentContractStartingDate' | translate}}</th>
+              <td mat-cell *matCellDef="let taskeen">{{ taskeen.rentContractStartingDate }}</td>
+            </ng-container>
+            <ng-container matColumnDef="rentContractEndingDate">
+              <th mat-header-cell  *matHeaderCellDef>{{'rentContractEndingDate' | translate}}</th>
+              <td mat-cell *matCellDef="let taskeen">{{ taskeen.rentContractEndingDate }}</td>
+            </ng-container>
+            <ng-container matColumnDef="rentCostPerMonth">
+              <th mat-header-cell  *matHeaderCellDef>{{'rentCostPerMonth' | translate}}</th>
+              <td mat-cell *matCellDef="let taskeen">{{ taskeen.rentCostPerMonth }}</td>
+            </ng-container>
+            <ng-container matColumnDef="capacity">
+              <th mat-header-cell  *matHeaderCellDef>{{'capacity' | translate}}</th>
+              <td mat-cell *matCellDef="let taskeen">{{ taskeen.capacity }}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+         </table>
+         <mat-paginator #paginator
+         [pageSize]="5"
+         [pageSizeOptions]="[5, 10, 25,50, 100]"
+   >
+   </mat-paginator>
+          </div>
+          </div>
+          </div>
+      </div>
+    </div>
+
+
+
+
+
+
+

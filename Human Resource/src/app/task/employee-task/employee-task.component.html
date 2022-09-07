@@ -1,0 +1,126 @@
+<!--Page header-->
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{ 'Tasks' | translate }}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+
+      <li class="breadcrumb-item"><a [routerLink]="['/operation/']" class="d-flex">
+        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M0 0h24v24H0V0z" fill="none"/>
+          <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+          <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+            {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/operation/task/task']">
+        {{"Tasks" | translate}} </a></li>
+      <li class="breadcrumb-item active" aria-current="page"> {{'VIEW' | translate}}</li>
+
+		</ol>
+	</div>
+</div>
+<!--End Page header-->
+
+
+<!-- row opened -->
+<div class="row row-sm">
+  <div class="col-xl-12">
+    <div class="card">
+
+      <div class="card-body">
+        <div class="search-container">
+          <mat-form-field appearance="outline" style="width:50%;">
+            <input matInput placeholder="{{'Search' | translate}}" autocomplete="off"
+            (keyup)="filterData($event)">
+          </mat-form-field>
+        </div>
+       <div class="table-responsive table-bordered table-hover table-striped">
+
+<table  class="table">
+  <thead>
+    <tr>
+    <th> {{ 'TaskDescription' | translate }} </th>
+    <th>{{ 'DueDate' | translate }} </th>
+    <th>{{ 'TaskState' | translate }} </th>
+     <th>{{ 'Reply' | translate }} </th>
+    <th>{{ 'ACTIONS' | translate }}</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of tasks">
+      <input type="hidden" ngModel="{{task.taskId}}" name="taskId" id="taskId">
+<td ngModel="{{ task.taskDescription }}">{{ task.taskDescription }}</td>
+<td ngModel="{{ task.dueDate }}" >{{ task.dueDate }}</td>
+<td>
+  <!-- {{ task.userTaskState }} -->
+     <ng-select [(ngModel)]="task.userTaskState" class="form-control form-select">
+      <ng-option  value="Pending" >Pending</ng-option>
+      <ng-option  value="Accepted" >Accepted</ng-option>
+      <ng-option  value="Not Completed" >Not Completed</ng-option>
+
+      </ng-select>
+</td>
+  <td><input type="text" [(ngModel)]="task.taskReply"></td>
+  <input hidden #deleteFlag [(ngModel)]="task.deleteFlag" id="deleteFlag" name="deleteFlag">
+<td>
+  <button class="btn btn-default" (click) = "onUpdateEmpTask(task)"><i class="fe fe-edit me-2"></i> {{ 'SUBMIT' | translate }}</button>
+
+</td>
+
+    </tr>
+  </tbody>
+</table>
+
+          <!-- <table mat-table matSort [dataSource]="tasks">
+
+            <ng-container matColumnDef="taskDescription">
+              <th mat-header-cell mat-sort-header *matHeaderCellDef>{{ 'Task Description' | translate }}</th>
+              <th mat-cell *matCellDef="let task">{{ task.taskDescription }}</th>
+            </ng-container>
+            <ng-container matColumnDef="dueDate">
+              <th mat-header-cell *matHeaderCellDef>{{ 'Due Date' | translate }}</th>
+              <th mat-cell *matCellDef="let task">{{ task.dueDate }}</th>
+            </ng-container>
+            <mat-container matColumnDef="userTaskState">
+              <th mat-header-cell *matHeaderCellDef>{{ 'Task State' | translate }}</th>
+              <th mat-cell *matCellDef="let task">{{ task.userTaskState }}</th>
+              <ng-select name="userTaskState"  [(ngModel)]="task.userTaskState" class="form-control form-select">
+                      <ng-option  value="Accepted" >"Accepted"</ng-option>
+                      <ng-option  value="Not Completed" >"Not Completed"</ng-option>
+
+              </ng-select>
+             <mat-select>
+              <mat-option value="ddd">rrrrrr</mat-option>
+             </mat-select>
+            </mat-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell  *matHeaderCellDef > {{ 'ACTIONS' | translate }} </th>
+              <td mat-cell *matCellDef="let task">
+                <button class="btn btn-default" (click) = "onEditTaskById(task.taskId)" ><i class="fe fe-edit me-2"></i> {{ 'SUBMIT' | translate }}</button>
+
+              </td>
+            </ng-container>
+
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table> -->
+          <!-- <mat-paginator #paginator
+                  [pageSize]="5"
+                  [pageSizeOptions]="[5, 10, 25,50, 100]"
+            >
+            </mat-paginator> -->
+
+          </div>
+      </div>
+    </div>
+</div>
+
+
+	<!--div-->
+
+
+
+

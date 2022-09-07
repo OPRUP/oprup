@@ -1,0 +1,201 @@
+<!--Page header-->
+<div class="page-header">
+    <div class="page-leftheader">
+        <h2 class="page-title">{{'Items' | translate}}</h2>
+    </div>
+    <div class="page-rightheader ms-auto d-lg-flex d-none">
+        <ol class="breadcrumb">
+
+            <li class="breadcrumb-item">
+                <a [routerLink]="['/sales/']" class="d-flex">
+                    <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+  <path d="M0 0h24v24H0V0z" fill="none"/>
+  <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+  <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+  {{'HOME' | translate}}</span></a>
+            </li>
+            <li class="breadcrumb-item"><a [routerLink]="['/sales/items/items/']">
+  {{"Items" | translate}} </a></li>
+            <li class="breadcrumb-item active" aria-current="page"> {{'Edit' | translate}}</li>
+
+        </ol>
+    </div>
+</div>
+<!--End Page header-->
+
+<!-- <div class="card"> -->
+<div class="card">
+    <form #editForm="ngForm" *ngIf="items" (ngSubmit)="onUpdateItems()" class="form-horizontal">
+        <div class="card-header">
+            <button type="submit" id="add-onUpdateItem-form" class="btn btn-dark m-3">{{ 'SAVE' | translate }}</button>
+            <a [routerLink]="['/sales/items/items/']" class="btn btn-light">{{ 'DISCARD' | translate }}</a>
+        </div>
+        <input type="hidden" [(ngModel)]="items" name="itemsId" id="itemsId">
+
+
+        <div class="m-3 row">
+            <div class="col-md-12">
+                <label class="form-label">{{'itemCode' | translate}}</label>
+                <input type="text" #itemCode formControlName="itemCode" [ngClass]="{ 'is-invalid': submitted && f['itemCode'].errors }" [(ngModel)]="items.itemCode" id="itemCode" name="itemCode" class="form-control mt-2 text-line" placeholder="">
+                <div *ngIf="submitted && f['itemCode'].errors" class="invalid-feedback">
+                    <div *ngIf="f['itemCode'].errors['required']">{{'required' | translate}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-3 row">
+
+            <div class="col-md-12">
+                <label for="" class="form-label">{{'itemNameAr' | translate}}</label>
+                <input type="text" #itemNameAr formControlName="itemNameAr" [ngClass]="{ 'is-invalid': submitted && f['itemNameAr'].errors }" [(ngModel)]="items.itemNameAr" id="itemNameAr" name="itemNameAr" class="form-control mt-2 text-line" placeholder="">
+                <div *ngIf="submitted && f['itemNameAr'].errors" class="invalid-feedback">
+                    <div *ngIf="f['itemNameAr'].errors['required']">{{'required' | translate}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="m-3 row">
+            <div class="col-md-12">
+                <label for="" class="form-label">{{'itemNameEn' | translate}}</label>
+                <input type="text" #itemNameEn formControlName="itemNameEn" [ngClass]="{ 'is-invalid': submitted && f['itemNameEn'].errors }" [(ngModel)]="items.itemNameEn" id="itemNameEn" name="itemNameEn" class="form-control mt-2 text-line" placeholder="">
+                <div *ngIf="submitted && f['itemNameEn'].errors" class="invalid-feedback">
+                    <div *ngIf="f['itemNameEn'].errors['required']">{{'required' | translate}}</div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+        <div class="m-3 row">
+
+            <div class="col-md-12">
+                <label for="" class="form-label">{{'nationality' | translate }}</label>
+                <ng-select #nationality formControlName="nationality" [ngClass]="{ 'is-invalid': submitted && f['nationality'].errors }" [(ngModel)]="items.nationality" name="nationality" id="nationality" class="form-control form-select">
+                    <ng-option *ngFor="let item of countryList" value="{{item.name}}">
+                        {{item.name}}
+                    </ng-option>
+
+                </ng-select>
+
+                <div *ngIf="submitted && f['nationality'].errors" class="invalid-feedback">
+                    <div *ngIf="f['nationality'].errors['required']">{{'required' | translate}}</div>
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+
+        <div class="m-3 row">
+            <div class="col-md-12">
+                <label for="" class="form-label">{{'taxRate' | translate}}</label>
+                <input type="text" #taxRate [(ngModel)]="items.taxRate" [ngModelOptions]="{standalone: true}" id="taxRate" name="taxRate" class="form-control mt-2 text-line" placeholder="" [value]="0.15">
+            </div>
+        </div>
+        <div class="m-3 row">
+            <div class="col-md-12">
+                <label for="" class="form-label">{{'profession' | translate}}</label>
+                <input type="text" #profession formControlName="profession" [ngClass]="{ 'is-invalid': submitted && f['profession'].errors }" [(ngModel)]="items.profession" id="profession" name="profession" class="form-control mt-2 text-line" placeholder="">
+
+                <div *ngIf="submitted && f['profession'].errors" class="invalid-feedback">
+                    <div *ngIf="f['profession'].errors['required']">{{'required' | translate}}</div>
+                </div>
+
+
+
+            </div>
+        </div>
+        <div class="m-3 row">
+            <div class="col-md-12">
+                <label for="" class="form-label">{{'hourlyRate' | translate}}</label>
+                <input type="hourlyRate" #hourlyRate formControlName="hourlyRate" [ngClass]="{ 'is-invalid': submitted && f['hourlyRate'].errors }" [(ngModel)]="items.hourlyRate" id="hourlyRate" name="hourlyRate" class="form-control mt-2 text-line" placeholder="">
+
+                <div *ngIf="submitted && f['hourlyRate'].errors" class="invalid-feedback">
+                    <div *ngIf="f['hourlyRate'].errors['required']">{{'required' | translate}}</div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+
+        <div class="m-3 row">
+            <div class="col-md-12">
+                <label for="" class="form-label">{{'gender' | translate}}</label>
+                <input type="gender" #gender formControlName="gender" [ngClass]="{ 'is-invalid': submitted && f['gender'].errors }" [(ngModel)]="items.gender" id="gender" name="gender" class="form-control mt-2 text-line" placeholder="">
+
+                <div *ngIf="submitted && f['gender'].errors" class="invalid-feedback">
+                    <div *ngIf="f['gender'].errors['required']">{{'required' | translate}}</div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <div class="m-3 row">
+            <div class="col-md-12">
+                <label for="" class="form-label">{{'Slip' | translate}}</label>
+                <input type="Slip" #Slip formControlName="Slip" [ngClass]="{ 'is-invalid': submitted && f['Slip'].errors }" [(ngModel)]="items.Slip" id="Slip" name="Slip" class="form-control mt-2 text-line" placeholder="">
+
+                <div *ngIf="submitted && f['Slip'].errors" class="invalid-feedback">
+                    <div *ngIf="f['Slip'].errors['required']">{{'required' | translate}}</div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <div class="m-3 row">
+            <div class="col-md-12">
+                <label for="" class="form-label">{{'foodAllowance' | translate}}</label>
+                <input type="foodAllowance" #foodAllowance formControlName="foodAllowance" [ngClass]="{ 'is-invalid': submitted && f['foodAllowance'].errors }" [(ngModel)]="items.foodAllowance" id="foodAllowance" name="foodAllowance" class="form-control mt-2 text-line"
+                    placeholder="">
+
+                <div *ngIf="submitted && f['foodAllowance'].errors" class="invalid-feedback">
+                    <div *ngIf="f['foodAllowance'].errors['required']">{{'required' | translate}}</div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <div class="m-3 row">
+            <div class="col-md-12">
+                <label for="" class="form-label">{{'housingAllowance' | translate}}</label>
+                <input type="housingAllowance" #housingAllowance formControlName="housingAllowance" [ngClass]="{ 'is-invalid': submitted && f['housingAllowance'].errors }" [(ngModel)]="items.housingAllowance" id="housingAllowance" name="housingAllowance" class="form-control mt-2 text-line"
+                    placeholder="">
+
+                <div *ngIf="submitted && f['housingAllowance'].errors" class="invalid-feedback">
+                    <div *ngIf="f['housingAllowance'].errors['required']">{{'required' | translate}}</div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <div class="m-3 row">
+            <div class="col-md-12">
+                <label for="" class="form-label">{{'OtherAllowance' | translate}}</label>
+                <input type="OtherAllowance" #OtherAllowance formControlName="OtherAllowance" [ngClass]="{ 'is-invalid': submitted && f['OtherAllowance'].errors }" [(ngModel)]="items.OtherAllowance" id="OtherAllowance" name="OtherAllowance" class="form-control mt-2 text-line"
+                    placeholder="">
+
+                <div *ngIf="submitted && f['OtherAllowance'].errors" class="invalid-feedback">
+                    <div *ngIf="f['OtherAllowance'].errors['required']">{{'required' | translate}}</div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+
+    </form>
+</div>

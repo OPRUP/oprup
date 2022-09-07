@@ -1,0 +1,514 @@
+<!--Page header-->
+<div class="page-header">
+  <div class="page-leftheader">
+    <h2 class="page-title">{{ 'Reports' | translate }}</h2>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/dashboard/']" class="d-flex"><svg class="svg-icon"
+            xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0V0z" fill="none" />
+            <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z" />
+            <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3" /></svg><span class="breadcrumb-icon">
+            {{ 'HOME' | translate }}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['report/report']">{{ 'Reports' | translate }}</a></li>
+      <li class="breadcrumb-item" aria-current="page">{{ 'VIEW' | translate }}</li>
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <!-- <div class="card-header">
+        <h3 class="card-title">{{ 'ViewemployeeInformation' | translate }}</h3>
+      </div> -->
+      <div class="card-body">
+        <ngb-accordion [closeOthers]="true">
+          <ngb-panel>
+            <ng-template ngbPanelTitle >
+              <i class="fa fa-minus-circle"></i>
+              {{'BasicInformation'|translate}}
+              </ng-template>
+              <ng-template ngbPanelContent>
+                  <div id="myChart" class="table-responsive-xxl">
+                        <form class="form-horizontal">
+                           <div class="m-3 row" class="card-header">
+                            <div class="col-md-6">
+                              <input type="search"  (ngModelChange)="searchEmployees(key.value)" #key="ngModel" ngModel name="key"  class="form-control" placeholder="{{ 'SEARCH' | translate }}" onfocus></div>
+                              <div class="card-header pb-0">
+                              <button style="float: left;" type="submit" id="add-employee-form" (click)="ExportTOExcel() " class="btn btn-gray m-1">{{'ExportTOExcel' | translate }}</button> &nbsp;&nbsp;&nbsp;
+                              <button style="float: left;" type="submit" id="add-employee-form" (click)="generatePDF() " class="btn btn-dark ">{{'ExportTOPDF' | translate }}</button>
+                       </div>
+                       </div>
+                        </form><br><br>
+                      <div class="table-responsive table-bordered table-hover table-striped"  >
+
+                <table  #TABLE #table class="table table-bordered table-responsive" id="invoice" #invoice>
+
+                    <thead>
+                      <tr>
+                        <th style="white-space: nowrap;">{{'EmployeeID' | translate}}</th>
+                        <th style="white-space: nowrap;">{{'employeeName' | translate}}</th>
+                        <th style="white-space: nowrap;">{{'employeeNameAr' | translate}}</th>
+                        <th  style="white-space: nowrap;">{{'CompanyName' | translate}}</th>
+                        <!-- <tr>
+                          <th> {{'EmployeeInernalCompanyNo:'|translate}} </th>
+                          <td> {{employee.employeePartCompanyId}} </td>
+                        </tr> -->
+                        <th  style="white-space: nowrap;">{{'EmployeeInernalCompanyNo:' | translate}}</th>
+                        <th style="white-space: nowrap;">{{'PlaceOfBirth' | translate}}</th>
+                        <!-- <th style="white-space: nowrap;">{{'PlaceOfBirth' | translate}}</th> -->
+                        <th style="white-space: nowrap;">{{'dateOfJoin' | translate}}</th>
+                        <th style="white-space: nowrap;">{{'DateOfBirth' | translate}}</th>
+                        <th style="white-space: nowrap;">{{'gender' | translate}}</th>
+                        <th style="white-space: nowrap;">{{'maritalStatus' | translate}}</th>
+                        <!-- <th style="white-space: nowrap;">{{'residenceName' | translate}}</th>
+                        <th style="white-space: nowrap;">{{'residenceNumber' | translate}}</th>
+                        <th style="white-space: nowrap;">{{'residenceExpiry' | translate}}</th>
+                        <th style="white-space: nowrap;">{{'Country' | translate}}</th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let employee of employees">
+                        <td style="white-space: nowrap;">{{ employee.employeeId }}</td>
+                        <td style="white-space: nowrap;">{{ employee.employeeName }}</td>
+                        <td style="white-space: nowrap;">{{ employee.employeeNameAr }}</td>
+                        <td style="white-space: nowrap;">{{ employee.companies.companyName}}</td>
+                        <!-- <td style="white-space: nowrap;">{{ employee.employeeCompanyId }}</td> -->
+                        <td style="white-space: nowrap;">{{ employee.employeePartCompanyId }}</td>
+                        <td style="white-space: nowrap;">{{ employee.placeOfBirth }}</td>
+                        <td style="white-space: nowrap;">{{ employee.dateOfJoin }}</td>
+                        <td style="white-space: nowrap;">{{ employee.dateOfBirth }}</td>
+                        <td style="white-space: nowrap;">{{ employee.gender }}</td>
+                        <td style="white-space: nowrap;">{{ employee.maritalStatus }}</td>
+                        <!-- <td style="white-space: nowrap;">{{ employee.residenceName }}</td>
+                        <td style="white-space: nowrap;">{{employee.residenceNumber}}</td>
+                        <td style="white-space: nowrap;">{{employee.residenceExpiry}}</td> -->
+                        <!-- <td style="white-space: nowrap;">{{employee.country}}</td> -->
+                      </tr>
+                    </tbody>
+                                 </table>
+                                 </div>
+              </div>
+
+
+
+
+              </ng-template>
+          </ngb-panel>
+          <ngb-panel id="static-1" cardClass="mt-2">
+            <ng-template ngbPanelTitle >
+              <i class="fa fa-minus-circle"></i>
+              {{'EmployeedInformation'|translate}}
+              </ng-template>
+              <ng-template ngbPanelContent>
+
+                <form class="form-horizontal">
+                  <div class="m-3 row" class="card-header">
+                   <div class="col-md-6">
+                     <input type="search"  (ngModelChange)="searchEmployees(key.value)" #key="ngModel" ngModel name="key"  class="form-control" placeholder="{{ 'SEARCH' | translate }}" onfocus></div>
+
+                     <div class="card-header pb-0">
+                     <button style="float: left;" type="submit" id="add-employee-form" (click)="ExportTOExcel8() " class="btn btn-gray m-1">{{'ExportTOExcel' | translate }}</button>&nbsp;&nbsp;&nbsp;
+                     <button style="float: left;" type="submit" id="add-employee-form" (click)="generatePDF() " class="btn btn-dark ">{{'ExportTOPDF' | translate }}</button>
+              </div>
+              </div>
+               </form>
+               <br><br>
+               <div class="table-responsive table-bordered table-hover table-striped">
+
+                <table #TABLE1 #table1 class="table table-bordered table-responsive" id="invoice" #invoice>
+
+                  <tr>
+                    <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'employeeName' | translate}}</th>
+                    <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'SectionName' | translate}}</th>
+                  <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'CentralJobName' | translate}}</th>
+                  <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'JobTitleName' | translate}}</th>
+
+                  </tr>
+
+                  <tr *ngFor="let empEmployed of empInformation">
+                    <td style="white-space: nowrap;">{{ empEmployed.employee.employeeNameAr }}</td>
+                    <td style="white-space: nowrap;">{{ empEmployed.section.sectionName }}</td>
+                    <td style="white-space: nowrap;">{{ empEmployed.centralJob.centralJobName }}</td>
+                    <td style="white-space: nowrap;">{{ empEmployed.jobTitle.jobTitleName}}</td>
+                  </tr>
+
+
+                </table>
+</div>
+
+              </ng-template>
+          </ngb-panel>
+          <ngb-panel id="static-2" cardClass="mt-2">
+
+            <ng-template ngbPanelTitle >
+              <i class="fa fa-minus-circle"></i>
+              {{'Address'|translate}}
+              </ng-template>
+              <ng-template ngbPanelContent>
+                <form class="form-horizontal">
+                  <div class="m-3 row" class="card-header">
+                   <div class="col-md-6">
+                     <input type="search"  (ngModelChange)="searchEmployees(key.value)" #key="ngModel" ngModel name="key"  class="form-control" placeholder="{{ 'SEARCH' | translate }}" onfocus></div>
+
+                     <div class="card-header pb-0">
+                     <button style="float: left;" type="submit" id="add-employee-form" (click)="ExportTOExcel2()"class="btn btn-gray m-1">{{'ExportTOExcel' | translate }}</button> &nbsp;&nbsp;&nbsp;
+                     <button style="float: left;" type="submit" id="add-employee-form" (click)="generatePDF() " class="btn btn-dark ">{{'ExportTOPDF' | translate }}</button>
+              </div>
+              </div>
+               </form>
+               <br><br>
+               <div class="table-responsive table-bordered table-hover table-striped">
+
+                <table #TABLE2 #table2 class="table table-bordered table-responsive" id="invoice" #invoice>
+
+            <tr>
+              <!-- <th  >{{'EmployeeID' | translate}}</th> -->
+              <th >{{'employeeName' | translate}}</th>
+              <th >{{'Email' | translate}}</th>
+              <th >{{'CountryAddress' | translate}}</th>
+              <th >{{'CountryContactNumber' | translate}}</th>
+              <th >{{'ResidenceAddress' | translate}}</th>
+              <th >{{'ResidenceContactNumber' | translate}}</th>
+                  </tr>
+
+                  <tr *ngFor="let address of addresses">
+                    <!-- <td >{{ address.employee.employeeId }}</td> -->
+                    <td >{{ address.employee.employeeName }}</td>
+                    <td >{{ address.email }}</td>
+                    <td >{{ address.countryAddress }}</td>
+                    <td >{{ address.countryContactNumber }}</td>
+                    <td >{{ address.residenceAddress }}</td>
+                    <td >{{ address.residenceContactNumber }}</td>
+                  </tr>
+
+                  <!-- <button type="submit" id="add-employee-form" (click)="ExportTOExcel2() " class="btn btn-dark m-3">{{'ExportTOExcel' | translate }}</button> -->
+
+                </table>
+                </div>
+              </ng-template>
+          </ngb-panel>
+          <ngb-panel id="static-3" cardClass="mt-2">
+            <ng-template ngbPanelTitle >
+              <i class="fa fa-minus-circle"></i>
+              {{'Qualifications'|translate}}
+              </ng-template>
+              <ng-template ngbPanelContent>
+                <form class="form-horizontal">
+                  <div class="m-3 row" class="card-header">
+                   <div class="col-md-6">
+                     <input type="search"  (ngModelChange)="searchEmployees(key.value)" #key="ngModel" ngModel name="key"  class="form-control" placeholder="{{ 'SEARCH' | translate }}" onfocus></div>
+                     <div class="card-header pb-0">
+                     <button style="float: left;" type="submit" id="add-employee-form" (click)="ExportTOExcel3() " class="btn btn-gray m-1">{{'ExportTOExcel' | translate }}</button>&nbsp;&nbsp;&nbsp;
+                     <button style="float: left;" type="submit" id="add-employee-form" (click)="generatePDF() " class="btn btn-dark ">{{'ExportTOPDF' | translate }}</button>
+              </div>
+              </div>
+               </form>
+               <br><br>
+               <div class="table-responsive table-bordered table-hover table-striped">
+
+                <table #TABLE3 class="table table-bordered table-responsive" id="invoice" #invoice>
+                  <thead>
+                    <tr>
+                      <th class="wd-15p border-bottom-0" >{{'employeeName' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'employeeNameAr' | translate}}</th>
+                      <th class="wd-15p border-bottom-0" >{{'startingDate' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'endingDate' | translate}}</th>
+                      <th class="wd-15p border-bottom-0" >{{'Degree' | translate}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let empQualification of empQualifications">
+                      <td >{{ empQualification.employee.employeeName }}</td>
+                      <td >{{ empQualification.employee.employeeNameAr }}</td>
+                      <td >{{ empQualification.dateFrom }}</td>
+                      <td >{{ empQualification.dateTo }}</td>
+                      <td >{{ empQualification.degree }}</td>
+                    </tr>
+                    <!-- <button type="submit" id="add-employee-form" (click)="ExportTOExcel3() " class="btn btn-dark m-3">{{'ExportTOExcel' | translate }}</button> -->
+                  </tbody>
+                </table>
+</div>
+              </ng-template>
+          </ngb-panel>
+          <ngb-panel id="static-4" cardClass="mt-2">
+            <ng-template ngbPanelTitle >
+              <i class="fa fa-minus-circle"></i>
+              {{'WorkExperiences'|translate}}
+              </ng-template>
+              <ng-template ngbPanelContent>
+                <form class="form-horizontal">
+                  <div class="m-3 row" class="card-header">
+                   <div class="col-md-6">
+                     <input type="search"  (ngModelChange)="searchEmployees(key.value)" #key="ngModel" ngModel name="key"  class="form-control" placeholder="{{ 'SEARCH' | translate }}" onfocus></div>
+
+                     <div class="card-header pb-0">
+                     <button style="float: left;" type="submit" id="add-employee-form" (click)="ExportTOExcel4() " class="btn btn-gray m-1">{{'ExportTOExcel' | translate }}</button>&nbsp;&nbsp;&nbsp;
+                     <button style="float: left;" type="submit" id="add-employee-form" (click)="generatePDF() " class="btn btn-dark ">{{'ExportTOPDF' | translate }}</button>
+              </div>
+              </div>
+               </form>
+               <br><br>
+               <div class="table-responsive table-bordered table-hover table-striped">
+
+                <table #TABLE4 #table4 class="table table-bordered table-responsive" id="invoice" #invoice>
+
+                  <thead>
+                    <tr>
+                      <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'employeeName' | translate}}</th>
+
+                      <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'CompanyName' | translate}}</th>
+                      <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'JobTitle' | translate}}</th>
+                      <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'startingDate' | translate}}</th>
+                      <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'endingDate' | translate}}</th>
+                    </tr>
+                  </thead>
+
+                  <tr *ngFor="let experience of experiences">
+                    <td style="white-space: nowrap;">{{ experience.employee.employeeNameAr }}</td>
+                    <td style="white-space: nowrap;">{{ experience.companyName }}</td>
+                    <td style="white-space: nowrap;">{{ experience.jobTitle }}</td>
+                    <td style="white-space: nowrap;">{{ experience.dateFrom }}</td>
+                    <td style="white-space: nowrap;">{{ experience.dateTo }}</td>
+                  </tr>
+
+
+
+
+                  <!-- <button type="submit" id="add-employee-form" (click)="ExportTOExcel4() " class="btn btn-dark m-3">{{'ExportTOExcel' | translate }}</button> -->
+
+                </table>
+</div>
+              </ng-template>
+          </ngb-panel>
+          <ngb-panel id="static-5" cardClass="mt-2">
+            <ng-template ngbPanelTitle >
+              <i class="fa fa-minus-circle"></i>
+              {{'BankAccounts'|translate}}
+              </ng-template>
+              <ng-template ngbPanelContent>
+                <form class="form-horizontal">
+                  <div class="m-3 row" class="card-header">
+                   <div class="col-md-6">
+                     <input type="search"  (ngModelChange)="searchEmployees(key.value)" #key="ngModel" ngModel name="key"  class="form-control" placeholder="{{ 'SEARCH' | translate }}" onfocus></div>
+
+                     <div class="card-header pb-0">
+                     <button style="float: left;" type="submit" id="add-employee-form" (click)="ExportTOExcel5() " class="btn btn-gray m-1">{{'ExportTOExcel' | translate }}</button>&nbsp;&nbsp;&nbsp;
+                     <button style="float: left;" type="submit" id="add-employee-form" (click)="generatePDF() " class="btn btn-dark ">{{'ExportTOPDF' | translate }}</button>
+              </div>
+              </div>
+               </form>
+               <br><br>
+               <div class="table-responsive table-bordered table-hover table-striped">
+
+                <table #TABLE5 #table5 class="table table-bordered table-responsive" id="invoice" #invoice>
+                  <tr>
+                    <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'employeeName' | translate}}</th>
+
+                    <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'BankName' | translate}}</th>
+                    <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'Branch' | translate}}</th>
+                    <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'AccountType' | translate}}</th>
+                    <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'AccountNumber' | translate}}</th>
+                    <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'IBAN' | translate}}</th>
+                    <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'swiftCode' | translate}}</th>
+                  </tr>
+                  <tr *ngFor="let empBank of banks">
+
+                    <td style="white-space: nowrap;">{{ empBank.employee.employeeNameAr  }}</td>
+                    <td style="white-space: nowrap;">{{ empBank.bank.bankName }}</td>
+                    <td style="white-space: nowrap;">{{ empBank.bankBranch }}</td>
+                    <td style="white-space: nowrap;" >{{ empBank.accountType }}</td>
+                    <td style="white-space: nowrap;">{{ empBank.accountNumber }}</td>
+                    <td style="white-space: nowrap;">{{ empBank.iban }}</td>
+                    <td style="white-space: nowrap;">{{ empBank.swiftCode }}</td>
+                  </tr>
+
+              </table>
+</div>
+              </ng-template>
+          </ngb-panel>
+          <ngb-panel id="static-6" cardClass="mt-2">
+            <ng-template ngbPanelTitle >
+              <i class="fa fa-minus-circle"></i>
+              {{'Contracts'|translate}}
+              </ng-template>
+              <ng-template ngbPanelContent>
+
+                <form class="form-horizontal">
+                  <div class="m-3 row" class="card-header">
+                   <div class="col-md-6">
+                     <input type="search"  (ngModelChange)="searchEmployees(key.value)" #key="ngModel" ngModel name="key"  class="form-control" placeholder="{{ 'SEARCH' | translate }}" onfocus></div>
+
+                     <div class="card-header pb-0">
+                     <button style="float: left;" type="submit" id="add-employee-form" (click)="ExportTOExcel6() " class="btn btn-gray m-1">{{'ExportTOExcel' | translate }}</button>&nbsp;&nbsp;&nbsp;
+                     <button style="float: left;" type="submit" id="add-employee-form" (click)="generatePDF() " class="btn btn-dark ">{{'ExportTOPDF' | translate }}</button>
+              </div>
+              </div>
+               </form>
+               <br><br>
+               <div class="table-responsive table-bordered table-hover table-striped">
+
+                <table #TABLE6 #table6 class="table table-bordered table-responsive" id="invoice" #invoice>
+
+                    <tr>
+                      <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'employeeName' | translate}}</th>
+                      <th class="wd-15p border-bottom-0" style="white-space: nowrap;" >{{'ContractType' | translate}}</th>
+                      <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'contractCode' | translate}}</th>
+                      <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'contractDate' | translate}}</th>
+                      <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'finalDate' | translate}}</th>
+                    </tr>
+
+                    <tr *ngFor="let Contracts of Contract">
+                      <td style="white-space: nowrap;">{{ Contracts.employee.employeeNameAr }}</td>
+                      <td style="white-space: nowrap;">{{ Contracts.contractType }}</td>
+                      <td style="white-space: nowrap;">{{ Contracts.vacationDayNumber }}</td>
+                      <td style="white-space: nowrap;">{{ Contracts.dateFrom }}</td>
+                      <td style="white-space: nowrap;">{{ Contracts.dateTo }}</td>
+                    </tr>
+
+
+                </table>
+</div>
+              </ng-template>
+          </ngb-panel>
+          <ngb-panel id="static-7" cardClass="mt-2">
+            <ng-template ngbPanelTitle >
+              <i class="fa fa-minus-circle"></i>
+              {{'hokomedetails'|translate}}
+              </ng-template>
+              <ng-template ngbPanelContent>
+
+                <form class="form-horizontal">
+                  <div class="m-3 row" class="card-header">
+                   <div class="col-md-6">
+                     <input type="search"  (ngModelChange)="searchEmployees(key.value)" #key="ngModel" ngModel name="key"  class="form-control" placeholder="{{ 'SEARCH' | translate }}" onfocus></div>
+
+                     <div class="card-header pb-0">
+                     <button style="float: left;" type="submit" id="add-employee-form" (click)="ExportTOExcel10() " class="btn btn-gray m-1">{{'ExportTOExcel' | translate }}</button>&nbsp;&nbsp;&nbsp;
+                     <button style="float: left;" type="submit" id="add-employee-form" (click)="generatePDF() " class="btn btn-dark ">{{'ExportTOPDF' | translate }}</button>
+              </div>
+              </div>
+               </form>
+               <br><br>
+               <div class="table-responsive table-bordered table-hover table-striped">
+                <table #TABLE10 #table10 class="table text-md-nowrap" id="myTable1" #invoice>
+                  <thead>
+                    <tr style="white-space: nowrap;" class="text-center">
+                      <th class="wd-15p border-bottom-0">{{'visa' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'startVisaDate' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'endVisaDate' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'jobByVisa' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'typeVisa' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'enterVisaDate' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'medicalExaminationCode' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'procedureDate' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'medicalResultDate' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'medicalTestResult' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'insurancesCode' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'insurancesType' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'insurancesStartDate' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'insurancesEndDate' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'jobByResidence' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'warrantyDate' | translate}}</th>
+                      <th class="wd-15p border-bottom-0">{{'hijriWarrantyDate' | translate}}</th>
+                      <!-- <th class="wd-15p border-bottom-0">{{'exitDate' | translate}}</th> -->
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="white-space: nowrap;" class="text-center" *ngFor="let empHealthInsurance of empHealthInsurances">
+                      <td>{{ empHealthInsurance.visa }}</td>
+                      <td>{{ empHealthInsurance.startVisaDate }}</td>
+                      <td>{{ empHealthInsurance.endVisaDate }}</td>
+                      <td>{{ empHealthInsurance.jobByVisa }}</td>
+                      <td>{{ empHealthInsurance.typeVisa }}</td>
+                      <td>{{ empHealthInsurance.enterVisaDate }}</td>
+                      <td>{{ empHealthInsurance.medicalExaminationCode }}</td>
+                      <td>{{ empHealthInsurance.procedureDate }}</td>
+                      <td>{{ empHealthInsurance.medicalResultDate }}</td>
+                      <td>{{ empHealthInsurance.medicalTestResult }}</td>
+                      <td>{{ empHealthInsurance.insurancesCode }}</td>
+                      <td>{{ empHealthInsurance.insurancesType }}</td>
+                      <td>{{ empHealthInsurance.insurancesStartDate }}</td>
+                      <td>{{ empHealthInsurance.insurancesEndDate }}</td>
+                      <td>{{ empHealthInsurance.jobByResidence }}</td>
+                      <td>{{ empHealthInsurance.warrantyDate }}</td>
+                      <td>{{ empHealthInsurance.hijriWarrantyDate }}</td>
+                      <!-- <td>{{ empHealthInsurance.exitDate }}</td> -->
+
+                    </tr>
+                  </tbody>
+                </table>
+
+                <!-- <table #TABLE8 #table8 class="table table-bordered table-responsive" id="invoice" #invoice>
+
+                  <tr>
+                    <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'employeeName' | translate}}</th>
+                    <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'SectionName' | translate}}</th>
+                  <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'CentralJobName' | translate}}</th>
+                  <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'JobTitleName' | translate}}</th>
+
+                  </tr>
+
+                  <tr >
+                    <td style="white-space: nowrap;">{{ empEmployed.employee.employeeNameAr }}</td>
+                    <td style="white-space: nowrap;">{{ empHealthInsurance.visa }}</td>
+                    <td style="white-space: nowrap;">{{ empEmployed.centralJob.centralJobName }}</td>
+                    <td style="white-space: nowrap;">{{ empEmployed.jobTitle.jobTitleName}}</td>
+                  </tr>
+
+
+                </table> -->
+</div>
+
+              </ng-template>
+          </ngb-panel>
+          <!-- <ngb-panel id="static-8" cardClass="mt-2">
+            <ng-template ngbPanelTitle >
+              <i class="fa fa-minus-circle"></i>
+              {{'HealthInsurances'|translate}}
+              </ng-template>
+              <ng-template ngbPanelContent>
+
+                <mat-form-field appearance="outline">
+                  <input  matInput placeholder="{{ 'Search' | translate }}" autocomplete="off" (keyup)="filterData($event)">
+
+                </mat-form-field>
+                <button style="float: left;" type="submit" id="add-employee-form" (click)="ExportTOExcel7() " class="btn btn-dark m-3">{{'ExportTOExcel' | translate }}</button>
+                <table #TABLE7 #table7 class="table table-bordered table-responsive">
+                  <thead>
+                    <tr>
+
+                      <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'HealthInsuranceName' | translate}}</th>
+                      <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'DEPENDENTNAME' | translate}}</th>
+                      <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'RelativeRelation:' | translate}}</th>
+                      <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'gender' | translate}}</th>
+                      <th class="wd-15p border-bottom-0" style="white-space: nowrap;">{{'InsuranceDegree:' | translate}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let empHealthInsurance of empHealthInsurances">
+
+                      <td style="white-space: nowrap;">{{ empHealthInsurance.employee.companies.companyName }}</td>
+                      <td style="white-space: nowrap;">{{ empHealthInsurance.dependentName }}</td>
+                      <td style="white-space: nowrap;">{{ empHealthInsurance.relativeRelation }}</td>
+                      <td style="white-space: nowrap;">{{ empHealthInsurance.gender }}</td>
+                      <td style="white-space: nowrap;">{{ empHealthInsurance.insDegree }}</td>
+
+                    </tr>
+
+                  </tbody>
+
+
+                </table>
+              </ng-template>
+          </ngb-panel> -->
+
+        </ngb-accordion>
+      </div>
+    </div>
+  </div>
+</div>

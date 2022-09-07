@@ -1,0 +1,103 @@
+<!--Page header-->
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{'escaperequest' | translate}}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+
+      <li class="breadcrumb-item"><a [routerLink]="['/operation/']" class="d-flex">
+        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M0 0h24v24H0V0z" fill="none"/>
+          <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+          <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+            {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/operation/skiprequest/skiprequest/']">
+        {{"escaperequest" | translate}} </a></li>
+      <li class="breadcrumb-item active" aria-current="page"> {{'Edit' | translate}}</li>
+
+		</ol>
+	</div>
+</div>
+<!--End Page header-->
+
+  <!-- <div class="card"> -->
+    <div class="card">
+      <form #editForm="ngForm"
+      *ngIf="skiprequests"
+      [formGroup]="form"
+      (ngSubmit)="onUpdatingSkiprequests(editForm.value)" class="form-horizontal">
+        <div class="card-header">
+          <button type="submit" id="add-onUpdatingSkiprequests-form" class="btn btn-dark m-3">{{ 'SAVE' | translate }}</button>
+          <a [routerLink]="['/operation/skiprequest/skiprequest/']" class="btn btn-light">{{ 'DISCARD' | translate }}</a>
+        </div>
+
+  <input type="hidden"  [(ngModel)]="skiprequests.skipRequestId" [ngModelOptions]="{standalone: true}" name="skipRequestId" id="skipRequestId">
+  <input type="hidden"  [(ngModel)]="skiprequests.deleteFlag" [ngModelOptions]="{standalone: true}" name="deleteFlag" id="deleteFlag">
+
+
+  <div class="m-3 row">
+
+    <div class="col-md-6">
+
+        <label for="" class="form-label">{{ 'employeeName' | translate }}</label>
+        <ng-select
+        formControlName="employeeId"
+        [ngClass]="{ 'is-invalid': submitted && f['employeeId'].errors }" #employeeId
+
+
+        [(ngModel)]="skiprequests.employee.employeeId"  name="employeeId" id="employeeId" lass="form-control form-select">
+            <ng-option *ngFor="let emp of employees" [value] ="emp.employeeId">{{emp.employeeName}}</ng-option>
+        </ng-select>
+        <div *ngIf="submitted && f['employeeId'].errors" class="invalid-feedback">
+          <div *ngIf="f['employeeId'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+      </div>
+
+
+
+  <div class="col-md-6">
+  <label for="" class="form-label">{{'Description' | translate}}</label>
+  <input type="text"
+  [(ngModel)]="skiprequests.description" [ngModelOptions]="{standalone: true}" name="description" id="description"
+  class="form-control mt-2 text-line"  >
+  <!-- <div *ngIf="submitted && f['description'].errors" class="invalid-feedback">
+    <div *ngIf="f['description'].errors['required']">{{'isReqired'|translate}}.</div>
+    </div> -->
+</div>
+</div>
+
+
+
+  <div class="m-3 row">
+    <div class="col-md-6">
+    <label for="" class="form-label"> {{'escapeDate' | translate}}</label>
+  <mat-form-field appearance="outline">
+    <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+    <input type="date" name="skipDate"
+
+    formControlName="skipDate"
+    [ngClass]="{ 'is-invalid': submitted && f['skipDate'].errors }" #skipDate
+
+    [(ngModel)]="skiprequests.skipDate"
+    matInput >
+    <!-- <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker> -->
+  </mat-form-field>
+  <div *ngIf="submitted && f['skipDate'].errors" class="invalid-feedback">
+    <div *ngIf="f['skipDate'].errors['required']">{{'isReqired'|translate}}.</div>
+  </div>
+
+</div>
+
+</div>
+
+
+  </form>
+  </div>
+
+
+
+
+
+

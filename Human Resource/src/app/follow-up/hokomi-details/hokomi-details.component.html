@@ -1,0 +1,121 @@
+<div class="page-header">
+    <div class="page-leftheader">
+        <h2 class="page-title">{{'hokomedetails' | translate}}</h2>
+    </div>
+    <div class="page-rightheader ms-auto d-lg-flex d-none">
+        <ol class="breadcrumb">
+
+            <li class="breadcrumb-item"><a [routerLink]="['/dashboard-follow/']" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'HOME' | translate}}</span></a></li>
+            <li class="breadcrumb-item"><a [routerLink]="['/dashboard-follow/hokomi-details/']">{{'hokomedetails' | translate}}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{'VIEW' | translate}}</li>
+        </ol>
+    </div>
+</div>
+<div class="row row-sm">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-header pb-0">
+                <!-- <a [routerLink]="['/project-emdadat/project-create/']" class="btn btn-dark">
+                    <i class="fe fe-plus"></i> {{'ADD' | translate}}</a> -->
+
+            </div>
+            <div class="card-body">
+                <div class="search-container">
+                    <!-- <mat-form-field appearance="fill" style="width:50%;">
+                        <input matInput placeholder="{{'SEARCH' | translate}}" autocomplete="off" (keyup)="filterData($event)">
+                    </mat-form-field> -->
+
+                    <h3>{{'medicalExamination'|translate}}</h3>
+                    <div class="table-responsive table-bordered table-hover table-striped">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">{{'employeeName'|translate}}</th>
+                                    <th scope="col">{{'employeeNameAr'|translate}}</th>
+                                    <th scope="col">{{'nationality'|translate}}</th>
+                                    <th scope="col">{{'medicalExaminationCode'|translate}}</th>
+                                    <th scope="col">{{'medicalResultDate'|translate}}</th>
+                                    <th scope="col">{{'medicalTestResult'|translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of ExistEmp">
+                                    <th scope="row">{{item.employee.employeeName}}</th>
+                                    <th scope="row">{{item.employee.employeeNameAr}}</th>
+                                    <td>{{item.employee.nationality}}</td>
+                                    <td>{{item.medicalExaminationCode}}</td>
+                                    <td>{{item.medicalResultDate}}</td>
+                                    <td>{{item.medicalTestResult}}</td>
+                                </tr>
+
+                            </tbody>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                        <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25,50, 100]">
+                        </mat-paginator>
+
+                    </div>
+
+                    <h3>{{'insurances'|translate}}</h3>
+                    <div class="table-responsive table-bordered table-hover table-striped">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">{{'employeeName'|translate}}</th>
+                                    <th scope="col">{{'employeeNameAr'|translate}}</th>
+                                    <th scope="col">{{'nationality'|translate}}</th>
+                                    <th scope="col">{{'insurancesCode'|translate}}</th>
+                                    <th scope="col">{{'insurancesType'|translate}}</th>
+                                    <th scope="col">{{'insurancesStartDate'|translate}}</th>
+                                    <th scope="col">{{'insurancesEndDate'|translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of travellingEmp">
+                                    <th scope="row">{{item.employee.employeeName}}</th>
+                                    <th scope="row">{{item.employee.employeeNameAr}}</th>
+                                    <td>{{item.employee.nationality}}</td>
+                                    <td>{{item.insurancesType}}</td>
+                                    <td>{{item.insurancesType}}</td>
+                                    <td>{{item.insurancesStartDate}}</td>
+                                    <td>{{item.insurancesEndDate}}</td>
+                                </tr>
+
+                            </tbody>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                        <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25,50, 100]">
+                        </mat-paginator>
+
+                    </div>
+
+                    <h3>{{'Residences'|translate}}</h3>
+                    <div class="table-responsive table-bordered table-hover table-striped">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">{{'employeeName'|translate}}</th>
+                                    <th scope="col">{{'employeeNameAr'|translate}}</th>
+                                    <th scope="col">{{'nationality'|translate}}</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of ExistEmp">
+                                    <th scope="row">{{item.employee.employeeName}}</th>
+                                    <th scope="row">{{item.employee.employeeNameAr}}</th>
+                                    <td>{{item.employee.nationality}}</td>
+                            </tbody>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                        <mat-paginator #paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25,50, 100]">
+                        </mat-paginator>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>

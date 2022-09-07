@@ -1,0 +1,86 @@
+// table {
+//     width: 100%;
+//   }
+//   th{
+//     padding-left: 8px;
+//     font-weight: normal;
+//   }
+
+
+
+//   ::ng-deep th.mat-header-cell{
+//     width: 140px;
+//     min-width: 140px;
+//     // background-color: #fff;
+//     // color: #fff;
+//     font-weight: 700;
+//     font-size: 15px;
+
+
+
+//   }
+
+//   th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+//     padding: 5px;
+//   }
+//   td.mat-cell{
+//     width: 100%;
+//   }
+
+//   .dynamicTable{
+//     overflow-x: scroll;
+//   }
+
+p {
+  font-family: Lato;
+}
+table {
+  width: 90%;
+  margin: auto;
+  margin-top: 25px;
+}
+.btn-edit {
+  text-align: right;
+}
+.dynamic{
+  text-align: center !important;
+  font-size: 15px;
+}
+th{
+  text-align: center !important;
+  font-size: 15px;
+}
+td{
+  text-align: center !important;
+  font-size: 15px;
+}
+h2 {
+  text-align: center;
+  padding-top: 20px;
+}
+
+.table-header {
+  width: 90%;
+  margin: auto;
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.button-add-row {
+  background: #1b9e1b;
+  color: #ffffff;
+}
+
+.button-remove-rows {
+  background: red;
+  color: #ffffff;
+  margin-right: 5px;
+}
+
+.button-remove {
+  color: red;
+}
+
+::ng-deep .mat-form-field-infix {
+  width: 100% !important;
+}

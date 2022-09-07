@@ -1,0 +1,280 @@
+<!--Page header-->
+<div class="page-header">
+  <div class="page-leftheader">
+    <h2 class="page-title">{{'Habitation' | translate}}</h2>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/operation/']" class="d-flex">
+          <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0V0z" fill="none"/>
+            <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+            <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+              {{'HOME' | translate}}</span></a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/operation/Taskeen/Taskeen/']">
+          {{'Habitation' | translate}} </a></li>
+        <li class="breadcrumb-item active" aria-current="page"> {{'ADD' | translate}}</li>
+      </ol>
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+
+<!-- <div class="card"> -->
+<div *ngIf="taskeen" class="card">
+  <form #editForm="ngForm"
+  [formGroup]="form"
+  (ngSubmit)="onUpdateTaskeen(editForm.value)" class="form-horizontal">
+    <div class="card-header">
+      <button (click)="onUpdateTaskeen(editForm.value)" class="btn btn-dark m-3">{{'SAVE' | translate }}</button>
+      <a [routerLink]="['/operation/Taskeen/Taskeen']" class="btn btn-light m-3">{{'DISCARD' | translate }}</a>
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'habitationCode' | translate}}</label>
+        <input type="text"
+
+        formControlName="habitationCode"
+        [ngClass]="{ 'is-invalid': submitted && f['habitationCode'].errors }"
+        #habitationCode
+        [(ngModel)]="taskeen.habitationCode" id="habitationCode" name="habitationCode"
+        class="form-control mt-2 text-line"  >
+
+        <div *ngIf="submitted && f['habitationCode'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['habitationCode'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+      </div>
+
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'habitationName' | translate}}</label>
+        <input type="text"
+
+      formControlName="habitationName"
+        [ngClass]="{ 'is-invalid': submitted && f['habitationName'].errors }"
+        #habitationName
+
+
+          [(ngModel)]="taskeen.habitationName" id="habitationName" name="habitationName"
+        class="form-control mt-2 text-line"  >
+
+        <div *ngIf="submitted && f['habitationName'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['habitationName'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+      </div>
+
+      </div>
+
+      <div class="m-3 row">
+        <div class="col-md-6">
+          <label for="" class="form-label">{{'habitationAddress' | translate}}</label>
+          <input type="text"
+
+          formControlName="habitationAddress"
+          [ngClass]="{ 'is-invalid': submitted && f['habitationAddress'].errors }"
+          #habitationAddress
+          [(ngModel)]="taskeen.habitationAddress" id="habitationAddress" name="habitationAddress"
+          class="form-control mt-2 text-line"  >
+
+          <div *ngIf="submitted && f['habitationAddress'].errors" class="invalid-feedback">
+            <div
+            *ngIf="f['habitationAddress'].errors['required']">{{'isReqired'|translate}}.</div>
+          </div>
+
+        </div>
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'habitationAddress' | translate}}:</label>
+        <input type="text" #habitationAddress [(ngModel)]="taskeenEmdadat.habitationAddress" id="habitationAddress" name="habitationAddress"
+        class="form-control mt-2 text-line"  >
+      </div> -->
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'lessorName' | translate}}</label>
+        <input type="text"
+
+        formControlName="lessorName"
+        [ngClass]="{ 'is-invalid': submitted && f['lessorName'].errors }"
+        #lessorName
+        [(ngModel)]="taskeen.lessorName" id="lessorName" name="lessorName"
+        class="form-control mt-2 text-line"  >
+
+        <div *ngIf="submitted && f['lessorName'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['lessorName'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+      </div>
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'lessorName' | translate}}:</label>
+        <input type="text" #lessorName [(ngModel)]="taskeenEmdadat.lessorName" id="lessorName" name="lessorName"
+        class="form-control mt-2 text-line" >
+      </div> -->
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'rentCostPerMonth' | translate}}</label>
+        <input type="text"
+
+        formControlName="rentCostPerMonth"
+        [ngClass]="{ 'is-invalid': submitted && f['rentCostPerMonth'].errors }"
+        #rentCostPerMonth
+        [(ngModel)]="taskeen.rentCostPerMonth" id="rentCostPerMonth" name="rentCostPerMonth"
+        class="form-control mt-2 text-line"  >
+
+        <div *ngIf="submitted && f['rentCostPerMonth'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['rentCostPerMonth'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+      </div>
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'rentCostPerMonth' | translate}}:</label>
+        <input type="text" #rentCostPerMonth [(ngModel)]="taskeenEmdadat.rentCostPerMonth"
+        id="rentCostPerMonth" name="rentCostPerMonth" class="form-control mt-2 text-line">
+      </div> -->
+        <div class="col-md-6">
+          <label for="" class="form-label">{{'capacity' | translate}}</label>
+          <input type="text"
+
+          formControlName="capacity"
+          [ngClass]="{ 'is-invalid': submitted && f['capacity'].errors }"
+          #capacity
+          [(ngModel)]="taskeen.capacity" id="capacity" name="capacity"
+          class="form-control mt-2 text-line"  >
+
+          <div *ngIf="submitted && f['capacity'].errors" class="invalid-feedback">
+            <div
+            *ngIf="f['capacity'].errors['required']">{{'isReqired'|translate}}.</div>
+          </div>
+
+        </div>
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'capacity' | translate}}:</label>
+        <input type="text" #capacity [(ngModel)]="taskeenEmdadat.capacity"
+        id="capacity" name="capacity" class="form-control mt-2 text-line" >
+      </div> -->
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'numberOfKitchens' | translate}}</label>
+        <input type="text"
+
+        formControlName="numberOfKitchens"
+        [ngClass]="{ 'is-invalid': submitted && f['numberOfKitchens'].errors }"
+        #numberOfKitchens
+        [(ngModel)]="taskeen.numberOfKitchens" id="numberOfKitchens" name="numberOfKitchens"
+        class="form-control mt-2 text-line"  >
+
+        <div *ngIf="submitted && f['numberOfKitchens'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['numberOfKitchens'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+      </div>
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'numberOfKitchens' | translate}}:</label>
+        <input type="text" #numberOfKitchens [(ngModel)]="taskeenEmdadat.numberOfKitchens" id="numberOfKitchens" name="numberOfKitchens"
+        class="form-control mt-2 text-line" >
+      </div> -->
+      <div class="col-md-3">
+        <label for="" class="form-label">{{'rentContractStartingDate' | translate}}</label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+          <input type="date"
+          formControlName="rentContractStartingDate"
+          [ngClass]="{ 'is-invalid': submitted && f['rentContractStartingDate'].errors }"
+          #rentContractStartingDate
+          name="rentContractStartingDate"
+          [(ngModel)]="taskeen.rentContractStartingDate" matInput >
+          <!-- <mat-datepicker-toggle matSuffix [for]="picker1">
+
+          </mat-datepicker-toggle>
+
+          <mat-datepicker #picker1></mat-datepicker> -->
+        </mat-form-field>
+        <div *ngIf="submitted && f['rentContractStartingDate'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['rentContractStartingDate'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+
+      </div>
+
+      <div class="col-md-3">
+        <label for="" class="form-label">{{'rentContractEndingDate' | translate}}</label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+          <input type="date" name="rentContractEndingDate"
+           formControlName="rentContractEndingDate"
+          [ngClass]="{ 'is-invalid': submitted && f['rentContractEndingDate'].errors }"
+          #rentContractEndingDate
+          [(ngModel)]="taskeen.rentContractEndingDate" matInput >
+          <!-- <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+
+          <mat-datepicker #picker2></mat-datepicker> -->
+        </mat-form-field>
+
+      </div>
+
+      <div *ngIf="submitted && f['rentContractEndingDate'].errors" class="invalid-feedback">
+        <div
+        *ngIf="f['rentContractEndingDate'].errors['required']">{{'isReqired'|translate}}.</div>
+      </div>
+
+    </div>
+
+
+
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'numberOfBathrooms' | translate}}</label>
+        <input type="text"
+
+        formControlName="numberOfBathrooms"
+        [ngClass]="{ 'is-invalid': submitted && f['numberOfBathrooms'].errors }"
+        #numberOfBathrooms
+        [(ngModel)]="taskeen.numberOfBathrooms" id="numberOfBathrooms" name="numberOfBathrooms"
+        class="form-control mt-2 text-line"  >
+
+        <div *ngIf="submitted && f['numberOfBathrooms'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['numberOfBathrooms'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+      </div>
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'numberOfBathrooms' | translate}}:</label>
+        <input type="text" #numberOfBathrooms [(ngModel)]="taskeenEmdadat.numberOfBathrooms" id="numberOfBathrooms" name="numberOfBathrooms"
+        class="form-control mt-2 text-line" >
+      </div> -->
+      </div>
+
+
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'ManagingDirector' | translate}}</label>
+        <ng-select name="employeeId"
+        formControlName="employeeId"
+        [ngClass]="{ 'is-invalid': submitted && f['employeeId'].errors }"
+         [(ngModel)]="taskeen.employees.employeeId"
+        class="form-control form-select">
+            <ng-option *ngFor="let employee of employees" [value] ="employee.employeeId">{{employee.employeeName}}</ng-option>
+        </ng-select>
+
+        <div *ngIf="submitted && f['employeeId'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['employeeId'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </form>
+  <!-- {{projectEmdadat.projectName | json}} -->
+</div>
+

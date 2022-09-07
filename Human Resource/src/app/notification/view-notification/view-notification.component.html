@@ -1,0 +1,142 @@
+<!--Page header-->
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{ 'notificationScreen' | translate }}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/dashboard-hr/']" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'HOME' | translate}}</span></a></li>
+		</ol>
+	</div>
+</div>
+<!--End Page header-->
+
+
+<!-- row opened -->
+<div class="row row-sm">
+  <div class="col-xl-12">
+    <div class="card">
+
+     <div class="row">
+      <div class="col mb-4">
+        <a [routerLink]="['/employees/list-of-employees']" class="btn btn-gray-dark m-2"><i class="fe fe-list"></i> {{ 'listOfEmployee' | translate }} </a>
+      </div>
+     </div>
+
+      <div class="card-body">
+        <div class="search-container">
+
+        </div>
+        <div class="table-responsive table-bordered table-hover table-striped">
+
+            <table mat-table matSort [dataSource]="notifications">
+
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'contractDateTo'|translate}}</th>
+                  <th mat-cell *matCellDef="let notifications">{{notifications.dateTo }}</th>
+                </ng-container>
+                <ng-container matColumnDef="date">
+                  <th mat-header-cell  *matHeaderCellDef>{{'employeeNameAr'|translate}}</th>
+                  <th mat-cell *matCellDef="let notifications">{{notifications.employee.employeeNameAr}}</th>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+
+
+        </div>
+      </div>
+    </div>
+</div>
+
+
+	<!--div-->
+  <div class="page-header">
+    <div class="page-leftheader">
+      <h2 class="page-title">{{ 'expirationdateofresidence' | translate }}</h2>
+    </div>
+
+  </div>
+  <!-- row opened -->
+  <div class="row row-sm">
+    <div class="col-xl-12">
+        <div class="card">
+
+            <!-- <div class="row">
+                <div class="col mb-4">
+                    <a [routerLink]="['/employees/list-of-employees']" class="btn btn-gray-dark m-2"><i class="fe fe-list"></i> {{ 'listOfEmployee' | translate }} </a>
+                </div>
+            </div> -->
+
+            <div class="card-body">
+                <div class="search-container">
+
+                </div>
+                <div class="table-responsive table-bordered table-hover table-striped">
+
+                    <table mat-table [dataSource]="residencenotification">
+
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef>{{'residenceExpiry'|translate}}</th>
+                            <td mat-cell *matCellDef="let notifications">{{notifications.residenceExpiry }}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="date">
+                            <th mat-header-cell *matHeaderCellDef>{{'employeeNameAr'|translate}}</th>
+                            <td mat-cell *matCellDef="let notifications">{{notifications.employee.employeeNameAr}}</td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--div-->
+
+
+
+
+
+
+
+
+<!-- row opened -->
+<!-- <div class="row row-sm">
+  <div class="col-xl-12">
+
+      <div class="card-body">
+
+        <div class="table-responsive table-bordered table-hover table-striped">
+
+          <table mat-table matSort [dataSource]="notifications">
+
+            <ng-container matColumnDef="name">
+              <th mat-header-cell mat-sort-header *matHeaderCellDef>تاريخ انتهاء العقد</th>
+              <th mat-cell *matCellDef="let notifications">{{notifications.dateTo }}</th>
+            </ng-container>
+            <ng-container matColumnDef="date">
+              <th mat-header-cell  *matHeaderCellDef>اسم الموظف</th>
+              <th mat-cell *matCellDef="let notifications">{{notifications.employee.employeeName}}</th>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+
+        </div>
+      </div>
+    </div>
+</div> -->
+
+
+	<!--div-->
+
+
+
+
+

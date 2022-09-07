@@ -1,0 +1,10 @@
+
+
+.clock-face__number {
+  position: absolute;
+  transform-origin: 0 100% !important;
+  width: 10px !important;
+  text-align: center;
+  z-index: 2;
+}
+

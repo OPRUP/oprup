@@ -1,0 +1,83 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card overflow-hidden">
+      <div class="card-status bg-primary"></div>
+      <div class="card-body">
+        <h2 class="text-muted font-weight-bold">كشف راتب </h2>
+        <div class="dropdown-divider"></div>
+        <div *ngIf="slip" class="">
+          <h3 class="mb-1"> اسم الموظف :<strong>{{ slip.contract.employee.employeeNameAr}}</strong></h3>
+          <h3 class="mb-1">الشركة  :<strong>{{ employee.companies.companyName }}</strong></h3>
+          <!-- <h3 class="mb-1">Bank Name :<strong>Islmic Jordan</strong> Bank</h3> -->
+          <!-- This is the receipt for a payment of <strong>$450.00</strong> (USD) for your works -->
+        </div>
+
+        <div class="card-body ps-0 pe-0">
+          <div class="row">
+            <div  class="col-sm-6">
+              <!-- <span>Department :</span><strong> {{employee.section.sectionName}}</strong><br> -->
+              <!-- <span>Job :</span><strong>{{ employee.jobTitle.jobTitleName }}</strong><br> -->
+
+              <strong></strong>
+
+            </div>
+            <div *ngIf="slip" class="col-sm-6 text-end">
+              <span>تاريخ الدفع  :</span><strong> {{slip.paymentDate}} </strong><br>
+              <span>طريقة الدفع  :</span><strong>{{slip.paymentWay}}</strong><br>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="table-responsive push">
+          <table class="table table-bordered table-hover text-nowrap">
+
+
+            <tr>
+              <th class="font-weight-semibold text-start">#</th>
+              <th class="font-weight-semibold text-start">البدلات</th>
+              <th class="font-weight-semibold text-start">الاقتطاعات</th>
+            </tr>
+            <tr *ngFor="let contractDetail of contractDetails">
+              <th>{{ contractDetail.salaryObject.salaryObjectName }}</th>
+              <td>{{ contractDetail.allowanceAmount }}</td>
+              <td>{{ contractDetail.deductionAmount }}</td>
+            </tr>
+
+
+           <tr>
+              <th  class="font-weight-semibold text-start">#</th>
+              <td  class="text-start">{{ allowanceCounter }}</td>
+              <td  class="text-start">{{ deductionCounter }}</td>
+            </tr>
+
+            <!-- <tr *ngIf="slip">
+              <th  class="font-weight-semibold text-start">صافي الراتب</th>
+              <td  class="text-end">{{ slip.netSalary }}</td>
+            </tr> -->
+
+
+
+          </table>
+
+          <table *ngIf="slip" class="table table-bordered table-hover text-nowrap">
+
+            <tr>
+              <th colspan="2"  class="font-weight-semibold text-start">صافي الراتب</th>
+              <td colspan="4"  class="text-start"> {{ slip.netSalary }}</td>
+            </tr>
+            <tr>
+              <td colspan="6" class="text-end">
+                <button type="button" class="btn btn-gray-dark" onClick="javascript:window.print();">طباعة</button>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

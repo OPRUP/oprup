@@ -1,0 +1,108 @@
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{ 'TrialBalance' | translate }}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/finance/']" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/acc-rep/acc-rep/']">{{'TrialBalance' | translate}}</a></li>
+			<li class="breadcrumb-item active" aria-current="page">{{'VIEW' | translate}}</li>
+		</ol>
+	</div>
+</div>
+<div class="row row-sm">
+	<div class="col-xl-12">
+	  <div class="card">
+
+		<div class="card-body">
+
+<div class="m-3 row">
+
+	<div class="col-md-4">
+
+        <label for="" class="form-label">{{'From' | translate }}<span style="font-size: large;color: red;">*</span></label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+          <input type="date" name="startDate"  [(ngModel)]="startDate" matInput display="dateInput">
+
+	</mat-form-field>
+  </div>
+  <div class="col-md-4">
+	<label for="" class="form-label">{{'To' | translate }}<span style="font-size: large;color: red;">*</span></label>
+	<mat-form-field appearance="outline">
+	  <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+	  <input type="date" name="endDate"  [(ngModel)]="endDate" matInput display="dateInput">
+
+
+	</mat-form-field>
+  </div>
+
+</div>
+<div class="card-header p-0">
+	<a (click)="getBalance()" class="btn btn-default">
+	  <i class="fe fe-plus">
+	</i> {{'VIEW' | translate}}</a>
+
+
+  &nbsp;&nbsp;&nbsp;
+	<!-- <a (click)="printPage()" class="btn btn-default"> <i class="fe fe-plus"></i> {{'PRINT' | translate}}</a> -->
+  </div></div>
+<div class="card-body">
+
+	<div class="table-responsive table-bordered table-hover table-striped">
+
+	  <table class="table">
+
+<thead>
+    <tr>
+        <th></th>
+        <th></th>
+        <th colspan="2">{{ 'OpenBalance' | translate }}   {{startDate}}</th>
+        <!-- <th ></th> -->
+        <th colspan="2">{{ 'Transaction' | translate }}</th>
+        <!-- <th></th> -->
+        <th colspan="2">{{'FinalBalance' | translate }}</th>
+    </tr>
+<tr>
+
+<th> {{ 'AccountCode' | translate }} </th>
+<th>{{ 'AccountName' | translate }} </th>
+
+<th>{{ 'OpenDebit' | translate }} </th>
+<th>{{ 'OpenCredit' | translate }} </th>
+
+<th>{{ 'TransDebit' | translate }}</th>
+<th>{{ 'TransCredit' | translate }} </th>
+
+<th>{{ 'BalanceDebit' | translate }}</th>
+<th> {{ 'BalanceCredit' | translate }}</th>
+
+</tr>
+</thead>
+
+<tbody>
+
+
+
+	<tr *ngFor="let item of displayArray">
+		<td>{{item.accountCode}}</td>
+		<td>{{item.accountName}}</td>
+
+		<!-- <td>{{item.openBalance}}</td> -->
+		<td>{{item.openDebit}}</td>
+		<td>{{item.openCredit}}</td>
+
+		<td>{{item.transDebit}}</td>
+        <td>{{item.transCredit}}</td>
+
+		<td>{{item.finalDebit}}</td>
+        <td>{{item.finalCredit}}</td>
+	</tr>
+
+</tbody>
+
+	  </table>
+
+	</div>
+	</div>
+	</div></div></div>

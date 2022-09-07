@@ -1,0 +1,241 @@
+<!--Page header-->
+<div class="page-header">
+  <div class="page-leftheader">
+    <h2 class="page-title">{{'Maintenance' | translate}}</h2>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a [routerLink]="['/operation/']" class="d-flex">
+          <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M0 0h24v24H0V0z" fill="none"/>
+            <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+            <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+              {{'HOME' | translate}}</span></a></li>
+        <li class="breadcrumb-item"><a [routerLink]="['/operation/Maintenance/Maintenance/']">
+          {{'Maintenance' | translate}} </a></li>
+        <li class="breadcrumb-item active" aria-current="page"> {{'ADD' | translate}}</li>
+      </ol>
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+
+<!-- <div class="card"> -->
+<div class="card">
+  <form #editForm="ngForm"
+  [formGroup]="form"
+  *ngIf="maintenance"
+   (ngSubmit)="onUpdateMaintenance(editForm.value)" class="form-horizontal">
+    <div class="card-header">
+      <button (click)="onUpdateMaintenance(editForm.value)" class="btn btn-dark m-3">{{'SAVE' | translate }}</button>
+      <a [routerLink]="['/operation/Maintenance/Maintenance']" class="btn btn-light m-3">{{'DISCARD' | translate }}</a>
+    </div>
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'maintenanceType' | translate}}:</label>
+        <input type="text"
+
+        formControlName="maintenanceType"
+        [ngClass]="{ 'is-invalid': submitted && f['maintenanceType'].errors }"
+        #maintenanceType
+        [(ngModel)]="maintenance.maintenanceType" id="maintenanceType" name="maintenanceType"
+        class="form-control mt-2 text-line"  >
+
+        <div *ngIf="submitted && f['maintenanceType'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['maintenanceType'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+      </div>
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'maintenanceType' | translate}}:</label>
+        <input type="text" #maintenanceType [(ngModel)]="maintenanceEmdadat.maintenanceType" id="maintenanceType" name="maintenanceType"
+        class="form-control mt-2 text-line"  >
+      </div> -->
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'numberOfKm' | translate}}:</label>
+        <input type="text"
+
+        formControlName="numberOfKm"
+        [ngClass]="{ 'is-invalid': submitted && f['numberOfKm'].errors }"
+        #numberOfKm
+        [(ngModel)]="maintenance.numberOfKm" id="numberOfKm" name="numberOfKm"
+        class="form-control mt-2 text-line"  >
+
+        <div *ngIf="submitted && f['numberOfKm'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['numberOfKm'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+      </div>
+     <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'numberOfKm' | translate}}:</label>
+        <input type="text" #numberOfKm [(ngModel)]="maintenanceEmdadat.numberOfKm" id="numberOfKm" name="numberOfKm"
+        class="form-control mt-2 text-line"  >
+      </div> -->
+      </div>
+
+      <!-- <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'maintenanceDate' | translate}}:</label>
+        <input type="text" #maintenanceDate [(ngModel)]="maintenanceEmdadat.maintenanceDate" id="maintenanceDate" name="maintenanceDate"
+        class="form-control mt-2 text-line"  >
+      </div>
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'nextMaintenanceDate' | translate}}:</label>
+        <input type="text" #nextMaintenanceDate [(ngModel)]="maintenanceEmdadat.nextMaintenanceDate" id="nextMaintenanceDate" name="nextMaintenanceDate"
+        class="form-control mt-2 text-line" >
+      </div>
+    </div> -->
+    <!-- <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'rentCostPerMonth' | translate}}:</label>
+        <input type="text" #rentCostPerMonth [(ngModel)]="maintenanceEmdadat.rentCostPerMonth"
+        id="rentCostPerMonth" name="rentCostPerMonth" class="form-control mt-2 text-line">
+      </div>
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'capacity' | translate}}:</label>
+        <input type="text" #capacity [(ngModel)]="maintenanceEmdadat.capacity"
+        id="capacity" name="capacity" class="form-control mt-2 text-line" >
+      </div>
+    </div> -->
+    <div class="m-3 row">
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'numberOfKitchens' | translate}}:</label>
+        <input type="text" #numberOfKitchens [(ngModel)]="maintenanceEmdadat.numberOfKitchens" id="numberOfKitchens" name="numberOfKitchens"
+        class="form-control mt-2 text-line" >
+      </div> -->
+      <div class="col-md-3">
+        <label for="" class="form-label">{{'maintenanceDate' | translate}}:</label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+          <input type="date" name="maintenanceDate"
+           formControlName="maintenanceDate"
+          [ngClass]="{ 'is-invalid': submitted && f['maintenanceDate'].errors }"
+          #maintenanceDate
+          [(ngModel)]="maintenance.maintenanceDate" matInput>
+          <!-- <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+
+          <mat-datepicker #picker1></mat-datepicker> -->
+        </mat-form-field>
+
+      </div>
+      <!-- <div class="col-md-3">
+        <label for="" class="form-label">{{'maintenanceDate' | translate}}:</label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'maintenanceDate' | translate}}</mat-label>
+          <input name="maintenanceDate" [(ngModel)]="maintenanceEmdadat.maintenanceDate" matInput [matDatepicker]="picker1">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div> -->
+      <div class="col-md-3">
+        <label for="" class="form-label">{{'nextMaintenanceDate' | translate}}:</label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+          <input type="date" name="nextMaintenanceDate"
+           formControlName="nextMaintenanceDate"
+          [ngClass]="{ 'is-invalid': submitted && f['nextMaintenanceDate'].errors }"
+          #nextMaintenanceDate
+          [(ngModel)]="maintenance.nextMaintenanceDate" matInput >
+          <!-- <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+
+          <mat-datepicker #picker2></mat-datepicker> -->
+        </mat-form-field>
+
+      </div>
+      <!-- <div class="col-md-3">
+        <label for="" class="form-label">{{'nextMaintenanceDate' | translate}}:</label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'nextMaintenanceDate' | translate}}</mat-label>
+          <input name="nextMaintenanceDate" [(ngModel)]="maintenanceEmdadat.nextMaintenanceDate" matInput [matDatepicker]="picker2">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div> -->
+    </div>
+
+
+
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'technicalCheck' | translate}}:</label>
+        <input type="text"
+
+        formControlName="technicalCheck"
+        [ngClass]="{ 'is-invalid': submitted && f['technicalCheck'].errors }"
+        #technicalCheck
+        [(ngModel)]="maintenance.technicalCheck" id="technicalCheck" name="technicalCheck"
+        class="form-control mt-2 text-line"  >
+
+        <div *ngIf="submitted && f['technicalCheck'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['technicalCheck'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+      </div>
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'technicalCheck' | translate}}:</label>
+        <input type="text" #technicalCheck [(ngModel)]="maintenanceEmdadat.technicalCheck" id="technicalCheck" name="technicalCheck"
+        class="form-control mt-2 text-line" >
+      </div> -->
+      <div class="col-md-3">
+        <label for="" class="form-label">{{'licenseExpiryDate' | translate}}:</label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'licenseExpiryDate' | translate}}</mat-label>
+          <input type="date" name="licenseExpiryDate"
+           formControlName="licenseExpiryDate"
+          [ngClass]="{ 'is-invalid': submitted && f['licenseExpiryDate'].errors }"
+          #licenseExpiryDate
+          [(ngModel)]="maintenance.licenseExpiryDate" matInput >
+          <!-- <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+
+          <mat-datepicker #picker3></mat-datepicker> -->
+        </mat-form-field>
+
+      </div>
+      <!-- <div class="col-md-3">
+        <label for="" class="form-label">{{'licenseExpiryDate' | translate}}:</label>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'licenseExpiryDate' | translate}}</mat-label>
+          <input name="licenseExpiryDate" [(ngModel)]="maintenanceEmdadat.licenseExpiryDate" matInput [matDatepicker]="picker3">
+          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field>
+      </div> -->
+      </div>
+
+
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'transportationMeanCode' | translate}}:</label>
+        <ng-select name="transportationMeanId"
+        formControlName="transportationMeanId"
+        [ngClass]="{ 'is-invalid': submitted && f['transportationMeanId'].errors }"
+         [(ngModel)]="maintenance.transportations.transportationMeanId"
+        class="form-control form-select">
+            <ng-option *ngFor="let transportation of transportations" [value] ="transportation.transportationMeanId">{{transportation.transportationMeanCode}}</ng-option>
+        </ng-select>
+        <div *ngIf="submitted && f['transportationMeanId'].errors" class="invalid-feedback">
+          <div
+          *ngIf="f['transportationMeanId'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+      </div>
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label">{{'transportationMeanCode' | translate}}:</label>
+        <ng-select name="transportations.transportationMeanId"  [(ngModel)]="maintenanceEmdadat.transportations.transportationMeanId"
+        class="form-control form-select">
+            <ng-option *ngFor="let transportation of transportations" [value] ="transportation.transportationMeanId">{{transportation.transportationMeanCode}}</ng-option>
+        </ng-select>
+      </div> -->
+    </div>
+
+
+
+  </form>
+  <!-- {{projectEmdadat.projectName | json}} -->
+</div>
+

@@ -1,0 +1,76 @@
+
+						<!--Page header-->
+						<div class="page-header">
+							<div class="page-leftheader">
+                <h1>{{ 'CreateNewSalaryObject' | translate }}</h1>
+							</div>
+							<div class="page-rightheader ms-auto d-lg-flex d-none">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="javascript:void(0)" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{ 'HOME' | translate }}</span></a></li>
+									<li class="breadcrumb-item"><a href="javascript:void(0)">{{ 'SalaryObjects' | translate }}</a></li>
+									<li class="breadcrumb-item active" aria-current="page"> {{ 'CreateNewSalaryObject' | translate }}</li>
+								</ol>
+							</div>
+						</div>
+						<!--End Page header-->
+
+            <mat-card>
+              <form (ngSubmit)="onAddSalaryObject()">
+                <mat-card-header>
+                  <button type="submit" id="add-salary-object-form" class="btn btn-dark m-3">{{ 'SAVE' | translate }}</button>
+                  <a [routerLink]="['/salary-objects/salary-objects']" class="btn btn-light m-3">{{ 'DISCARD' | translate }}</a>
+                </mat-card-header>
+                <div class="h-divider mb-5"></div>
+                <mat-card-content>
+                  <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                      <mat-form-field class="w100" appearance="outline">
+                        <mat-label>{{ 'SalaryObjects' | translate }}</mat-label>
+                        <input
+                        type="text"
+                        name="salaryObjectName"
+                        matInput
+                        placeholder="{{ 'SalaryObjectName' | translate }}" autofocus
+                        required
+                        [(ngModel)]="salaryObjectData.salaryObjectName" />
+                      </mat-form-field>
+
+                      <mat-form-field class="w100" appearance="outline">
+                        <mat-label>{{ 'Description' | translate }}</mat-label>
+                        <textarea
+                        name="description"
+                        matInput
+                        placeholder="Central Job Description"
+                        rows="10"
+                        cols="30"
+                        [(ngModel)]="salaryObjectData.description"
+                        ></textarea>
+
+                      </mat-form-field>
+
+
+                    </div>
+                  </div>
+                </mat-card-content>
+              </form>
+            </mat-card>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,71 @@
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{'CostCenter' | translate}}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+
+      <li class="breadcrumb-item"><a [routerLink]="['/finance/']" class="d-flex">
+        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M0 0h24v24H0V0z" fill="none"/>
+          <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+          <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+            {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/finance/cost-center/cost-center/']">
+        {{"CostCenter" | translate}} </a></li>
+      <li class="breadcrumb-item active" aria-current="page"> {{'EDIT' | translate}}</li>
+								</ol>
+							</div>
+						</div>
+						<!--End Page header-->
+
+
+            <div class="card">
+              <form #editForm="ngForm"
+              [formGroup]="form"
+              (ngSubmit)="onUpdateCostCenter(editForm.value)" class="form-horizontal">
+                  <div class="card-header">
+                    <button  (click)="onUpdateCostCenter(editForm.value)" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+                    <a [routerLink]="['/finance/cost-center/cost-center']" class="btn btn-light">{{'DISCARD' | translate}}</a>
+                  </div>
+                  <input type="hidden" ngModel="{{costcenter.costCenterId}}" name="costCenterId" id="costCenterId">
+
+
+                  <div class="m-3 row">
+                    <div class="col-md-6">
+                      <label for="" class="form-label">{{'costCenterNumber' | translate}}:</label>
+                      <input type="text" formControlName="costCenterNumber"
+                        [ngClass]="{ 'is-invalid': submitted && f['costCenterNumber'].errors }" #costCenterNumber
+                        [(ngModel)]="costcenter.costCenterNumber" id="costCenterNumber" name="costCenterNumber"
+                        class="form-control" placeholder="">
+                      <div *ngIf="submitted && f['costCenterNumber'].errors" class="invalid-feedback">
+                        <div *ngIf="f['costCenterNumber'].errors['required']">{{'required' | translate}}</div>
+                      </div>
+
+                    </div>
+                    <!-- <div class="col-md-12">
+                      <label for="" class="form-label">{{'Description' | translate}}</label>
+                      <textarea #costCenterId [(ngModel)]="costcenterData.costCenterId" [ngModelOptions]="{standalone: true}" class="form-control mt-2 text-line" id="costCenterId" name="costCenterId" id="" cols="50" rows="8" placeholder=""></textarea>
+                    </div> -->
+                    <div class="col-md-6">
+                      <label for="" class="form-label">{{'costCenterName' | translate}}:</label>
+                      <input type="text" #costCenterName
+                      formControlName="costCenterName"
+                      [ngClass]="{ 'is-invalid': submitted && f['costCenterName'].errors }"
+
+                      [(ngModel)]="costcenter.costCenterName" id="costCenterName" name="costCenterName" class="form-control mt-2 text-line">
+                      <div *ngIf="submitted && f['costCenterName'].errors" class="invalid-feedback">
+                        <div *ngIf="f['costCenterName'].errors['required']">{{'required' | translate}}</div>
+                        <!-- <div *ngIf="f['costCenterName'].errors['minlength']">Minimum 3 Characters</div> -->
+                      </div>
+                    </div>
+
+
+                  </div>
+
+              </form>
+
+
+
+
+            </div>

@@ -1,0 +1,51 @@
+<!--Page header-->
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{'EmployeeProjects' | translate}}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+
+      <li class="breadcrumb-item"><a [routerLink]="['/operation/']" class="d-flex">
+        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M0 0h24v24H0V0z" fill="none"/>
+          <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+          <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+            {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/operation/employee-projects/employee-projects/']">
+        {{"EmployeeProjects" | translate}} </a></li>
+      <li class="breadcrumb-item active" aria-current="page"> {{'ADD' | translate}}</li>
+		</ol>
+	</div>
+</div>
+
+
+
+
+     <div class="card">
+      <form #addForm="ngForm"  (ngSubmit)="onAddEmployeeProjects()" class="form-horizontal">
+        <div class="card-header">
+          <button type="submit" id="add-EmployeeProject-form" class="btn btn-dark m-3">{{ 'SAVE' | translate }}</button>
+          <a [routerLink]="['/operation/employee-projects/employee-projects/']" class="btn btn-light">{{ 'DISCARD' | translate }}</a>
+        </div>
+
+
+                <div class="m-3 row mb-6">
+                  <div class="col-md-5">
+                    <label for="" class="form-label">{{ 'employeeName' | translate }}<span style="font-size: large;color: red;">*</span></label>
+                    <ng-select name="employeeId" [(ngModel)]="employeeProjectData.employee.employeeId" lass="form-control form-select">
+                        <ng-option *ngFor="let emp of employees" [value] ="emp.employeeId">{{emp.employeeName}}</ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+
+                <div class="m-3 row mb-6">
+                  <div class="col-md-5">
+                    <label for="" class="form-label">{{ 'projectName' | translate }}<span style="font-size: large;color: red;">*</span></label>
+                    <ng-select name="projectId"   [(ngModel)]="employeeProjectData.project.projectId" class="form-control form-select">
+                        <ng-option *ngFor="let project of projectarr" [value] ="project.projectId">{{project.projectName}}</ng-option>
+                    </ng-select>
+
+                  </div>
+                </div>
+                </form>

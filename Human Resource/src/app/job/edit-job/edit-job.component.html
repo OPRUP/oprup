@@ -1,0 +1,138 @@
+<!--Page header-->
+<div class="page-header">
+    <div class="page-leftheader">
+    <h2 class="page-title">{{'job' | translate}}</h2>
+    </div>
+    <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+
+    <li class="breadcrumb-item"><a [routerLink]="['/international/']" class="d-flex">
+    <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+    <path d="M0 0h24v24H0V0z" fill="none"/>
+    <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+    <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+    {{'HOME' | translate}}</span></a></li>
+    <li class="breadcrumb-item"><a [routerLink]="['/international/job/job/']">
+    {{"job" | translate}} </a></li>
+    <li class="breadcrumb-item active" aria-current="page"> {{'Edit' | translate}}</li>
+
+    </ol>
+    </div>
+    </div>
+    <!--End Page header-->
+
+    <!-- <div class="card"> -->
+      <div class="card">
+        <form *ngIf="job" #editForm="ngForm" [formGroup]="form" (ngSubmit)="onUpdateJob(editForm.value)" class="form-horizontal">
+          <div class="card-header">
+            <button type="submit" id="add-onUpdateJob-form" class="btn btn-dark m-3">{{ 'SAVE' | translate }}</button>
+            <a [routerLink]="['/international/job/job/']" class="btn btn-light">{{ 'DISCARD' | translate }}</a>
+          </div>
+
+
+
+    <div class="m-3 row">
+      <input type="hidden"  [(ngModel)]="job.jobId" [ngModelOptions]="{standalone: true}" name="jobId" id="jobId">
+    <div class="col-md-6">
+
+    <label for="" class="form-label">{{'jobTitle' | translate}}</label>
+    <input type="text" formControlName="jobTitle"
+    [ngClass]="{ 'is-invalid': submitted && f['jobTitle'].errors }"
+    #jobTitle  [(ngModel)]="job.jobTitle" name="jobTitle" id="jobTitle"
+    class="form-control mt-2 text-line"   >
+    <div *ngIf="submitted && f['jobTitle'].errors" class="invalid-feedback">
+      <div *ngIf="f['jobTitle'].errors['required']">{{'required' | translate}}</div></div>
+    </div>
+
+    <!--  -->
+    <div class="col-md-6">
+        <label for="" class="form-label">{{'nationality' | translate}}</label>
+        <ng-select name="nationality"
+        formControlName="nationality"
+        [ngClass]="{ 'is-invalid': submitted && f['nationality'].errors }"
+        #nationality
+
+        [(ngModel)]="job.nationality"
+        class="form-control form-select">
+        <ng-option *ngFor="let item of countryList" value="{{item.name}}">
+            {{item.name}}
+          </ng-option>
+        </ng-select>
+        <div *ngIf="submitted && f['nationality'].errors" class="invalid-feedback">
+          <div *ngIf="f['nationality'].errors['required']">{{'required' | translate}}</div></div>
+    </div>
+    </div>
+
+
+
+      <div class="m-3 row">
+        <div class="col-md-6">
+            <label for="" class="form-label">{{'directSupervisor' | translate}}</label>
+            <ng-select name="directSupervisor.employeeId"
+            formControlName="directSupervisor"
+        [ngClass]="{ 'is-invalid': submitted && f['directSupervisor'].errors }"
+        #directSupervisor
+
+            [(ngModel)]="job.directSupervisor.employeeId"
+            class="form-control form-select">
+                <ng-option *ngFor="let item of employee" [value] ="item.employeeId">{{item.employeeNameAr}}</ng-option>
+            </ng-select>
+            <div *ngIf="submitted && f['directSupervisor'].errors" class="invalid-feedback">
+              <div *ngIf="f['directSupervisor'].errors['required']">{{'required' | translate}}</div></div>
+          </div>
+          <div class="col-md-6">
+            <label for="" class="form-label">{{ 'internalExternal:' | translate }}</label>
+            <ng-select name="job.internalExternal" [(ngModel)]="job.internalExternal" class="form-control form-select"  formControlName="internalExternal"
+            [ngClass]="{ 'is-invalid': submitted && f['internalExternal'].errors }"
+            #internalExternal>
+                <ng-option  (ngModel)='job.internalExternal' value="internal">{{ 'internal' | translate }}</ng-option>
+                <ng-option  (ngModel)='job.internalExternal' value="external">{{ 'external' | translate }}</ng-option>
+
+            </ng-select>
+            <div *ngIf="submitted && f['internalExternal'].errors" class="invalid-feedback">
+                <div *ngIf="f['internalExternal'].errors['required']">{{'required' | translate}}</div></div>
+          </div>
+
+</div>
+
+
+
+      <div class="m-3 row">
+        <div class="col-md-6">
+            <label for="" class="form-label">{{'mainSalary' | translate}}</label>
+            <input type="text"
+            formControlName="mainSalary"
+          [ngClass]="{ 'is-invalid': submitted && f['mainSalary'].errors }"
+          #mainSalary
+
+            [(ngModel)]="job.mainSalary" id="mainSalary" name="mainSalary"
+            class="form-control mt-2 text-line" />
+            <div *ngIf="submitted && f['mainSalary'].errors" class="invalid-feedback">
+                <div *ngIf="f['mainSalary'].errors['required']">{{'required' | translate}}</div></div>
+          </div>
+          <div class="col-md-6">
+            <label for="" class="form-label">{{'allowance' | translate}}</label>
+            <input type="text"
+            formControlName="allowance"
+          [ngClass]="{ 'is-invalid': submitted && f['allowance'].errors }"
+          #allowance
+
+            [(ngModel)]="job.allowance" id="allowance" name="allowance"
+            class="form-control mt-2 text-line" />
+            <div *ngIf="submitted && f['allowance'].errors" class="invalid-feedback">
+                <div *ngIf="f['allowance'].errors['required']">{{'required' | translate}}</div></div>
+          </div>
+
+
+
+      </div>
+
+
+
+
+
+
+   
+
+    </form>
+    </div>

@@ -1,0 +1,1181 @@
+<!--Page header-->
+<div class="page-header" *ngIf="employee">
+  <div class="page-leftheader">
+    <div class="card-header" *ngIf="this.translate.currentLang=='en'">
+      <h2 >{{employee.employeeName}}</h2>
+   </div>
+   <div class="card-header" *ngIf="this.translate.currentLang=='ar'">
+    <h2 >{{employee.employeeNameAr}}</h2>
+ </div>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/dashboard/']" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'HOME' | translate}}</span></a></li>
+       <li class="breadcrumb-item"><a [routerLink]="['/employees/employees/']">{{'Employees' | translate}}</a></li>
+      <li class="breadcrumb-item" aria-current="page">{{'Detailsemployee' | translate}}</li>
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+
+<div class="main" *ngIf="employee">
+  <div class="column-1">
+    <ul class="vertical-menu">
+      <li [routerLink]="['/employees/create-employee-details/'+ employee.employeeId]" [ngClass]="{'active':viewMode =='tab01'}">{{'BasicInformation' | translate}}</li>
+      <!-- <li [routerLink]="['/employees/create-employee03-documents/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab03'}">{{'Documents' | translate}}</li> -->
+      <li [routerLink]="['/employees/create-employee11-employeed-information/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab03'}">{{'EmployeedInformation' | translate}}</li>
+      <li [routerLink]="['/employees/create-employee05-address/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab05'}">{{'Address' | translate}}</li>
+      <li [routerLink]="['/employees/create-employee06-qualification/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab06'}">{{'Qualifications' | translate}}</li>
+      <li [routerLink]="['/employees/create-employee07-work-experience/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab07'}">{{'WorkExperiences' | translate}}</li>
+      <li [routerLink]="['/employees/create-employee08-bank-account/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab08'}">{{'BankAccounts' | translate}}</li>
+      <li [routerLink]="['/employees/create-employee09-contract/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab09'}">{{'Contract' | translate}}</li>
+      <li [routerLink]="['/employees/create-employee10-hokome/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab10'}">{{'hokomedetails' | translate}}</li>
+
+      <li [routerLink]="['/employees/employee-residence-transportation/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tabResTrans'}">{{'residenceTransport' | translate}}</li>
+
+    </ul>
+  </div>
+  <div *ngIf="employee" class="column-2" [ngSwitch]="viewMode">
+    <div *ngSwitchCase="'tab01'">
+      <div class="card">
+        <form #editForm="ngForm"
+        [formGroup]="form"
+
+        (ngSubmit)="onUpdateEmployeeBasicInfo(editForm.value)" class="form-horizontal">
+          <div class="card-header" *ngIf="this.translate.currentLang=='en'">
+            <h2 >{{ 'BasicEmployeeInformationfor' | translate }} ({{employee.employeeName}})</h2>
+         </div>
+         <div class="card-header" *ngIf="this.translate.currentLang=='ar'">
+          <h2 >{{ 'BasicEmployeeInformationfor' | translate }} ({{employee.employeeNameAr}})</h2>
+       </div>
+
+
+
+         <mat-card-header>
+          <button type="submit" id="update-basic-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+          <a [routerLink]="['/employees/employees']" class="btn btn-light m-3">{{'DISCARD' | translate}}</a>
+        </mat-card-header>
+         <div class="row m-3">
+           <div class="col-md-12">
+            <label for="" class="form-label">{{ 'subCompany' | translate }}<span style="font-size: large;color: red;">*</span></label>
+            <ng-select name="companies" id="companies"
+             formControlName="companyId"
+             [ngClass]="{ 'is-invalid': submitted && f['companyId'].errors }"
+             [(ngModel)]="employee.companies.companyId"
+                class="form-control form-select">
+                <ng-option *ngFor="let company of companies2" [value] ="company.companyId">{{company.companyName}}</ng-option>
+            </ng-select>
+            <div *ngIf="submitted && f['companyId'].errors" class="invalid-feedback">
+              <div *ngIf="f['companyId'].errors['required']">{{'isReqired'|translate}}.</div>
+            </div>
+
+            <div class="col-md-6">
+            </div>
+          </div>
+         </div>
+          <div class="row m-3">
+          <div class="col-md-6">
+           <label for="" class="form-label">{{ 'EmployeeName' | translate }}<span style="font-size: large;color: red;">*</span></label>
+           <input type="text" id="employeeName" name="employeeName"
+
+           formControlName="employeeName"
+           [ngClass]="{ 'is-invalid': submitted && f['employeeName'].errors }"
+
+           [(ngModel)]="employee.employeeName" style="text-align: center;"  class="form-control mt-2 text-line">
+
+           <div *ngIf="submitted && f['employeeName'].errors" class="invalid-feedback">
+            <div *ngIf="f['employeeName'].errors['required']">{{'isReqired'|translate}}.</div>
+          </div>
+          </div>
+          <div class="col-md-6">
+           <label for="" class="form-label">{{'employeeNameAr' | translate }}<span style="font-size: large;color: red;">*</span></label>
+           <input type="text" id="employeeNameAr" name="employeeNameAr"
+
+           formControlName="employeeNameAr"
+           [ngClass]="{ 'is-invalid': submitted && f['employeeNameAr'].errors }"
+
+           [(ngModel)]="employee.employeeNameAr" style="text-align: center;"  class="form-control mt-2 text-line">
+           <div *ngIf="submitted && f['employeeNameAr'].errors" class="invalid-feedback">
+            <div *ngIf="f['employeeNameAr'].errors['required']">{{'isReqired'|translate}}.</div>
+          </div>
+          </div>
+        </div>
+
+         <div class="row m-3">
+          <div class="col-md-6">
+           <label for="" class="form-label">{{ 'employeePartCompanyId' | translate }}</label>
+           <input readonly type="text" id="employeePartCompanyId" name="employeePartCompanyId" [(ngModel)]="employee.employeePartCompanyId"  [ngModelOptions]="{standalone: true}" style="text-align: center;"  class="form-control mt-2 text-line">
+          </div>
+        </div>
+        <div class="row m-3">
+          <div class="col-md-6">
+            <label for="" class="form-label">{{ 'PlaceOfBirth' | translate }}<span style="font-size: large;color: red;">*</span></label>
+            <input type="text" id="placeOfBirth" name="placeOfBirth"
+
+            formControlName="placeOfBirth"
+            [ngClass]="{ 'is-invalid': submitted && f['placeOfBirth'].errors }"
+
+            [(ngModel)]="employee.placeOfBirth" style="text-align: center;"  class="form-control mt-2 text-line">
+
+            <div *ngIf="submitted && f['placeOfBirth'].errors" class="invalid-feedback">
+              <div *ngIf="f['placeOfBirth'].errors['required']">{{'isReqired'|translate}}.</div>
+            </div>
+
+          </div>
+          <div class="col-md-6">
+            <label for="" class="form-label">{{ 'Country' | translate }}<span style="font-size: large;color: red;">*</span></label>
+            <ng-select class="form-control mt-2 text-line"
+            formControlName="nationality"
+            [ngClass]="{ 'is-invalid': submitted && f['nationality'].errors }"
+
+            [(ngModel)]="employee.nationality" name="nationality" id="nationality"  class="form-select"
+            placeholder="-- {{'SelectNationality' | translate }} --">
+        <ng-option *ngFor="let item of countryList" value="{{item.name}}">
+          {{item.name}}
+        </ng-option>
+        </ng-select>
+
+        <div *ngIf="submitted && f['nationality'].errors" class="invalid-feedback">
+          <div *ngIf="f['nationality'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+
+          </div>
+        </div>
+          <div class="row m-3">
+          <div class="col-md-6">
+            <label for="" class="form-label">{{ 'DateOfBirth' | translate }}<span style="font-size: large;color: red;">*</span></label>
+            <mat-form-field appearance="outline">
+              <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+              <input type="date" id="dateOfBirth" name="dateOfBirth"
+              formControlName="dateOfBirth"
+              [ngClass]="{ 'is-invalid': submitted && f['dateOfBirth'].errors }"
+
+              [(ngModel)]="employee.dateOfBirth" matInput display="dateInput">
+              <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker> -->
+              <div *ngIf="submitted && f['dateOfBirth'].errors" class="invalid-feedback">
+                <div *ngIf="f['dateOfBirth'].errors['required']">{{'isReqired'|translate}}.</div>
+              </div>
+            </mat-form-field>
+</div>
+          <div class="col-md-6">
+             <label for="" class="form-label">{{ 'dateOfJoin' | translate }}<span style="font-size: large;color: red;">*</span></label>
+             <mat-form-field appearance="outline">
+              <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+              <input type="date" id="dateOfJoin" name="dateOfJoin"
+              formControlName="dateOfJoin"
+              [ngClass]="{ 'is-invalid': submitted && f['dateOfJoin'].errors }"
+
+              [(ngModel)]="employee.dateOfJoin" matInput>
+              <!-- <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker> -->
+              <div *ngIf="submitted && f['dateOfJoin'].errors" class="invalid-feedback">
+                <div *ngIf="f['dateOfJoin'].errors['required']">{{'isReqired'|translate}}.</div>
+              </div>
+            </mat-form-field>
+
+</div>
+            </div>
+
+
+
+
+          <div class="row m-3">
+          <div class="col-md-6">
+            <label for="" class="form-label">{{ 'gender' | translate }}<span style="font-size: large;color: red;">*</span></label>
+            <ng-select
+            formControlName="gender"
+              [ngClass]="{ 'is-invalid': submitted && f['gender'].errors }"
+
+
+            [(ngModel)]="employee.gender" id="gender" name="gender"  class="form-select"
+            placeholder="-- {{'SelectGender' | translate }} --">
+                <ng-option  value ="ذكر">{{'Male' | translate }}</ng-option>
+                <ng-option  value ='انثى'>{{'Female' | translate }}</ng-option>
+            </ng-select>
+            <div *ngIf="submitted && f['gender'].errors" class="invalid-feedback">
+              <div *ngIf="f['gender'].errors['required']">{{'isReqired'|translate}}.</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="" class="form-label">{{ 'maritalStatus' | translate }}<span style="font-size: large;color: red;">*</span></label>
+            <ng-select
+            formControlName="maritalStatus"
+            [ngClass]="{ 'is-invalid': submitted && f['maritalStatus'].errors }"
+
+            [(ngModel)]="employee.maritalStatus" id="maritalStatus" name="maritalStatus"  class="form-select"
+            placeholder="-- Select Marital Status{{'createNewEmployee' | translate }} --">
+          <ng-option  value ="اعزب">{{'Single' | translate }}</ng-option>
+          <ng-option  value ="متزوج">{{'Married' | translate }}</ng-option>
+        </ng-select>
+        <div *ngIf="submitted && f['maritalStatus'].errors" class="invalid-feedback">
+          <div *ngIf="f['maritalStatus'].errors['required']">{{'isReqired'|translate}}.</div>
+        </div>
+          </div>
+        </div>
+        <div class="m-3 row">
+          <div class="col-md-6">
+            <label for="" class="form-label">{{'Nationality' | translate }}<span style="font-size: large;color: red;">*</span></label>
+            <ng-select
+            formControlName="nationality"
+            [ngClass]="{ 'is-invalid': submitted && f['nationality'].errors }"
+
+            [(ngModel)]="employee.nationality" name="nationality"  class="form-select"
+            placeholder="-- {{'SelectNationality' | translate }} --">
+            <ng-option *ngFor="let item of countryList" value="{{item.name}}">
+              {{item.name}}
+            </ng-option>
+            </ng-select>
+            <div *ngIf="submitted && f['nationality'].errors" class="invalid-feedback">
+              <div *ngIf="f['nationality'].errors['required']">{{'isReqired'|translate}}.</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <label for="" class="form-label">{{'Religion' | translate }}<span style="font-size: large;color: red;">*</span></label>
+            <ng-select
+            formControlName="religion"
+            [ngClass]="{ 'is-invalid': submitted && f['religion'].errors }"
+
+            [(ngModel)]="employee.religion" name="religion"  class="form-select"
+            placeholder="-- {{'SelectReligion' | translate }} --">
+            <ng-option  value ="الاسلام">{{'Islamic' | translate }}</ng-option>
+            <ng-option  value ="المسيحية">{{'Christian' | translate }}</ng-option>
+            <ng-option  value ="اخرى">{{'Others' | translate }}</ng-option>
+            </ng-select>
+            <div *ngIf="submitted && f['religion'].errors" class="invalid-feedback">
+              <div *ngIf="f['religion'].errors['required']">{{'isReqired'|translate}}.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="row m-3">
+          <div class="col-md-6">
+            <label for="" class="form-label">{{ 'residenceName' | translate }}</label>
+            <input type="text" id="residenceName" name="residenceName" #residenceName [(ngModel)]="employee.residenceName" style="text-align: center;"  class="form-control mt-2 text-line">
+
+          </div> -->
+          <!-- <div class="col-md-6">
+            <label for="" class="form-label">{{ 'residenceNumber' | translate }}</label>
+            <input type="text" id="residenceNumber" name="residenceNumber" [(ngModel)]="employee.residenceNumber" style="text-align: center;"  class="form-control mt-2 text-line">
+          </div>
+        </div> -->
+        <!-- <div class="row m-3">
+          <div class="col-md-6">
+            <label for="" class="form-label">{{ 'residenceIssue' | translate }}</label>
+            <input type="text" id="residenceIssue" name="residenceIssue" [(ngModel)]="employee.residenceIssue" style="text-align: center;"  class="form-control mt-2 text-line">
+
+          </div> -->
+          <!-- <div class="col-md-6">
+            <label for="" class="form-label">{{ 'residenceExpiry' | translate }}</label>
+            <mat-form-field appearance="outline">
+              <mat-label>{{'MM/DD/YYYY' | translate}}</mat-label>
+              <input #residenceExpiry name="residenceExpiry" id="residenceExpiry"
+              [(ngModel)]="employee.residenceExpiry" matInput [matDatepicker]="picker4">
+              <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+              <mat-datepicker #picker4></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div> -->
+
+        </form>
+        <!-- {{editForm | json}} -->
+      </div>
+    </div>
+
+    <!-- <div *ngSwitchCase="'tab02'">
+      <div class="card">
+        <form  (ngSubmit)="onAddImageProfile()">
+          <div class="card-header">
+             <h2>{{'AddProfilePicture' | translate}}</h2>
+          </div>
+          <mat-card-header>
+            <button type="submit" id="add-imageProfile-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+            <a [routerLink]="['/employees/employees']" class="btn btn-light m-3">{{'DISCARD' | translate}}</a>
+          </mat-card-header>
+          <div class="row m-3">
+            <div class="col-md-6">
+             <label for="" class="form-label">{{'EmployeeName:' | translate}}</label>
+             <input type="text" value={{employee.employeeName}}  style="text-align: center;"  class="form-control mt-2 text-line">
+            </div>
+            <div class="col-md-6">
+             <label for="" class="form-label">{{'EmployeeID:' | translate}}</label>
+             <input type="text" value={{employee.employeeId}} [(ngModel)]="fk_empid"
+             id="fk_empid" name="fk_empid"
+             style="text-align: center;" readonly class="form-control mt-2 text-line">
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'EmployeeImageProfile:' | translate}}</label>
+              <input type="file" class="btn btn-default"
+              id="employeeImageProfile" name="employeeImageProfile"
+              placeholder="Upload Employee Image Profile" autofocus
+              required
+              [(ngModel)]="employeeImageProfile"
+              />
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </div> -->
+    <!-- <div *ngSwitchCase="'tab03'">
+      <div class="card">
+        <form  (ngSubmit)="onAddDocument()">
+          <div class="card-header">
+             <h2>{{'AddEmployeeDocument' | translate}}</h2>
+          </div>
+          <mat-card-header>
+            <button type="submit" id="add-document-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+            <a [routerLink]="['/employees/employees']" class="btn btn-light m-3">{{'DISCARD' | translate}}</a>
+          </mat-card-header>
+          <div class="row m-3">
+            <div class="col-md-6">
+             <label for="" class="form-label">{{'EmployeeName:' | translate}}</label>
+             <input type="text" value={{employee.employeeName}} style="text-align: center;"  class="form-control mt-2 text-line">
+            </div>
+            <div class="col-md-6">
+             <label for="" class="form-label">{{'EmployeeID:' | translate}}</label>
+             <input type="text" value={{employee.employeeId}} style="text-align: center;"  class="form-control mt-2 text-line">
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'DocumentType:' | translate}}</label>
+              <ng-select #universityid (ngModel)="universityid" name="universityid" id="universityid"
+                class="form-control form-select">
+                <ng-option value="">{{'Month' | translate}}</ng-option>
+                <ng-option value="1">{{'January' | translate}}</ng-option>
+                <ng-option value="2">{{'February' | translate}}</ng-option>
+                <ng-option value="3">{{'March' | translate}}</ng-option>
+                <ng-option value="4">{{'April' | translate}}</ng-option>
+                <ng-option value="5">{{'May' | translate}}</ng-option>
+              </ng-select>
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'DocumentNumber:' | translate}}</label>
+              <input type="text" #contactno (ngModel)="contactno" id="contactno" name="contactno" class="form-control mt-2 text-line" placeholder="Document Name" >
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'DocumentTitle:' | translate}}</label>
+              <input type="text" #contactno (ngModel)="contactno" id="contactno" name="contactno" class="form-control mt-2 text-line" placeholder="Document Name" >
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'DateOfExpire:' | translate}}</label>
+                <mat-form-field appearance="fill">
+                  <mat-label>{{'Chooseadate' | translate}}</mat-label>
+                  <input #sdate (ngModel)="sdate" matInput [matDatepicker]="picker">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'UploadDocumentFile:' | translate}}</label>
+              <input type="file">
+            </div>
+          </div>
+          <div class="card-footer">
+            <button type="submit" id="add-department-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+          </div>
+        </form>
+
+      </div>
+    </div> -->
+    <!-- <div *ngSwitchCase="'tab04'">
+      <div class="card">
+        <form  (ngSubmit)="onAddResidence()">
+          <div class="card-header">
+             <h2>{{'AddNewResidence' | translate}}</h2>
+          </div>
+          <mat-card-header>
+            <button type="submit" id="add-Residence-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+            <a [routerLink]="['/employees/employees']" class="btn btn-light m-3">{{'DISCARD' | translate}}</a>
+          </mat-card-header>
+          <div class="row m-3">
+            <div class="col-md-6">
+             <label for="" class="form-label">{{'EmployeeName:' | translate}}</label>
+             <input type="text" value={{employee.employeeName}} style="text-align: center;"  class="form-control mt-2 text-line">
+            </div>
+            <div class="col-md-6">
+             <label for="" class="form-label">{{'EmployeeID:' | translate}}</label>
+             <input type="text" value={{employee.employeeId}} style="text-align: center;"  class="form-control mt-2 text-line">
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'DocumentName:' | translate}}</label>
+              <input type="text" #contactno (ngModel)="contactno" id="contactno" name="contactno" class="form-control mt-2 text-line" placeholder="Document Name" >
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'DocumentNumber:' | translate}}</label>
+              <input type="text" #contactno (ngModel)="contactno" id="contactno" name="contactno" class="form-control mt-2 text-line" placeholder="Document Name" >
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'IssueDate:' | translate}}</label>
+                <mat-form-field appearance="fill">
+                  <mat-label>{{'Chooseadate' | translate}}</mat-label>
+                  <input #sdate (ngModel)="sdate" matInput [matDatepicker]="picker">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'DateOfExpirty:' | translate}}</label>
+                <mat-form-field appearance="fill">
+                  <mat-label>{{'Chooseadate' | translate}}</mat-label>
+                  <input #sdate (ngModel)="sdate" matInput [matDatepicker]="picker">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'Country:' | translate}}</label>
+                  <ng-select #majorid (ngModel)="majorid" name="majorid" id="majorid"
+                    class="form-control form-select">
+                    <ng-option value="">{{'Month' | translate}}</ng-option>
+                    <ng-option value="1">{{'January' | translate}}</ng-option>
+                    <ng-option value="2">{{'February' | translate}}</ng-option>
+                    <ng-option value="3">{{'March' | translate}}</ng-option>
+                    <ng-option value="4">{{'April' | translate}}</ng-option>
+                    <ng-option value="5">{{'May' | translate}}</ng-option>
+                  </ng-select>
+            </div>
+          </div>
+
+
+          <div class="card-footer">
+            <button type="submit" id="add-department-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+          </div>
+
+
+        </form>
+
+      </div>
+    </div> -->
+    <!-- <div *ngSwitchCase="'tab05'">
+      <div *ngIf="employee" class="card">
+        <form   (ngSubmit)="onAddAddress()">
+          <div class="card-header">
+             <h2>{{'AddNewResidence' | translate}}</h2>
+          </div>
+          <mat-card-header>
+            <button type="submit" id="add-Address-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+            <a [routerLink]="['/employees/employees']" class="btn btn-light m-3">{{'DISCARD' | translate}}</a>
+          </mat-card-header>
+          <div class="row m-3">
+            <div class="col-md-6">
+             <label for="" class="form-label">{{'EmployeeName:' | translate}}</label>
+             <input type="text" value={{employee.employeeName}} style="text-align: center;"  class="form-control mt-2 text-line">
+            </div>
+            <div class="col-md-6">
+             <label for="" class="form-label">{{'EmployeeID:' | translate}}</label>
+             <input type="text" value={{employee.employeeId}} style="text-align: center;"  class="form-control mt-2 text-line">
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'Email:' | translate}}</label>
+              <input type="text" #email (ngModel)="email" id="email" name="email" class="form-control mt-2 text-line" placeholder="{{'Email:' | translate}}" >
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'CountryAddress:' | translate}}</label>
+              <input type="text" #address (ngModel)="address" id="address" name="address" class="form-control mt-2 text-line" placeholder="{{'Address:' | translate}}" >
+            </div>
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'CountryContactNumber:' | translate}}</label>
+              <input type="text" #contactno (ngModel)="contactno" id="contactno" name="contactno" class="form-control mt-2 text-line" placeholder="{{'CountryContactNumber:' | translate}}" >
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'ResidenceAddress:' | translate}}</label>
+              <input type="text" #address (ngModel)="address" id="address" name="address" class="form-control mt-2 text-line" placeholder="{{'Address:' | translate}}" >
+            </div>
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'ResidenceContactNumber:' | translate}}</label>
+              <input type="text" #contactno (ngModel)="contactno" id="contactno" name="contactno" class="form-control mt-2 text-line" placeholder="{{'ContactNumber:' | translate}}" >
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <button type="submit" id="add-department-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+          </div>
+
+
+        </form>
+
+      </div>
+    </div> -->
+    <!-- <div *ngSwitchCase="'tab06'">
+      <div class="card">
+        <form  (ngSubmit)="onAddQualification()">
+          <div class="card-header">
+             <h2>{{'AddNewQualification' | translate}}</h2>
+          </div>
+          <mat-card-header>
+            <button type="submit" id="add-Qualification-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+            <a [routerLink]="['/employees/employees']" class="btn btn-light m-3">{{'DISCARD' | translate}}</a>
+          </mat-card-header>
+          <div class="row m-3">
+            <div class="col-md-6">
+             <label for="" class="form-label">{{'EmployeeName:' | translate}}</label>
+             <input type="text" value={{employee.employeeName}} style="text-align: center;"  class="form-control mt-2 text-line">
+            </div>
+            <div class="col-md-6">
+             <label for="" class="form-label">{{'EmployeeID:' | translate}}</label>
+             <input type="text" value={{employee.employeeId}} style="text-align: center;"  class="form-control mt-2 text-line">
+            </div>
+          </div>
+
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'University/SchoolName:' | translate}}</label>
+                  <ng-select #universityid (ngModel)="universityid" name="universityid" id="universityid"
+                    class="form-control form-select">
+                    <ng-option value="">{{'Month' | translate}}</ng-option>
+                    <ng-option value="1">{{'January' | translate}}</ng-option>
+                    <ng-option value="2">{{'February' | translate}}</ng-option>
+                    <ng-option value="3">{{'March' | translate}}</ng-option>
+                    <ng-option value="4">{{'April' | translate}}</ng-option>
+                    <ng-option value="5">{{'May' | translate}}</ng-option>
+                  </ng-select>
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'MajorName:' | translate}}</label>
+                  <ng-select #majorid (ngModel)="majorid" name="majorid" id="majorid"
+                    class="form-control form-select">
+                    <ng-option value="">{{'Month' | translate}}</ng-option>
+                    <ng-option value="1">{{'January' | translate}}</ng-option>
+                    <ng-option value="2">{{'February' | translate}}</ng-option>
+                    <ng-option value="3">{{'March' | translate}}</ng-option>
+                    <ng-option value="4">{{'April' | translate}}</ng-option>
+                    <ng-option value="5">{{'May' | translate}}</ng-option>
+                  </ng-select>
+            </div>
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'QualificationName:' | translate}}</label>
+                  <ng-select #qualificationid (ngModel)="qualificationid" name="qualificationid" id="qualificationid"
+                    class="form-control form-select">
+                    <ng-option value="">{{'Month' | translate}}</ng-option>
+                    <ng-option value="1">{{'January' | translate}}</ng-option>
+                    <ng-option value="2">{{'February' | translate}}</ng-option>
+                    <ng-option value="3">{{'March' | translate}}</ng-option>
+                    <ng-option value="4">{{'April' | translate}}</ng-option>
+                    <ng-option value="5">{{'May' | translate}}</ng-option>
+                  </ng-select>
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'From:' | translate}}</label>
+                <mat-form-field appearance="fill">
+                  <mat-label>{{'Chooseadate' | translate}}</mat-label>
+                  <input #sdate (ngModel)="sdate" matInput [matDatepicker]="picker">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <label for="" class="form-label">To:{{'AddDetailsforEmployee' | translate}}</label>
+                <mat-form-field appearance="fill">
+                  <mat-label>{{'Chooseadate' | translate}}</mat-label>
+                  <input #sdate (ngModel)="sdate" matInput [matDatepicker]="picker">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-5">
+              <label for="" class="form-label">{{'Degree:' | translate}}</label>
+              <input type="text" #degree (ngModel)="degree" id="degree" name="degree" class="form-control mt-2 text-line" placeholder="{{'Degree' | translate}}" >
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-12">
+               <button type="submit" id="add-department-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="card-title bg-dark p-3 text-white">
+            </div>
+            <div class="table-responsive table-bordered table-hover table-striped">
+              <table class="table text-md-nowrap" id="myTable1">
+                <thead>
+                  <tr>
+                    <th class="wd-15p border-bottom-0">{{'University' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'Major' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'Qualification' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'Dagree' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'Action' | translate}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td class="align-middle">
+                      <div class="btn-group align-top">
+                        <button  class="btn btn-sm btn-light btn-svg" type="button">{{'Edit' | translate}}</button>
+                        <button  class="btn btn-sm btn-light btn-svg" type="button"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M8 9h8v10H8z" opacity=".3"/><path d="M15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"/></svg></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td class="align-middle">
+                      <div class="btn-group align-top">
+                        <button  class="btn btn-sm btn-light btn-svg" type="button">{{'Edit' | translate}}</button>
+                        <button  class="btn btn-sm btn-light btn-svg" type="button"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M8 9h8v10H8z" opacity=".3"/><path d="M15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"/></svg></button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div> -->
+    <!-- <div *ngSwitchCase="'tab07'">
+      <div class="card">
+        <form  (ngSubmit)="onAddWorkExperience()">
+          <div class="card-header">
+             <h2>{{'AddNewWorkExperience' | translate}}</h2>
+          </div>
+          <mat-card-header>
+            <button type="submit" id="add-WorkExperience-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+            <a [routerLink]="['/employees/employees']" class="btn btn-light m-3">{{'DISCARD' | translate}}</a>
+          </mat-card-header>
+          <div class="row m-3">
+            <div class="col-md-6">
+             <label for="" class="form-label">{{'EmployeeName:' | translate}}</label>
+             <input type="text" value={{employee.employeeName}} style="text-align: center;"  class="form-control mt-2 text-line">
+            </div>
+            <div class="col-md-6">
+             <label for="" class="form-label">{{'EmployeeID:' | translate}}</label>
+             <input type="text" value={{employee.employeeId}} style="text-align: center;"  class="form-control mt-2 text-line">
+            </div>
+          </div>
+
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'CompanyName:' | translate}}</label>
+              <input type="text" #degree (ngModel)="degree" id="degree" name="degree" class="form-control mt-2 text-line" placeholder="{{'Company:' | translate}}" >
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'JobTitle:' | translate}}</label>
+              <input type="text" #degree (ngModel)="degree" id="degree" name="degree" class="form-control mt-2 text-line" placeholder="{{'PostName:' | translate}}" >
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'From:' | translate}}</label>
+                <mat-form-field appearance="fill">
+                  <mat-label>{{'Chooseadate' | translate}}</mat-label>
+                  <input #sdate (ngModel)="sdate" matInput [matDatepicker]="picker">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'To:' | translate}}</label>
+                <mat-form-field appearance="fill">
+                  <mat-label>{{'Chooseadate' | translate}}</mat-label>
+                  <input #sdate (ngModel)="sdate" matInput [matDatepicker]="picker">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-12">
+              <button type="submit" id="add-department-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="card-title bg-dark p-3 text-white">
+            </div>
+            <div class="table-responsive table-bordered table-hover table-striped">
+              <table class="table text-md-nowrap" id="myTable1">
+                <thead>
+                  <tr>
+                    <th class="wd-15p border-bottom-0">{{'Company' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'JobTitle' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'WorkFrom' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'WorkTo' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'Action' | translate}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td class="align-middle">
+                      <div class="btn-group align-top">
+                        <button  class="btn btn-sm btn-light btn-svg" type="button">{{'Edit' | translate}}</button>
+                        <button  class="btn btn-sm btn-light btn-svg" type="button"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M8 9h8v10H8z" opacity=".3"/><path d="M15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"/></svg></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td class="align-middle">
+                      <div class="btn-group align-top">
+                        <button  class="btn btn-sm btn-light btn-svg" type="button">{{'Edit' | translate}}{{'AddDetailsforEmployee' | translate}}</button>
+                        <button  class="btn btn-sm btn-light btn-svg" type="button"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M8 9h8v10H8z" opacity=".3"/><path d="M15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"/></svg></button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div> -->
+    <!-- <div *ngSwitchCase="'tab08'">
+      <div class="card">
+        <form  (ngSubmit)="onAddBank()">
+          <div class="card-header">
+             <h2>{{'AddNewBank' | translate}}</h2>
+          </div>
+          <mat-card-header>
+            <button type="submit" id="add-Bank-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+            <a [routerLink]="['/employees/employees']" class="btn btn-light m-3">{{'DISCARD' | translate}}</a>
+          </mat-card-header>
+          <div class="row m-3">
+            <div class="col-md-6">
+             <label for="" class="form-label">{{'EmployeeName:' | translate}}</label>
+             <input type="text" value={{employee.employeeName}} style="text-align: center;"  class="form-control mt-2 text-line">
+            </div>
+            <div class="col-md-6">
+             <label for="" class="form-label">{{'EmployeeID:' | translate}}</label>
+             <input type="text" value={{employee.employeeId}} style="text-align: center;"  class="form-control mt-2 text-line">
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'BankName:' | translate}}</label>
+              <input type="text" #name (ngModel)="email" id="name" name="name" class="form-control mt-2 text-line" placeholder="{{'BankName:' | translate}}" >
+            </div>
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'AccountType:' | translate}}</label>
+              <ng-select #managerid (ngModel)="managerid" name="managerid" id="managerid" class="form-control form-select">
+                <ng-option value="">{{'Month' | translate}}</ng-option>
+                <ng-option value="1">{{'January' | translate}}</ng-option>
+                <ng-option value="2">{{'February' | translate}}</ng-option>
+                <ng-option value="3">{{'March' | translate}}</ng-option>
+                <ng-option value="4">{{'April' | translate}}</ng-option>
+                <ng-option value="5">{{'May' | translate}}</ng-option>
+              </ng-select>
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'AccountNumber:' | translate}}</label>
+              <input type="text" #name (ngModel)="email" id="name" name="name" class="form-control mt-2 text-line" placeholder="{{'BankName:' | translate}}" >
+            </div>
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'BankCode:' | translate}}</label>
+              <input type="text" #name (ngModel)="email" id="name" name="name" class="form-control mt-2 text-line" placeholder="{{'BankName:' | translate}}" >
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'BankBranch:' | translate}}</label>
+              <input type="text" #address (ngModel)="address" id="address" name="address" class="form-control mt-2 text-line" placeholder="{{'Address:' | translate}}" >
+            </div>
+          </div>
+          <div class="m-3 row">
+           <div class="col-md-12">
+            <button type="submit" id="add-department-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+           </div>
+          </div>
+          <div class="card-footer">
+            <div class="card-title bg-dark p-3 text-white">
+            </div>
+            <div class="table-responsive table-bordered table-hover table-striped">
+              <table class="table text-md-nowrap" id="myTable1">
+                <thead>
+                  <tr>
+                    <th class="wd-15p border-bottom-0">{{'Bank' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'AccountType' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'AccountNumber' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'Branch' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'Action' | translate}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td class="align-middle">
+                      <div class="btn-group align-top">
+                        <button  class="btn btn-sm btn-light btn-svg" type="button">{{'Edit' | translate}}</button>
+                        <button  class="btn btn-sm btn-light btn-svg" type="button"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M8 9h8v10H8z" opacity=".3"/><path d="M15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"/></svg></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td class="align-middle">
+                      <div class="btn-group align-top">
+                        <button  class="btn btn-sm btn-light btn-svg" type="button">{{'Edit' | translate}}</button>
+                        <button  class="btn btn-sm btn-light btn-svg" type="button"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M8 9h8v10H8z" opacity=".3"/><path d="M15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"/></svg></button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div> -->
+    <!-- <div *ngSwitchCase="'tab09'">
+      <div class="card">
+        <form  (ngSubmit)="onAddContact()">
+          <div class="card-header">
+             <h2>{{'AddNewContact' | translate}}</h2>
+          </div>
+          <mat-card-header>
+            <button type="submit" id="add-Contact-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+            <a [routerLink]="['/employees/employees']" class="btn btn-light m-3">{{'DISCARD' | translate}}</a>
+          </mat-card-header>
+          <div class="row m-3">
+            <div class="col-md-6">
+             <label for="" class="form-label">{{'EmployeeName:' | translate}}</label>
+             <input type="text" value={{employee.employeeName}} style="text-align: center;"  class="form-control mt-2 text-line">
+            </div>
+            <div class="col-md-6">
+             <label for="" class="form-label">{{'EmployeeID:' | translate}}</label>
+             <input type="text" value={{employee.employeeId}} style="text-align: center;"  class="form-control mt-2 text-line">
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'ContractType:' | translate}}</label>
+              <ng-select #majorid (ngModel)="majorid" name="majorid" id="majorid"
+                    class="form-control form-select">
+                    <ng-option value="">{{'Month' | translate}}</ng-option>
+                    <ng-option value="1">{{'January' | translate}}</ng-option>
+                    <ng-option value="2">{{'February' | translate}}</ng-option>
+                    <ng-option value="3">{{'March' | translate}}</ng-option>
+                    <ng-option value="4">{{'April' | translate}}</ng-option>
+                    <ng-option value="5">{{'May' | translate}}</ng-option>
+                  </ng-select>
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'ContractTitle:' | translate}}</label>
+              <input type="text" #contactno (ngModel)="contactno" id="contactno" name="contactno" class="form-control mt-2 text-line" placeholder="{{'DependentName' | translate}}" >
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'From:' | translate}}</label>
+                <mat-form-field appearance="fill">
+                  <mat-label>{{'Chooseadate' | translate}}</mat-label>
+                  <input #sdate (ngModel)="sdate" matInput [matDatepicker]="picker">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'To:' | translate}}</label>
+                <mat-form-field appearance="fill">
+                  <mat-label>{{'Chooseadate' | translate}}</mat-label>
+                  <input #sdate (ngModel)="sdate" matInput [matDatepicker]="picker">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'Designation:' | translate}}</label>
+              <input type="text" #contactno (ngModel)="contactno" id="contactno" name="contactno" class="form-control mt-2 text-line" placeholder="{{'DesignationName:' | translate}}" >
+            </div>
+          </div>
+           <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'Salary:' | translate}}</label>
+              <input type="text" #contactno (ngModel)="contactno" id="contactno" name="contactno" class="form-control mt-2 text-line" placeholder="{{'Salary:' | translate}}" >
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-12">
+              <button type="submit" id="add-department-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="card-title bg-dark p-3 text-white">
+            </div>
+            <div class="table-responsive table-bordered table-hover table-striped">
+              <table class="table text-md-nowrap" id="myTable1">
+                <thead>
+                  <tr>
+                    <th class="wd-15p border-bottom-0">{{'ContractType' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'ContractTitle' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'From' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'To' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'Designation' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'Action' | translate}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td class="align-middle">
+                      <div class="btn-group align-top">
+                        <button  class="btn btn-sm btn-light btn-svg" type="button">{{'Edit' | translate}}</button>
+                        <button  class="btn btn-sm btn-light btn-svg" type="button"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M8 9h8v10H8z" opacity=".3"/><path d="M15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"/></svg></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td class="align-middle">
+                      <div class="btn-group align-top">
+                        <button  class="btn btn-sm btn-light btn-svg" type="button">{{'Edit' | translate}}</button>
+                        <button  class="btn btn-sm btn-light btn-svg" type="button"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M8 9h8v10H8z" opacity=".3"/><path d="M15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"/></svg></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td class="align-middle">
+                      <div class="btn-group align-top">
+                        <button  class="btn btn-sm btn-light btn-svg" type="button">{{'Edit' | translate}}</button>
+                        <button  class="btn btn-sm btn-light btn-svg" type="button"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M8 9h8v10H8z" opacity=".3"/><path d="M15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"/></svg></button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div> -->
+    <!-- <div *ngSwitchCase="'tab10'">
+      <div class="card">
+        <form  (ngSubmit)="onAddInsuranceDependent()">
+          <div class="card-header">
+             <h2>{{'AddNewInsuranceDependent' | translate}}</h2>
+          </div>
+          <mat-card-header>
+            <button type="submit" id="add-InsuranceDependent-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+            <a [routerLink]="['/employees/employees']" class="btn btn-light m-3">{{'DISCARD' | translate}}</a>
+          </mat-card-header>
+          <div class="row m-3">
+            <div class="col-md-6">
+             <label for="" class="form-label">{{'EmployeeName:' | translate}}</label>
+             <input type="text" value={{employee.employeeName}} style="text-align: center;"  class="form-control mt-2 text-line">
+            </div>
+            <div class="col-md-6">
+             <label for="" class="form-label">{{'EmployeeID:' | translate}}</label>
+             <input type="text" value={{employee.employeeId}} style="text-align: center;"  class="form-control mt-2 text-line">
+            </div>
+          </div>
+
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'InsuranceCompanyName:' | translate}}</label>
+                  <ng-select #majorid (ngModel)="majorid" name="majorid" id="majorid"
+                    class="form-control form-select">
+                    <ng-option value="">{{'Month' | translate}}</ng-option>
+                    <ng-option value="1">{{'January' | translate}}</ng-option>
+                    <ng-option value="2">{{'February' | translate}}</ng-option>
+                    <ng-option value="3">{{'March' | translate}}</ng-option>
+                    <ng-option value="4">{{'April' | translate}}</ng-option>
+                    <ng-option value="5">{{'May' | translate}}</ng-option>
+                  </ng-select>
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'DependentName:' | translate}}</label>
+              <input type="text" #contactno (ngModel)="contactno" id="contactno" name="contactno" class="form-control mt-2 text-line" placeholder="{{'DependentName:' | translate}}" >
+            </div>
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'RelativeRelation:' | translate}}</label>
+              <ng-select #majorid (ngModel)="majorid" name="majorid" id="majorid"
+                    class="form-control form-select">
+                    <ng-option value="1">{{'Husband' | translate}}</ng-option>
+                    <ng-option value="2">{{'Wife' | translate}}</ng-option>
+                    <ng-option value="3">{{'Son' | translate}}</ng-option>
+                    <ng-option value="4">{{'Daughter' | translate}}</ng-option>
+                    <ng-option value="5">{{'Father' | translate}}</ng-option>
+                    <ng-option value="6">{{'Mother' | translate}}</ng-option>
+                    <ng-option value="6">{{'Others' | translate}}</ng-option>
+                  </ng-select>
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'Gender:' | translate}}</label>
+              <ng-select #majorid (ngModel)="majorid" name="majorid" id="majorid"
+                    class="form-control form-select">
+                    <ng-option value="">{{'Month' | translate}}</ng-option>
+                    <ng-option value="1">{{'January' | translate}}</ng-option>
+                    <ng-option value="2">{{'February' | translate}}</ng-option>
+                    <ng-option value="3">{{'March' | translate}}</ng-option>
+                    <ng-option value="4">{{'April' | translate}}</ng-option>
+                    <ng-option value="5">{{'May' | translate}}</ng-option>
+                  </ng-select>
+            </div>
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'DateOfBirth:' | translate}}</label>
+                <mat-form-field appearance="fill">
+                  <mat-label>{{'Chooseadate' | translate}}</mat-label>
+                  <input #sdate (ngModel)="sdate" matInput [matDatepicker]="picker">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'InsuranceDegree:' | translate}}</label>
+                  <ng-select #majorid (ngModel)="majorid" name="majorid" id="majorid"
+                    class="form-control form-select">
+                    <ng-option value="">{{'Month' | translate}}</ng-option>
+                    <ng-option value="1">{{'January' | translate}}</ng-option>
+                    <ng-option value="2">{{'February' | translate}}</ng-option>
+                    <ng-option value="3">{{'March' | translate}}</ng-option>
+                    <ng-option value="4">{{'April' | translate}}</ng-option>
+                    <ng-option value="5">{{'May' | translate}}</ng-option>
+                  </ng-select>
+            </div>
+          </div>
+          <div class="row m-3">
+            <div class="col-md-12">
+                <button type="submit" id="add-department-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="card-title bg-dark p-3 text-white">
+            </div>
+            <div class="table-responsive table-bordered table-hover table-striped">
+              <table class="table text-md-nowrap" id="myTable1">
+                <thead>
+                  <tr>
+                    <th class="wd-15p border-bottom-0">{{'Company' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'DependentName' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'Relation' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'Action' | translate}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td>{{'AlEtihad' | translate}}</td>
+                    <td class="align-middle">
+                      <div class="btn-group align-top">
+                        <button  class="btn btn-sm btn-light btn-svg" type="button">{{'Edit' | translate}}</button>
+                        <button  class="btn btn-sm btn-light btn-svg" type="button"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M8 9h8v10H8z" opacity=".3"/><path d="M15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"/></svg></button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </form>
+
+      </div>
+
+    </div> -->
+    <!-- <div *ngSwitchCase="'tab11'">
+      <div class="card">
+        <form  (ngSubmit)="onAddEmployeedInformation()">
+          <div class="card-header">
+             <h2>{{'AddEmployeedInformation' | translate}}</h2>
+          </div>
+          <mat-card-header>
+            <button type="submit" id="add-EmployeedInformation-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+            <a [routerLink]="['/employees/employees']" class="btn btn-light m-3">{{'DISCARD' | translate}}</a>
+          </mat-card-header>
+          <div class="row m-3">
+            <div class="col-md-6">
+             <label for="" class="form-label">{{'EmployeeName:' | translate}}</label>
+             <input type="text" value={{employee.employeeName}} style="text-align: center;"  class="form-control mt-2 text-line">
+            </div>
+            <div class="col-md-6">
+             <label for="" class="form-label">{{'EmployeeID:' | translate}}</label>
+             <input type="text" value={{employee.employeeId}} style="text-align: center;"  class="form-control mt-2 text-line">
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'EmployeeImageProfile:' | translate}}</label>
+              <input type="file" class="btn btn-default"
+              name="employeeImageProfile"
+              placeholder="Upload Employee Image Profile" autofocus
+              required
+              [(ngModel)]="employeeData.employeeImageProfile"
+              />
+            </div>
+          </div>
+
+        </form>
+
+      </div>
+    </div> -->
+  </div>
+  </div>

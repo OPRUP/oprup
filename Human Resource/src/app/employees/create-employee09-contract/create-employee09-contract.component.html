@@ -1,0 +1,183 @@
+<!--Page header-->
+<div class="page-header" *ngIf="employee">
+  <div class="page-leftheader">
+    <!-- <h2 class="page-title">{{'AddDetailsforEmployee' | translate}}</h2> -->
+    <div class="card-header" *ngIf="this.translate.currentLang=='en'">
+      <h2 > {{employee.employeeName}}</h2>
+   </div>
+   <div class="card-header" *ngIf="this.translate.currentLang=='ar'">
+    <h2 > {{employee.employeeNameAr}}</h2>
+ </div>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a [routerLink]="['/dashboard/']" class="d-flex"><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'HOME' | translate}}</span></a></li>
+       <li class="breadcrumb-item"><a [routerLink]="['/employees/employees/']">{{'Employees' | translate}}</a></li>
+      <li class="breadcrumb-item" aria-current="page">{{'Detailsemployee' | translate}}</li>
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+<div class="main" *ngIf="employee">
+  <div class="column-1">
+    <ul class="vertical-menu">
+      <li [routerLink]="['/employees/create-employee-details/'+ employee.employeeId]" [ngClass]="{'active':viewMode =='tab01'}">{{'BasicInformation' | translate}}</li>
+      <li [routerLink]="['/employees/create-employee11-employeed-information/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab03'}">{{'EmployeedInformation' | translate}}</li>
+      <!-- <li [routerLink]="['/employees/create-employee02-imageprofile/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab02'}">{{'ImageProfile' | translate}}</li> -->
+      <!-- <li [routerLink]="['/employees/create-employee03-documents/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab03'}">{{'Documents' | translate}}</li> -->
+      <!-- <li [routerLink]="['/employees/create-employee04-residence/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab04'}">{{'Residences' | translate}}</li> -->
+      <li [routerLink]="['/employees/create-employee05-address/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab05'}">{{'Address' | translate}}</li>
+      <li [routerLink]="['/employees/create-employee06-qualification/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab06'}">{{'Qualifications' | translate}}</li>
+      <li [routerLink]="['/employees/create-employee07-work-experience/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab07'}">{{'WorkExperiences' | translate}}</li>
+      <li [routerLink]="['/employees/create-employee08-bank-account/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab08'}">{{'BankAccounts' | translate}}</li>
+      <li [routerLink]="['/employees/create-employee09-contract/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab09'}">{{'Contract' | translate}}</li>
+      <li [routerLink]="['/employees/create-employee10-hokome/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab10'}">{{'hokomedetails' | translate}}</li>
+      <!-- <li [routerLink]="['/employees/create-employee11-employeed-information/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tab11'}">{{'EmployeedInformation' | translate}}</li> -->
+      <li [routerLink]="['/employees/employee-residence-transportation/'+  employee.employeeId]" [ngClass]="{'active':viewMode =='tabResTrans'}">{{'residenceTransport' | translate}}</li>
+
+    </ul>
+  </div>
+  <div class="column-2" [ngSwitch]="viewMode">
+
+    <div *ngSwitchCase="'tab09'">
+      <div class="card">
+        <form
+        [formGroup]="form"
+
+        (ngSubmit)="onAddContact()">
+          <div class="card-header">
+             <h2>تفاصيل العقد</h2>
+          </div>
+          <mat-card-header>
+            <button type="submit" id="add-Contact-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+            <a [routerLink]="['/employees/employees']" class="btn btn-light m-3">{{'DISCARD' | translate}}</a>
+          </mat-card-header>
+          <div class="row m-3">
+            <div class="col-md-6">
+             <!-- <label for="" class="form-label">Employee Name:</label> -->
+             <input type="hidden" value={{employee.employeeName}} style="text-align: center;" readonly class="form-control mt-2 text-line">
+            </div>
+            <div class="col-md-6">
+             <!-- <label for="" class="form-label">Employee ID:</label> -->
+             <input type="hidden" value={{employee.employeeId}} style="text-align: center;" readonly class="form-control mt-2 text-line">
+            </div>
+          </div>
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'contractType' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <ng-select #contractType
+              formControlName="contractType"
+              [ngClass]="{ 'is-invalid': submitted && f['contractType'].errors }"
+              [(ngModel)]="emp09.contractType" name="contractType" id="contractType"
+                    class="form-control form-select">
+                    <ng-option value="محدود">{{'partTime' | translate}}</ng-option>
+                    <ng-option value="غير محدود">{{'fullTime' | translate}}</ng-option>
+
+              </ng-select>
+              <div *ngIf="submitted && f['contractType'].errors" class="invalid-feedback">
+                <div *ngIf="f['contractType'].errors['required']">{{'isReqired'|translate}}.</div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'vacationDayNumber' | translate}}<span style="font-size: large;color: red;">*</span></label>
+              <input type="text" #vacationDayNumber
+              formControlName="vacationDayNumber"
+              [ngClass]="{ 'is-invalid': submitted && f['vacationDayNumber'].errors }"
+
+              [(ngModel)]="emp09.vacationDayNumber" id="vacationDayNumber" name="vacationDayNumber"
+              class="form-control mt-2 text-line" placeholder="{{'vacationDayNumber' | translate}}" >
+
+              <div *ngIf="submitted && f['vacationDayNumber'].errors" class="invalid-feedback">
+                <div *ngIf="f['vacationDayNumber'].errors['required']">{{'isReqired'|translate}}.</div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="m-3 row">
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'contractDateFrom' | translate}}<span style="font-size: large;color: red;">*</span></label>
+                <mat-form-field appearance="outline">
+                  <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+                <!-- #docregion toggle -->
+                  <input type="date" #dateFrom name="dateFrom"
+                  formControlName="dateFrom"
+                  [ngClass]="{ 'is-invalid': submitted && f['dateFrom'].errors }"
+                  [(ngModel)]="emp09.dateFrom" matInput >
+                  <!-- <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker> -->
+                <!-- #enddocregion toggle -->
+                <div *ngIf="submitted && f['dateFrom'].errors" class="invalid-feedback">
+                  <div *ngIf="f['dateFrom'].errors['required']">{{'isReqired'|translate}}.</div>
+                </div>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <label for="" class="form-label">{{'contractDateTo' | translate}}<span style="font-size: large;color: red;">*</span></label>
+                <mat-form-field appearance="outline">
+                  <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+                <!-- #docregion toggle -->
+                  <input type="date" #dateTo name="dateTo"
+                  formControlName="dateTo"
+                  [ngClass]="{ 'is-invalid': submitted && f['dateTo'].errors }"
+                  [(ngModel)]="emp09.dateTo" matInput >
+                  <!-- <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker> -->
+                <!-- #enddocregion toggle -->
+                <div *ngIf="submitted && f['dateTo'].errors" class="invalid-feedback">
+                  <div *ngIf="f['dateTo'].errors['required']">{{'isReqired'|translate}}.</div>
+                </div>
+                </mat-form-field>
+            </div>
+          </div>
+          <div class="m-3 row">
+
+          </div>
+
+
+        </form>
+        <card-footer>
+
+          <div class="card-footer">
+            <div class="card-title bg-dark p-3 text-white">
+              <!-- List Of Experience -->
+            </div>
+            <div class="table-responsive table-bordered table-hover table-striped">
+              <table class="table text-md-nowrap" id="myTable1">
+                <thead>
+                  <tr>
+                    <th class="wd-15p border-bottom-0">{{'ContractType' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'StartDate' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'EndDate' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'vacationDayNumber' | translate}}</th>
+                    <th class="wd-15p border-bottom-0">{{'Action' | translate}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr *ngFor="let contract of contracts">
+                    <td>{{ contract.contractType }}</td>
+                    <td>{{ contract.dateFrom }}</td>
+                    <td>{{ contract.dateTo }}</td>
+                    <td>{{ contract.vacationDayNumber }}</td>
+                    <td class="align-middle">
+                      <div class="btn-group align-top">
+                        <button  class="btn btn-sm btn-light btn-svg" type="button" (click)="editEmployeeContract(employee.employeeId,contract.contractId)" title="{{'ContractDetails' | translate }}"><i class="fe fe-edit me-2"></i>{{'salaryDetails'|translate}}</button>
+                        <!-- <button  class="btn btn-sm btn-light btn-svg" type="button" (click)="deleteEmployeeContract(contract.contractId)" title="Delete Contrct" ><svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M8 9h8v10H8z" opacity=".3"/><path d="M15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z"/></svg></button> -->
+                      </div>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </card-footer>
+
+
+      </div>
+    </div>
+
+  </div>
+  </div>

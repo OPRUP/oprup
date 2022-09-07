@@ -1,0 +1,87 @@
+<!--Page header-->
+<div class="page-header">
+  <div class="page-leftheader">
+    <h2 class="page-title"> {{'BoardOfDirectors' | translate}} </h2>
+  </div>
+  <div class="page-rightheader ms-auto d-lg-flex d-none">
+    <ol class="breadcrumb">
+    	<li class="breadcrumb-item"><a [routerLink]="['/dashboard-hr/']"
+        class="d-flex"><svg class="svg-icon1" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon"> {{'HOME' | translate}}</span></a></li>
+									<li class="breadcrumb-item"><a [routerLink]="['/departments/departments/']">{{'BoardOfDirectors' | translate}}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{'Create' | translate}}</li>
+    </ol>
+  </div>
+</div>
+<!--End Page header-->
+
+<div class="card">
+  <form #g="ngForm"
+
+  [formGroup]="form"
+  (ngSubmit)="onAddDepartment()" class="form-horizontal">
+    <div class="card-header">
+      <button type="submit" id="add-department-form" class="btn btn-dark m-3">{{'SAVE' | translate}}</button>
+      <a [routerLink]="['/departments/departments']" class="btn btn-light">{{'DISCARD' | translate}}</a>
+    </div>
+
+    <div class="m-3 row">
+      <div class="col-md-6">
+        <label for="" class="form-label">{{'TopManagementName' | translate}}<span style="font-size: large;color: red;">*</span> </label>
+        <input type="text"
+        formControlName="departmentName"
+        [ngClass]="{ 'is-invalid': submitted && f['departmentName'].errors }" #departmentName
+        [(ngModel)]="departmentData.departmentName"
+        id="departmentName" name="departmentName"
+        class="form-control mt-2 text-line" >
+
+        <div *ngIf="submitted && f['departmentName'].errors" class="invalid-feedback">
+          <div *ngIf="f['departmentName'].errors['required']">{{'isReqired'|translate}}.</div>
+
+        </div>
+
+
+      </div>
+      <!-- <div class="col-md-6">
+        <label for="" class="form-label"> {{'CreateDepartmentDate' | translate}} </label>
+      <mat-form-field appearance="outline">
+        <mat-label>{{'DD/MM/YYYY' | translate}}</mat-label>
+        <input name="managementStartingDate"
+
+        formControlName="managementStartingDate" [ngClass]="{ 'is-invalid': submitted && f['managementStartingDate'].errors }"
+
+        [(ngModel)]="departmentData.managementStartingDate"
+        matInput [matDatepicker]="picker1">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+
+
+      </div>
+      <div *ngIf="submitted && f['managementStartingDate'].errors" class="invalid-feedback">
+        <div *ngIf="f['managementStartingDate'].errors['required']">{{'isReqired'|translate}}.</div>
+      </div>
+    </div> -->
+</div>
+
+
+      <div class="m-3 row">
+        <div class="col-md-6">
+          <label for="" class="form-label">{{'ContactNumber' | translate}}<span style="font-size: large;color: red;">*</span></label>
+          <input type="text"
+
+          formControlName="contactNumber"
+          [ngClass]="{ 'is-invalid': submitted && f['contactNumber'].errors }" #contactNumber
+
+          [(ngModel)]="departmentData.contactNumber" id="contactNumber" name="contactNumber"
+          class="form-control mt-2 text-line">
+
+          <div *ngIf="submitted && f['contactNumber'].errors" class="invalid-feedback">
+            <div *ngIf="f['contactNumber'].errors['required']">{{'isReqired'|translate}}.</div>
+            <div *ngIf="f['contactNumber'].errors['pattern']">{{'Start with 07 or 00966 or contains 7 or 8 or 9 digits'|translate}}.</div>
+          </div>
+
+      </div>
+      </div>
+    </form>
+
+</div>

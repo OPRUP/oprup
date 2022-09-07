@@ -1,0 +1,214 @@
+
+<!--Page header-->
+<div class="page-header">
+	<div class="page-leftheader">
+		<h2 class="page-title">{{'DebtorNotices' | translate}}</h2>
+	</div>
+	<div class="page-rightheader ms-auto d-lg-flex d-none">
+		<ol class="breadcrumb">
+
+      <li class="breadcrumb-item"><a [routerLink]="['/accounts/']" class="d-flex">
+        <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+          <path d="M0 0h24v24H0V0z" fill="none"/>
+          <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/>
+          <path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg><span class="breadcrumb-icon">
+            {{'HOME' | translate}}</span></a></li>
+      <li class="breadcrumb-item"><a [routerLink]="['/accounts/debtorNotice/debtorNotice/']">
+        {{"DebtorNotices" | translate}} </a></li>
+        <li class="breadcrumb-item active" aria-current="page"> {{'PRINT' | translate}}</li>
+      </ol>
+  </div>
+</div>
+<!--End Page header-->
+<div class="card">
+  <div *ngIf="debtorNoticeData">
+      <div class="card-header">
+          <div class="card-header pb-0">
+              &nbsp;&nbsp;&nbsp;
+              <a (click)="printPage()" class="btn btn-default"><i class="fe fe-plus"></i>{{'Print' | translate}}</a>
+              <button (click)="generatePDF()" class="btn btn-dark" style="margin-right:1vw ;"><i class="fe fe-plus"></i>{{'exportPDF' | translate}}</button>
+          </div>
+      </div>
+      <div id="invoice" #invoice>
+      <div class="card-body">
+
+        <div class="m-3 row justify-content-md-center">
+
+          <img class="logo" src="../../../assets/images/emdadat/emdadat-logo-01-1-e1630425324525.png" />
+
+       </div>
+       <div class="m-3 row justify-content-md-center">
+
+        <h2 class="red">مؤسسة خالد مسفر فلاح الكبرى للتشغيل و الصيانة</h2>
+
+     </div>
+     <div class="m-3 row justify-content-md-center">
+
+      <h2 class="blue">اشعار مدين</h2>
+
+   </div>
+   <div class="m-3 row justify-content-md-center">
+
+    <h3>ذمم</h3>
+
+ </div>
+
+ <div>
+<div class="row m-1">
+  <div class="display-in col-md-8">
+    <p class="boox">الفرع
+      </p>
+  <p class="box2 ">الرياض</p>
+</div>
+<div class="col-md-4 display-in">
+    <p class="boox ">رقم الفاتورة
+     </p>
+  <span>{{data.debtorNoticeNumber}}</span>
+
+
+</div>
+
+</div>
+
+<div class="row m-1">
+  <div class="display-in col-md-8"><p>
+    <p class="boox"> السيد /السادة
+    </p>
+
+  <span>{{data.customer.nameAr}}</span>
+</div>
+<div class="col-md-4  display-in">
+
+  <p>
+    <p class="boox">التاريخ
+      </p>
+  <span>{{data.date}}</span>
+
+
+</div>
+
+</div>
+
+
+
+
+ </div>
+</div>
+<div class="m-3 row text-center">
+
+
+
+
+  <table mat-table matSort [dataSource]="debtorNoticeData">
+      <ng-container matColumnDef="itemCode">
+          <th mat-header-cell *matHeaderCellDef>{{'itemCode' | translate}}</th>
+          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.item.itemCode }}</td>
+      </ng-container>
+      <ng-container matColumnDef="itemNameAr">
+          <th mat-header-cell *matHeaderCellDef>{{'itemNameAr' | translate}}</th>
+          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.item.itemNameAr }}</td>
+      </ng-container>
+      <ng-container matColumnDef="nationality">
+          <th mat-header-cell *matHeaderCellDef> {{'nationality' | translate}}</th>
+          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.item.nationality }}</td>
+      </ng-container>
+      <ng-container matColumnDef="gender">
+          <th mat-header-cell *matHeaderCellDef> {{'gender' | translate}}</th>
+          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.item.gender }}</td>
+      </ng-container>
+      <ng-container matColumnDef="operationFee">
+          <th mat-header-cell *matHeaderCellDef> {{'operationFee' | translate}}</th>
+          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.operationFee }}</td>
+      </ng-container>
+      <ng-container matColumnDef="foodAllowance">
+          <th mat-header-cell *matHeaderCellDef> {{'foodAllowance' | translate}}</th>
+          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.item.foodAllowance }}</td>
+      </ng-container>
+      <ng-container matColumnDef="housingAllowance">
+          <th mat-header-cell *matHeaderCellDef> {{'housingAllowance' | translate}}</th>
+          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.item.housingAllowance }}</td>
+      </ng-container>
+      <ng-container matColumnDef="OtherAllowance">
+          <th mat-header-cell *matHeaderCellDef> {{'otherAllowance' | translate}}</th>
+          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.item.otherAllowance }}</td>
+      </ng-container>
+      <ng-container matColumnDef="profession">
+          <th mat-header-cell *matHeaderCellDef> {{'profession' | translate}}</th>
+          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.item.profession }}</td>
+      </ng-container>
+      <ng-container matColumnDef="salary">
+          <th mat-header-cell *matHeaderCellDef> {{'salary' | translate}}</th>
+          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.item.salary }}</td>
+      </ng-container>
+      <ng-container matColumnDef="numberOfEmployees">
+          <th mat-header-cell *matHeaderCellDef> {{'employeeNumber' | translate}}</th>
+          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.numberOfEmployees }}</td>
+      </ng-container>
+      <ng-container matColumnDef="salesInvoiceItemValue">
+          <th mat-header-cell *matHeaderCellDef> {{'value' | translate}}</th>
+          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.debtorNoticeItemValue }}</td>
+      </ng-container>
+      <ng-container matColumnDef="salesInvoiceItemTotal">
+          <th mat-header-cell *matHeaderCellDef> {{'total' | translate}}</th>
+          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.debtorNoticeItemTotal }}</td>
+      </ng-container>
+      <ng-container matColumnDef="monthlyOperationFee">
+          <th mat-header-cell *matHeaderCellDef> {{'monthlyOperationFee' | translate}}</th>
+          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.monthlyOperationFee }}</td>
+      </ng-container>
+      <ng-container matColumnDef="taxRate">
+          <th mat-header-cell *matHeaderCellDef> {{'taxRate' | translate}}</th>
+          <td mat-cell *matCellDef="let invoiceItemsts">{{ invoiceItemsts.item.taxRate*100 }}%</td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+
+<hr>
+
+   <div class="row m-3">
+    <div class="col-md-8">
+
+  </div>
+    <div class="col-md-4">
+    <table class="info">
+      <tr>
+          <td class="ar lightBlue"> المجموع</td>
+          <td> {{data.amount}}</td>
+
+      </tr>
+      <!-- <tr>
+          <td class="ar lightBlue"> الخصم </td>
+          <td>0.00</td>
+
+      </tr> -->
+      <tr>
+          <td class="ar lightBlue">الضريبة</td>
+          <td>{{data.tax}}</td>
+
+      </tr>
+      <tr>
+          <td class="ar lightBlue">الاجمالي</td>
+          <td>{{data.total}}</td>
+
+      </tr>
+  </table>
+  <p style="margin-top:2vh ;">{{tafgeet}}</p>
+  </div>
+   </div>
+
+<div class="row m-3">
+   <div class="finalize">
+    <div class="finalDetails">
+        <p class="finMan"> المستلم&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _ _ _ _ _ _ _ _ _ _ _ _ _ _ </p>
+    </div>
+    <div class="finalDetails finMan">
+        <p> توقيع &nbsp; _ _ _ _ _ _ _ _ _ _ _ _ _ _</p>
+    </div>
+
+</div>
+</div>
+</div>
